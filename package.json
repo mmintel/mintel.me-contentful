@@ -16,7 +16,9 @@
     "start": "next start",
     "type-check": "tsc",
     "lint": "eslint --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\"",
-    "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" --write"
+    "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" --write",
+    "test": "jest --watch",
+    "test:ci": "jest --ci"
   },
   "husky": {
     "hooks": {
@@ -32,6 +34,13 @@
     ]
   },
   "dependencies": {
+    "@contentful/rich-text-react-renderer": "^14.1.1",
+    "@contentful/rich-text-types": "^14.1.1",
+    "@testing-library/react": "^10.4.3",
+    "@types/chalk": "^2.2.0",
+    "chalk": "^4.1.0",
+    "contentful": "^7.14.5",
+    "jest": "^26.1.0",
     "next": "^9.4.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
