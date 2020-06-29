@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import RichText from './RichText';
-import { Page as PageModel } from '../models/page';
+import { Page as PageModel } from '../modules';
 
 interface PageProps {
   page: PageModel;
