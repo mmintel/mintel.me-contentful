@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/camelcase */
-
 import * as contentful from 'contentful';
+import { injectable } from 'inversify';
 import { Logger, createLogger } from '../../utils/logger';
 
 export type ContentfulEntry<T> = contentful.Entry<T>;
@@ -18,6 +17,7 @@ interface Options {
   preview?: boolean;
 }
 
+@injectable()
 export class ContentfulService {
   private logger: Logger = createLogger('ContentfulService');
   private client: contentful.ContentfulClientApi;

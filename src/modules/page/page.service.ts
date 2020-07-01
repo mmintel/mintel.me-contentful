@@ -1,12 +1,15 @@
 import { Record, ApiClient, ContentType } from '../api';
 import { Page } from './page.interfaces';
+import { injectable, inject } from 'inversify';
+import { TYPES } from '../types';
 
 export class PageNotFoundError extends Error {
   name = 'PageNotFoundError';
 }
 
+@injectable()
 export class PageService {
-  constructor(private apiClient: ApiClient) {}
+  constructor(@inject(TYPES.ApiClient) private apiClient: ApiClient) {}
 
   public async getPage(slug: string): Promise<Record<Page>> {
     const item = await this.apiClient.getOne<Page>({

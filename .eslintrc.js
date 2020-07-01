@@ -5,7 +5,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'prettier/@typescript-eslint',
   ],
-  plugins: ['react-hooks'],
+  plugins: ['react-hooks', 'jest'],
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module',

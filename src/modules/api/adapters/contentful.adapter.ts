@@ -1,3 +1,5 @@
+import { TYPES } from './../../types';
+import { inject, injectable } from 'inversify';
 import {
   ContentfulService,
   ContentfulEntry,
@@ -6,11 +8,14 @@ import {
 import { ApiClient, Query, Record } from '../api.interfaces';
 import { Logger, createLogger } from '../../../utils/logger';
 import * as flatten from 'flattenjs';
-
+@injectable()
 export class ContentfulApiAdapter implements ApiClient {
   private logger: Logger = createLogger('ContentfulApiAdapter');
 
-  constructor(private contentfulService: ContentfulService) {}
+  constructor(
+    @inject(TYPES.ContentfulService)
+    private contentfulService: ContentfulService,
+  ) {}
 
   public async getMany<T>(query: Query): Promise<Record<T>[]> {
     const entries = await this.contentfulService.getEntries(

@@ -16,6 +16,9 @@
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "jsx": "preserve",
+    "types": ["reflect-metadata"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "baseUrl": "./src",
     "paths": {
       "@/*": ["./*"]
