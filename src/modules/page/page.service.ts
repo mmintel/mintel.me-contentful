@@ -1,4 +1,4 @@
-import { ApiClient, ContentType } from '../api';
+import { Record, ApiClient, ContentType } from '../api';
 import { Page } from './page.interfaces';
 
 export class PageNotFoundError extends Error {
@@ -8,11 +8,13 @@ export class PageNotFoundError extends Error {
 export class PageService {
   constructor(private apiClient: ApiClient) {}
 
-  public async getPage(slug: string): Promise<Page> {
+  public async getPage(slug: string): Promise<Record<Page>> {
     const item = await this.apiClient.getOne<Page>({
-      content_type: ContentType.page,
-      include: 2,
-      'fields.slug': this.sanitizeSlug(slug),
+      type: ContentType.page,
+      levels: 2,
+      fields: {
+        slug: this.sanitizeSlug(slug),
+      },
     });
 
     if (!item) throw new PageNotFoundError('Could not find page.');
@@ -20,9 +22,9 @@ export class PageService {
     return item;
   }
 
-  public async getPages(): Promise<Page[]> {
+  public async getPages(): Promise<Record<Page>[]> {
     return this.apiClient.getMany<Page>({
-      content_type: ContentType.page,
+      type: ContentType.page,
     });
   }
 

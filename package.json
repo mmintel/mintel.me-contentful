@@ -40,6 +40,7 @@
     "@types/chalk": "^2.2.0",
     "chalk": "^4.1.0",
     "contentful": "^7.14.5",
+    "flattenjs": "^2.0.0",
     "jest": "^26.1.0",
     "next": "^9.4.2",
     "react": "^16.13.1",

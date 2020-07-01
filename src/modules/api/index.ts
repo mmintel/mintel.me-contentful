@@ -1,2 +1,2 @@
-export * from './api-client';
-export * from './contentful';
+export * from './api.interfaces';
+export * from './adapters/contentful.adapter';
