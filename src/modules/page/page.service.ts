@@ -1,5 +1,6 @@
-import { Record, ApiClient, ContentType } from '../api';
-import { Page } from './page.interfaces';
+import { ApiClient, ContentType } from '../api';
+import { Record } from '../record';
+import { Page } from './page.model';
 import { injectable, inject } from 'inversify';
 import { TYPES } from '../types';
 

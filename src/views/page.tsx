@@ -1,21 +1,27 @@
 import React from 'react';
-import Document from '../components/Page';
+import PageTemplate from '../components/templates/page';
 import { NextPage, NextPageContext } from 'next';
 import {
-  Record,
   navigationService,
-  Navigation,
+  NavigationRecord,
   pageService,
-  Page,
+  PageRecord,
 } from '../modules';
+import MainNavigation from '../components/layout/main-navigation';
 
 export interface PageContext {
-  page: Record<Page>;
-  mainNavigation: Record<Navigation>;
+  page: PageRecord;
+  mainNavigation: NavigationRecord;
 }
 
-const PageView: NextPage<PageContext> = ({ page }: PageContext) => (
-  <Document page={page.data} />
+const PageView: NextPage<PageContext> = ({
+  mainNavigation,
+  page,
+}: PageContext) => (
+  <PageTemplate
+    before={<MainNavigation navigation={mainNavigation.data} />}
+    page={page.data}
+  />
 );
 
 PageView.getInitialProps = async ({

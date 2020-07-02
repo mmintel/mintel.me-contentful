@@ -1,2 +1,2 @@
 export * from './page.service';
-export * from './page.interfaces';
+export * from './page.model';

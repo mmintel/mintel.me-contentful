@@ -1,13 +1,14 @@
-import { TYPES } from './../../types';
+import { TYPES } from '../types';
 import { inject, injectable } from 'inversify';
-import {
-  ContentfulService,
-  ContentfulEntry,
-  ContentfulQuery,
-} from '../../contentful';
-import { ApiClient, Query, Record } from '../api.interfaces';
-import { Logger, createLogger } from '../../../utils/logger';
+import { ContentfulService, ContentfulEntry, ContentfulQuery } from '.';
+import { ApiClient, Query, Record } from '../api';
+import { Logger, createLogger } from '../../utils/logger';
 import * as flatten from 'flattenjs';
+
+interface Fields {
+  [key: string]: any;
+}
+
 @injectable()
 export class ContentfulApiAdapter implements ApiClient {
   @inject(TYPES.ContentfulService) private contentfulService: ContentfulService;
@@ -42,15 +43,27 @@ export class ContentfulApiAdapter implements ApiClient {
   private entryToRecord<T>(entry: ContentfulEntry<T>): Record<T> {
     const { fields, sys } = entry;
     const { createdAt, updatedAt, id } = sys;
-    const meta = {
-      id,
-      createdAt,
-      updatedAt,
-    };
 
     return {
-      meta,
-      data: fields,
+      meta: {
+        id,
+        createdAt,
+        updatedAt,
+      },
+      data: this.parseFields<T>(fields),
     };
+  }
+
+  private parseFields<T>(fields: Fields): T {
+    const parsedFields: Fields = { ...fields };
+
+    for (const [key, value] of Object.entries(fields)) {
+      if (Array.isArray(value)) {
+        this.logger.trace(`Found nested items at "${key}".`);
+        parsedFields[key] = value.map(item => this.entryToRecord(item));
+      }
+    }
+
+    return parsedFields as T;
   }
 }

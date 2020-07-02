@@ -1,6 +1,7 @@
 import { TYPES } from './../types';
-import { ApiClient, ContentType, Record } from '../api';
-import { Navigation, NavigationName } from './navigation.interfaces';
+import { Record } from '../record';
+import { ApiClient, ContentType } from '../api';
+import { Navigation, NavigationName } from './navigation.model';
 import { inject, injectable } from 'inversify';
 
 @injectable()
@@ -16,8 +17,4 @@ export class NavigationService {
     });
     return item;
   }
-
-  // private parse(item: Navigation) {
-
-  // }
 }

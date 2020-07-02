@@ -1,12 +1,12 @@
 import 'reflect-metadata';
 import { Container } from 'inversify';
-import { ApiClient, ContentfulApiAdapter } from './api';
+import { ApiClient } from './api';
 import { PageService } from './page';
 import { NavigationService } from './navigation';
-import { ContentfulService } from './contentful';
+import { ContentfulService, ContentfulApiAdapter } from './contentful';
 import { TYPES } from './types';
 
-export * from './interfaces';
+export * from './models';
 
 const container = new Container();
 

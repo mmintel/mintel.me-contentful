@@ -1,10 +1,10 @@
 import React from 'react';
 import { BLOCKS, Document } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import Gallery from './entries/Gallery';
-import Stage from './entries/Stage';
+import Gallery from './gallery';
+import Stage from './stage';
 
-interface RichtTextProps {
+interface ComponentsProps {
   document: Document;
 }
 
@@ -26,8 +26,8 @@ const options = {
   },
 };
 
-const RichText = ({ document }: RichtTextProps) => {
+const Components = ({ document }: ComponentsProps) => {
   return <>{documentToReactComponents(document, options)}</>;
 };
 
-export default RichText;
+export default Components;

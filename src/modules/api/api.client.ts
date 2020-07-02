@@ -1,3 +1,5 @@
+import { Record } from '../record';
+
 export enum ContentType {
   page = 'page',
   navigation = 'navigation',
@@ -11,17 +13,6 @@ export interface Query {
 
 export interface FieldsQuery {
   [key: string]: any;
-}
-
-export interface Record<T> {
-  meta: RecordMeta;
-  data: T;
-}
-
-interface RecordMeta {
-  id: string;
-  createdAt: string;
-  updatedAt: string;
 }
 
 export interface ApiClient {
