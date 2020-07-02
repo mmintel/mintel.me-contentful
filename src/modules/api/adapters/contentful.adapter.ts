@@ -10,12 +10,8 @@ import { Logger, createLogger } from '../../../utils/logger';
 import * as flatten from 'flattenjs';
 @injectable()
 export class ContentfulApiAdapter implements ApiClient {
+  @inject(TYPES.ContentfulService) private contentfulService: ContentfulService;
   private logger: Logger = createLogger('ContentfulApiAdapter');
-
-  constructor(
-    @inject(TYPES.ContentfulService)
-    private contentfulService: ContentfulService,
-  ) {}
 
   public async getMany<T>(query: Query): Promise<Record<T>[]> {
     const entries = await this.contentfulService.getEntries(

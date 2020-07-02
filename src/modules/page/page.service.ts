@@ -9,7 +9,7 @@ export class PageNotFoundError extends Error {
 
 @injectable()
 export class PageService {
-  constructor(@inject(TYPES.ApiClient) private apiClient: ApiClient) {}
+  @inject(TYPES.ApiClient) private apiClient: ApiClient;
 
   public async getPage(slug: string): Promise<Record<Page>> {
     const item = await this.apiClient.getOne<Page>({
