@@ -11,6 +11,7 @@ export class NavigationService {
   public async getMainNavigation(): Promise<Record<Navigation>> {
     const item = await this.apiClient.getOne<Navigation>({
       type: ContentType.navigation,
+      levels: 2,
       fields: {
         name: NavigationName.mainNavigation,
       },

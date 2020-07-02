@@ -1,4 +1,5 @@
 import React from 'react';
+import InternalLink from '../elements/internal-link';
 import { Navigation } from '../../modules';
 
 interface MainNavigationProps {
@@ -11,7 +12,9 @@ const MainNavigation = ({ navigation }: MainNavigationProps) => (
     <ul>
       {navigation.items.map(item => (
         <li key={item.meta.id}>
-          {item.data.title} {item.data.internal && <span>(internal)</span>}
+          <InternalLink href={item.data.page.data.slug}>
+            {item.data.title} {item.data.internal && <span>(internal)</span>}
+          </InternalLink>
         </li>
       ))}
     </ul>

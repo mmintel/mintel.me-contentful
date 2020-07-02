@@ -4,6 +4,7 @@ import { ContentfulService, ContentfulEntry, ContentfulQuery } from '.';
 import { ApiClient, Query, Record } from '../api';
 import { Logger, createLogger } from '../../utils/logger';
 import * as flatten from 'flattenjs';
+import { isObject, has } from 'lodash';
 
 interface Fields {
   [key: string]: any;
@@ -59,8 +60,13 @@ export class ContentfulApiAdapter implements ApiClient {
 
     for (const [key, value] of Object.entries(fields)) {
       if (Array.isArray(value)) {
-        this.logger.trace(`Found nested items at "${key}".`);
+        this.logger.trace(`Found multiple nested items at "${key}".`);
         parsedFields[key] = value.map(item => this.entryToRecord(item));
+      }
+
+      if (isObject(value) && has(value, 'fields')) {
+        this.logger.trace(`Found single nested item at "${key}".`);
+        parsedFields[key] = this.entryToRecord(value);
       }
     }
 

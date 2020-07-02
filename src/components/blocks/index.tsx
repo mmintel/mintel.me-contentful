@@ -4,8 +4,10 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Gallery from './gallery';
 import Stage from './stage';
 
-interface ComponentsProps {
-  document: Document;
+type Blocks = Document;
+
+interface BlocksProps {
+  blocks: Blocks;
 }
 
 interface Entries {
@@ -26,8 +28,8 @@ const options = {
   },
 };
 
-const Components = ({ document }: ComponentsProps) => {
-  return <>{documentToReactComponents(document, options)}</>;
+const Blocks = ({ blocks }: BlocksProps) => {
+  return <>{documentToReactComponents(blocks, options)}</>;
 };
 
-export default Components;
+export default Blocks;

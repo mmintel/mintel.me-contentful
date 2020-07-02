@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import Head from 'next/head';
-import Components from '../components';
+import Blocks from '../blocks';
 import { Page as PageModel } from '../../modules';
 
 interface PageTemplateProps {
@@ -17,7 +17,7 @@ const PageTemplate = ({ page, before, after }: PageTemplateProps) => (
     </Head>
     {before}
     <main>
-      <Components document={page.components} />
+      <Blocks blocks={page.components} />
     </main>
     {after}
   </div>
