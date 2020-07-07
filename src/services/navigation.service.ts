@@ -1,7 +1,6 @@
-import { TYPES } from './../types';
-import { Record } from '../record';
-import { ApiClient, ContentType } from '../api';
-import { Navigation, NavigationName } from './navigation.model';
+import { TYPES } from '../types';
+import { Record, Navigation, NavigationName } from '../models';
+import { ApiClient, ContentType } from '../api/api';
 import { inject, injectable } from 'inversify';
 
 @injectable()

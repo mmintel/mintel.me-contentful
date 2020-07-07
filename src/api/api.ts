@@ -1,4 +1,4 @@
-import { Record } from '../record';
+import { Record } from '../models/record.model';
 
 export enum ContentType {
   page = 'page',

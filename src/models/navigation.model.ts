@@ -1,5 +1,5 @@
-import { Record } from '../record';
-import { Page } from '../page';
+import { Record } from './record.model';
+import { Page } from './page.model';
 
 export enum NavigationName {
   mainNavigation = 'main-navigation',

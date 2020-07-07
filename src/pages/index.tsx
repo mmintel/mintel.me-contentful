@@ -1,1 +1,1 @@
-export { default } from '../views/page';
+export { default, getStaticProps } from '../views/page';
