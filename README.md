@@ -1,21 +1,16 @@
-<p align="center">
-  <img src="https://www.joaopedro.cc/img/github/typescript-nextjs-starter.png" alt="Next.js and TypeScript">
-</p>
+# Mintel.me
 
-<p align="center">
-  <img src="https://img.shields.io/static/v1?label=PRs&message=welcome&style=for-the-badge&color=24B36B&labelColor=000000" alt="PRs welcome!" />
+Personal website of Marc Mintel.
 
-  <img alt="License" src="https://img.shields.io/github/license/jpedroschmitz/typescript-nextjs-starter?style=for-the-badge&color=24B36B&labelColor=000000">
+## ⚙️ Infrastructure
+- **[Typescript](https://www.typescriptlang.org/)**  - for typesafe Javascript
+- **[React.js](https://reactjs.org/)** - as ui library
+- **[Next.js](https://nextjs.org/)** - for server side rendering
+- **[Contentful](https://www.contentful.com/)** - for content management
+- **[Vercel](https://vercel.com/)** - for deployment and hosting
+- **[Github Actions]**(https://github.com/features/actions) - for continuous integration
 
-  <a href="https://twitter.com/intent/follow?screen_name=jpedroschmitz">
-    <img src="https://img.shields.io/twitter/follow/jpedroschmitz?style=for-the-badge&color=24B36B&labelColor=000000" alt="Follow @jpedroschmitz" />
-  </a>
-</p>
-
-<br>
-
-A TypeScript starter for Next.js that includes all you need to build amazing projects 🔥
-
+## 🧰 Tools
 - 📏 **ESLint** — Pluggable JavaScript linter
 - 💖 **Prettier** - Opinionated Code Formatter
 - 🐶 **Husky** — Use git hooks with ease
@@ -50,4 +45,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ---
 
-Made with ♥ by João Pedro Schmitz
+Made with ☕️ by Marc Mintel
