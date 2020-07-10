@@ -1,10 +1,10 @@
 import React from 'react';
-import App, { Container } from 'next/app';
-import * as Sentry from '@sentry/browser';
+import App from 'next/app';
+import * as Sentry from '@sentry/node';
 
 Sentry.init({
   enabled: process.env.NODE_ENV === 'production',
-  dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+  dsn: process.env.NEXT_PUBLIC_SENTRY_DSN || '',
 });
 
 class CustomApp extends App {
@@ -20,11 +20,7 @@ class CustomApp extends App {
   render() {
     const { Component, pageProps } = this.props;
 
-    return (
-      <Container>
-        <Component {...pageProps} />
-      </Container>
-    );
+    return <Component {...pageProps} />;
   }
 }
 

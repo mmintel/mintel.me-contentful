@@ -1,6 +1,5 @@
 import * as contentful from 'contentful';
 import dot from 'dot-object';
-import { injectable } from 'inversify';
 
 import { Logger, createLogger } from '../lib/logger';
 import { ApiClient, Query } from './api';
@@ -29,7 +28,6 @@ export class RecordNotFoundError extends Error {
   name = 'RecordNotFoundError';
 }
 
-@injectable()
 export class ContentfulApiClient implements ApiClient {
   private logger: Logger = createLogger('ContentfulApiClient');
   private client: contentful.ContentfulClientApi;

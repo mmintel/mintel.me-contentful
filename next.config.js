@@ -1,7 +1,6 @@
-import SentryWebpackPlugin from '@sentry/webpack-plugin'
-import sourceMaps from '@zeit/next-source-maps'
-
-const withSourceMaps = sourceMaps()
+/* eslint-disable @typescript-eslint/no-var-requires */
+const SentryWebpackPlugin = require('@sentry/webpack-plugin');
+const withSourceMaps = require('@zeit/next-source-maps')
 
 const {
   NEXT_PUBLIC_SENTRY_DSN: SENTRY_DSN,

@@ -4,16 +4,20 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
     'prettier/@typescript-eslint',
+    'plugin:jest/recommended',
   ],
   plugins: ['react-hooks', 'jest'],
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  "settings": {
-    "react": {
-      "version": "detect"
+  settings: {
+    react: {
+      version: "detect"
     }
+  },
+  env: {
+    "jest/globals": true
   },
   rules: {
     'react-hooks/rules-of-hooks': 'error',

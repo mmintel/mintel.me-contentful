@@ -1,11 +1,8 @@
 import { ApiClient, ContentType } from '../api/api';
 import { Record, Page } from '../models';
-import { injectable, inject } from 'inversify';
-import { TYPES } from '../types';
 
-@injectable()
 export class PageService {
-  @inject(TYPES.ApiClient) private apiClient!: ApiClient;
+  constructor(private apiClient: ApiClient) {}
 
   public async getPage(slug: string): Promise<Record<Page>> {
     const item = await this.apiClient.getOne<Page>({
