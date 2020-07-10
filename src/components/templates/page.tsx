@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import Head from 'next/head';
 import Blocks from '../blocks';
-import { Page as PageModel } from '../../modules';
+import { Page as PageModel } from '../../models';
 
 interface PageTemplateProps {
   page: PageModel;

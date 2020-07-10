@@ -1,5 +1,5 @@
 import * as contentful from 'contentful';
-import * as flatten from 'flattenjs';
+import dot from 'dot-object';
 import { injectable } from 'inversify';
 
 import { Logger, createLogger } from '../lib/logger';
@@ -25,6 +25,10 @@ interface Fields {
   [key: string]: any;
 }
 
+export class RecordNotFoundError extends Error {
+  name = 'RecordNotFoundError';
+}
+
 @injectable()
 export class ContentfulApiClient implements ApiClient {
   private logger: Logger = createLogger('ContentfulApiClient');
@@ -48,15 +52,16 @@ export class ContentfulApiClient implements ApiClient {
     const item = await this.getEntry(this.convertQuery(query));
 
     if (!item) {
-      this.logger.warn('Could not find item for query:', query);
-      return null;
+      throw new RecordNotFoundError(
+        `Could not find record for query: ${query}.`,
+      );
     }
 
     return this.entryToRecord<T>(item);
   }
 
   private convertQuery(query: Query): ContentfulQuery {
-    const fields = flatten.flatten({ fields: query.fields });
+    const fields = dot.dot({ fields: query.fields });
     const converted = {
       content_type: query.type,
       include: query.levels,

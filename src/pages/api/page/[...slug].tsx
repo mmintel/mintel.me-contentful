@@ -7,12 +7,14 @@ export default async ({ query }: NextApiRequest, res: NextApiResponse) => {
 
   logger.info('Route requested with query:', query);
 
-  let slug;
+  let slug: string;
 
   if (query.slug && Array.isArray(query.slug)) {
     slug = query.slug.join('/');
   } else if (query.slug && typeof query.slug === 'string') {
     slug = query.slug;
+  } else {
+    throw new Error('No slug found.');
   }
 
   logger.info('Requesting pageService with', slug);

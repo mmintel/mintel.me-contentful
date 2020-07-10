@@ -6,6 +6,14 @@ import { TYPES } from './types';
 
 const container = new Container();
 
+if (!process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID) {
+  throw new Error('No NEXT_PUBLIC_CONTENTFUL_SPACE_ID set!');
+}
+
+if (!process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN) {
+  throw new Error('No NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN set!');
+}
+
 container.bind<ApiClient>(TYPES.ApiClient).toConstantValue(
   new ContentfulApiClient({
     space: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID,

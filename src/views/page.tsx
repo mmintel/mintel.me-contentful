@@ -8,8 +8,10 @@ import {
 } from 'next';
 import MainNavigation from '../components/layout/main-navigation';
 import { Greeter } from '../lib/greeter';
+import { navigationService, pageService } from '../container';
+import { Logger, createLogger } from '../lib/logger';
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production' && process.browser) {
   const greeter = new Greeter(
     console,
     'color: #bada55; font-family: monospace;',
@@ -30,19 +32,34 @@ const PageView: NextPage = ({
 export const getStaticProps: GetStaticProps = async ({
   params,
 }: GetStaticPropsContext) => {
-  let url;
+  const logger: Logger = createLogger('PageView');
+
+  let slug;
 
   if (!params) {
-    url = 'home';
+    slug = 'home';
   } else if (params.slug && typeof params.slug === 'string') {
-    url = params.slug;
+    slug = params.slug;
   } else if (params.slug && Array.isArray(params.slug)) {
-    url = params.slug.join('/');
+    slug = params.slug.join('/');
+  } else {
+    throw new Error('No slug found.');
   }
 
-  const res = await fetch(`http://localhost:3000/api/page/${url}`);
-  const data = await res.json();
-  return { props: { data } };
+  logger.info('Requesting pageService with', slug);
+  const page = await pageService.getPage(slug);
+  logger.info('Received page', page);
+
+  logger.info('Requesting mainNavigation...');
+  const mainNavigation = await navigationService.getMainNavigation();
+  logger.info('Received mainNavigation', mainNavigation);
+
+  return {
+    props: {
+      mainNavigation,
+      page,
+    },
+  };
 };
 
 export default PageView;

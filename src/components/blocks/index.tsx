@@ -1,22 +1,20 @@
-import React from 'react';
-import { BLOCKS, Document } from '@contentful/rich-text-types';
+import React, { ReactNode } from 'react';
+import { BLOCKS, Document, Block, Inline } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import Gallery from './gallery';
 import Stage from './stage';
 
-type Blocks = Document;
-
 interface BlocksProps {
-  blocks: Blocks;
+  blocks: Document;
 }
 
 interface Entries {
-  [key: string]: JSX.Element;
+  [key: string]: ReactNode;
 }
 
 const options = {
   renderNode: {
-    [BLOCKS.EMBEDDED_ENTRY]: (node: Document) => {
+    [BLOCKS.EMBEDDED_ENTRY]: (node: Block | Inline) => {
       const fields = node.data.target.fields;
       const id = node.data.target.sys.contentType.sys.id;
       const entries: Entries = {

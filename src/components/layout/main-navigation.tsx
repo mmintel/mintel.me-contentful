@@ -1,6 +1,6 @@
 import React from 'react';
 import InternalLink from '../elements/internal-link';
-import { Navigation } from '../../modules';
+import { Navigation } from '../../models';
 
 interface MainNavigationProps {
   navigation: Navigation;
