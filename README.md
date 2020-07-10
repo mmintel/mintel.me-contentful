@@ -1,6 +1,6 @@
 # Mintel.me
 
-![David](https://img.shields.io/david/mmintel/mintel.me)
+![David](https://img.shields.io/david/mmintel/mintel.me) ![Uptime Robot status](https://img.shields.io/uptimerobot/status/m778100040-cb2fa189bae8424d14d6e9bf) ![Uptime Robot ratio (30 days)](https://img.shields.io/uptimerobot/ratio/m778100040-cb2fa189bae8424d14d6e9bf)
 
 Personal website of Marc Mintel.
 
