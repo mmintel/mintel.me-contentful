@@ -37,10 +37,13 @@
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^14.1.1",
     "@contentful/rich-text-types": "^14.1.1",
+    "@sentry/browser": "^5.19.1",
+    "@sentry/webpack-plugin": "^1.12.0",
     "@testing-library/jest-dom": "^5.11.0",
     "@testing-library/react": "^10.4.3",
     "@types/chalk": "^2.2.0",
     "@types/jest": "^26.0.3",
+    "@zeit/next-source-maps": "0.0.3",
     "chalk": "^4.1.0",
     "contentful": "^7.14.5",
     "dot-object": "^2.1.3",
