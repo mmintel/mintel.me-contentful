@@ -9,6 +9,9 @@ Personal website of Marc Mintel.
 - **[Contentful](https://www.contentful.com/)** - for content management
 - **[Vercel](https://vercel.com/)** - for deployment and hosting
 - **[Github Actions](https://github.com/features/actions)** - for continuous integration
+- **[Jest](https://jestjs.io/)** - as a test runner
+- **[@testing-library](https://testing-library.com/)** - to unit test react components
+- **[Cypress](https://www.cypress.io/)** - for e2e tests
 
 ## 🧰 Tools
 - 📏 **ESLint** — Pluggable JavaScript linter
