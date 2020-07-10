@@ -1,5 +1,7 @@
 # Mintel.me
 
+![David](https://img.shields.io/david/mmintel/mintel.me)
+
 Personal website of Marc Mintel.
 
 ## ⚙️ Infrastructure
