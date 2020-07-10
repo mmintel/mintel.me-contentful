@@ -12,6 +12,7 @@ Personal website of Marc Mintel.
 - **[Jest](https://jestjs.io/)** - as a test runner
 - **[@testing-library](https://testing-library.com/)** - to unit test react components
 - **[Cypress](https://www.cypress.io/)** - for e2e tests
+- **[Sentry](https://sentry.io/welcome/)** - for error tracking
 
 ## 🧰 Tools
 - 📏 **ESLint** — Pluggable JavaScript linter
