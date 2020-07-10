@@ -8,7 +8,7 @@ Personal website of Marc Mintel.
 - **[Next.js](https://nextjs.org/)** - for server side rendering
 - **[Contentful](https://www.contentful.com/)** - for content management
 - **[Vercel](https://vercel.com/)** - for deployment and hosting
-- **[Github Actions]**(https://github.com/features/actions) - for continuous integration
+- **[Github Actions](https://github.com/features/actions)** - for continuous integration
 
 ## 🧰 Tools
 - 📏 **ESLint** — Pluggable JavaScript linter
