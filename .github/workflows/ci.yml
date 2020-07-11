@@ -48,5 +48,4 @@ jobs:
       with:
         name: Mintel.me
         token: ${{ secrets.CODECOV_TOKEN }}
-        file: ./coverage/coverage-summary.json
         flags: unittests
