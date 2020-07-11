@@ -1,5 +1,6 @@
 # Mintel.me
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/32eb63c8d1fd4a0fa088619552f99b82)](https://app.codacy.com/manual/mmintel/mintel.me?utm_source=github.com&utm_medium=referral&utm_content=mmintel/mintel.me&utm_campaign=Badge_Grade_Dashboard)
 ![David](https://img.shields.io/david/mmintel/mintel.me) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mmintel/mintel.me/CI) [![codecov](https://codecov.io/gh/mmintel/mintel.me/branch/master/graph/badge.svg)](https://codecov.io/gh/mmintel/mintel.me) ![Uptime Robot status](https://img.shields.io/uptimerobot/status/m778100040-cb2fa189bae8424d14d6e9bf) ![Uptime Robot ratio (30 days)](https://img.shields.io/uptimerobot/ratio/m778100040-cb2fa189bae8424d14d6e9bf)
 
 Personal website of Marc Mintel.
