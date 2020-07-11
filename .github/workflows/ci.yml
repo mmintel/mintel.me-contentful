@@ -16,8 +16,10 @@ jobs:
         node-version: 14
     - name: Install Packages
       run: npm install
-    - name: Lint
+    - name: Lint Javascript
       run: npm run lint
+    - name: Lint Markdown
+      run: npm run lint-md
   build:
     runs-on: ubuntu-latest
     steps:
