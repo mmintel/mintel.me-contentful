@@ -12,7 +12,6 @@ Personal website of Marc Mintel.
 -   **[Vercel](https://vercel.com/)** - for deployment and hosting
 -   **[Github Actions](https://github.com/features/actions)** - for continuous integration
 -   **[Jest](https://jestjs.io/)** - as a test runner
--   **[@testing-library](https://testing-library.com/)** - to unit test react components
 -   **[Cypress](https://www.cypress.io/)** - for e2e tests
 -   **[Sentry](https://sentry.io/welcome/)** - for error tracking
 -   **[Dependabot](https://dependabot.com/)** - to keep dependencies updated
@@ -22,13 +21,12 @@ Personal website of Marc Mintel.
 -   **[Lighthouse](https://developers.google.com/web/tools/lighthouse)**  - for performance reports
 
 ## 🧰 Tools
--   📏 **ESLint** — Pluggable JavaScript linter
--   💖 **Prettier** - Opinionated Code Formatter
--   🐶 **Husky** — Use git hooks with ease
--   📄 **Commitizen** - Conventional commit messages CLI
--   🚓 **Commitlint** - Lint commit messages
--   🚫 **lint-staged** - Run linters against staged git files
--   🗂 **Root import** - Import folders and files using the `@` prefix.
+-   📏 **[ESLint](https://eslint.org/)** — Pluggable JavaScript linter
+-   💖 **[Prettier](https://prettier.io/)** - Opinionated Code Formatter
+-   🐶 **[Husky](https://github.com/typicode/husky)** — Use git hooks with ease
+-   📄 **[Commitizen](https://github.com/commitizen/cz-cli)** - Conventional commit messages CLI
+-   🚓 **[Commitlint](https://github.com/conventional-changelog/commitlint)** - Lint commit messages
+-   🐙 **[@testing-library](https://testing-library.com/)** - to unit test react components
 
 ## 🚀 Getting started
 
