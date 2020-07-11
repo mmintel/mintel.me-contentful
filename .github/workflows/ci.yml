@@ -43,3 +43,13 @@ jobs:
       run: npm install
     - name: Test
       run: npm run test:ci
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Codecov
+      uses: codecov/codecov-action@v1.0.10
+      with:
+        name: Mintel.me
+        token: ${{ secrets.CODECOV_TOKEN }}
+        file: ./coverage/coverage-summary.json
+        flags: unittests
