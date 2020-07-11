@@ -19,6 +19,7 @@ Personal website of Marc Mintel.
 - **[Dependabot](https://dependabot.com/)** - to keep dependencies updated
 - **[UptimeRobot](https://uptimerobot.com/)** - to monitor website status
 - **[Codecov](https://codecov.io/)** - for coverage reports
+- **[Codacy](https://codacy.com)** - for code analysis
 
 ## 🧰 Tools
 - 📏 **ESLint** — Pluggable JavaScript linter
