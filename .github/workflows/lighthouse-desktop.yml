@@ -1,0 +1,26 @@
+name: Lighthouse Desktop Config
+
+on:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: '*/180 * * * *'
+  repository_dispatch:
+    types: lighthouse
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run Lighthouse on urls and validate with lighthouserc
+        uses: treosh/lighthouse-ci-action@v2
+        with:
+          urls: |
+            https://nextjs-mintel-me.vercel.app
+          runs: 3
+          configPath: '.github/lighthouse/desktop.json'
+          uploadArtifacts: true
