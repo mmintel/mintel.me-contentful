@@ -1,6 +1,6 @@
 import { NavigationService } from './navigation.service';
 import { PageService } from './page.service';
-import { ApiClient, ContentfulApiClient } from '../api';
+import { ApiClient, ContentfulApiClient } from '../lib/api';
 
 if (!process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID) {
   throw new Error('No NEXT_PUBLIC_CONTENTFUL_SPACE_ID set!');

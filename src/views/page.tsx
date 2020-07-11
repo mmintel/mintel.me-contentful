@@ -1,15 +1,15 @@
 import React from 'react';
-import PageTemplate from '../components/templates/page';
+import PageTemplate from '@/components/templates/page';
 import {
   NextPage,
   GetStaticProps,
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from 'next';
-import MainNavigation from '../components/layout/main-navigation';
-import { Greeter } from '../lib/greeter';
-import { navigationService, pageService } from '../services';
-import { Logger, createLogger } from '../lib/logger';
+import MainNavigation from '@/components/layout/main-navigation';
+import { Greeter } from '@/lib/greeter';
+import { navigationService, pageService } from '@/services';
+import { Logger, createLogger } from '@/lib/logger';
 
 if (process.env.NODE_ENV === 'production' && process.browser) {
   const greeter = new Greeter(

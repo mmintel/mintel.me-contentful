@@ -1,5 +1,5 @@
-import { Record, Navigation, NavigationName } from '../models';
-import { ApiClient, ContentType } from '../api';
+import { Record, Navigation, NavigationName } from '@/models';
+import { ApiClient, ContentType } from '@/lib/api';
 export class NavigationService {
   constructor(private apiClient: ApiClient) {}
 

@@ -1,5 +1,5 @@
-import { ApiClient, ContentType } from '../api/api';
-import { Record, Page } from '../models';
+import { ApiClient, ContentType } from '@/lib/api';
+import { Record, Page } from '@/models';
 
 export class PageService {
   constructor(private apiClient: ApiClient) {}

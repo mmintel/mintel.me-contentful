@@ -1,4 +1,4 @@
-import { ApiClient } from '../api';
+import { ApiClient } from '@/lib/api';
 import { PageService } from './page.service';
 
 const mockApi: ApiClient = {

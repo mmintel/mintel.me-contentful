@@ -1,4 +1,4 @@
-export { default, getStaticProps } from '../views/page';
+export { default, getStaticProps } from '@/views/page';
 
 export async function getStaticPaths() {
   return {

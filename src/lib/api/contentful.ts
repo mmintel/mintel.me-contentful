@@ -1,9 +1,9 @@
 import * as contentful from 'contentful';
 import dot from 'dot-object';
 
-import { Logger, createLogger } from '../lib/logger';
-import { ApiClient, Query } from './api';
-import { Record } from '../models';
+import { Logger, createLogger } from '@/lib/logger';
+import { ApiClient, Query } from '@/lib/api';
+import { Record } from '@/models';
 
 export type ContentfulEntry<T> = contentful.Entry<T>;
 export type ContentfulEntryCollection<T> = contentful.EntryCollection<T>;
