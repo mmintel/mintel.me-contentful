@@ -16,6 +16,7 @@ Personal website of Marc Mintel.
 - **[Cypress](https://www.cypress.io/)** - for e2e tests
 - **[Sentry](https://sentry.io/welcome/)** - for error tracking
 - **[Dependabot](https://dependabot.com/)** - to keep dependencies updated
+- **[UptimeRobot](https://uptimerobot.com/)** - to monitor website status
 
 ## 🧰 Tools
 - 📏 **ESLint** — Pluggable JavaScript linter
