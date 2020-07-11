@@ -1,10 +1,9 @@
 module.exports = {
   collectCoverageFrom: [
-    '**/*.{js,jsx,ts,tsx}',
+    'src/**/*.{js,jsx,ts,tsx}',
     '!**/*.d.ts',
     '!**/node_modules/**',
   ],
-  collectCoverage: true,
   coverageReporters: [
     "json-summary",
     "text",

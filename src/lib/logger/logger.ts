@@ -1,4 +1,5 @@
 export enum LogLevel {
+  silent,
   trace,
   debug,
   info,
