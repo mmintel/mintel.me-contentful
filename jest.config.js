@@ -5,7 +5,11 @@ module.exports = {
     '!**/node_modules/**',
   ],
   collectCoverage: true,
-  coverageReporters: ["text", "lcov"],
+  coverageReporters: [
+    "json-summary",
+    "text",
+    "lcov"
+  ],
   coverageDirectory: "coverage",
   coverageThreshold: {
     global: {
