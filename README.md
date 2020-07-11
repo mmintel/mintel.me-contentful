@@ -17,6 +17,7 @@ Personal website of Marc Mintel.
 - **[Sentry](https://sentry.io/welcome/)** - for error tracking
 - **[Dependabot](https://dependabot.com/)** - to keep dependencies updated
 - **[UptimeRobot](https://uptimerobot.com/)** - to monitor website status
+- **[Codecov](https://codecov.io/)** - for coverage reports
 
 ## 🧰 Tools
 - 📏 **ESLint** — Pluggable JavaScript linter
