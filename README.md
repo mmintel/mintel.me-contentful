@@ -19,6 +19,7 @@ Personal website of Marc Mintel.
 -   **[UptimeRobot](https://uptimerobot.com/)** - to monitor website status
 -   **[Codecov](https://codecov.io/)** - for coverage reports
 -   **[Codacy](https://codacy.com)** - for code analysis
+-   **[Lighthouse](https://developers.google.com/web/tools/lighthouse)**  - for performance reports
 
 ## 🧰 Tools
 -   📏 **ESLint** — Pluggable JavaScript linter
