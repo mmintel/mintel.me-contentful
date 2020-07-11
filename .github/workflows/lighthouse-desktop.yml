@@ -1,4 +1,4 @@
-name: Lighthouse Desktop Config
+name: Lighthouse Desktop
 
 on:
   push:
@@ -15,9 +15,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
       - name: Run Lighthouse on urls and validate with lighthouserc
-        uses: treosh/lighthouse-ci-action@v2
+        uses: treosh/lighthouse-ci-action@v3
         with:
           urls: |
             https://nextjs-mintel-me.vercel.app
