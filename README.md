@@ -48,7 +48,18 @@ Then, you can clone this repository and run the following commands inside the pr
 
 To view the project you can open `http://localhost:3000`.
 
-**After your pull request is merged**, you can safely delete your branch.
+## 📘 Usage
+
+-  `yarn dev`: starts the dev server
+-  `yarn build`: builds production ready files
+-  `yarn start`: starts a production server
+-  `yarn lint`: lints all js files using eslint
+-  `yarn lint-md`: lints all markdown files using remark-lint
+-  `yarn format`: formats all files using prettier
+-  `yarn test`: runs tests once with jest
+-  `yarn test:ci`: runs tests once with jest in continuous integration mode
+-  `yarn watch`: runs tests with jest and reruns on changes
+-  `yarn tsc`: compiles typescript
 
 ## 📝 License
 
