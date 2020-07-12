@@ -1,9 +1,9 @@
 name: Lighthouse Mobile
 
 on:
-  # push:
-  #   branches:
-  #     - master
+  push:
+    branches:
+      - master
   schedule:
     - cron: '*/180 * * * *'
   repository_dispatch:
