@@ -3,7 +3,7 @@ Personal website of Marc Mintel.
 
 ## 🏆 Badges
 ### Essential
-![David](https://img.shields.io/david/mmintel/mintel.me) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mmintel/mintel.me/CI?label=ci) [![codecov](https://codecov.io/gh/mmintel/mintel.me/branch/master/graph/badge.svg)](https://codecov.io/gh/mmintel/mintel.me)
+![David](https://img.shields.io/david/mmintel/mintel.me) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mmintel/mintel.me/CI?label=ci) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mmintel/mintel.me/Security?label=security) [![codecov](https://codecov.io/gh/mmintel/mintel.me/branch/master/graph/badge.svg)](https://codecov.io/gh/mmintel/mintel.me)
 
 ### Code quality
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/32eb63c8d1fd4a0fa088619552f99b82)](https://app.codacy.com/manual/mmintel/mintel.me?utm_source=github.com&utm_medium=referral&utm_content=mmintel/mintel.me&utm_campaign=Badge_Grade_Dashboard) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mmintel_mintel.me&metric=alert_status)](https://sonarcloud.io/dashboard?id=mmintel_mintel.me) [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=mmintel_mintel.me&metric=code_smells)](https://sonarcloud.io/dashboard?id=mmintel_mintel.me) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=mmintel_mintel.me&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=mmintel_mintel.me) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=mmintel_mintel.me&metric=security_rating)](https://sonarcloud.io/dashboard?id=mmintel_mintel.me)
@@ -35,9 +35,6 @@ Personal website of Marc Mintel.
 ## 🧰 Tools
 -   📏 **[ESLint](https://eslint.org/)** — Pluggable JavaScript linter
 -   💖 **[Prettier](https://prettier.io/)** - Opinionated Code Formatter
--   🐶 **[Husky](https://github.com/typicode/husky)** — Use git hooks with ease
--   📄 **[Commitizen](https://github.com/commitizen/cz-cli)** - Conventional commit messages CLI
--   🚓 **[Commitlint](https://github.com/conventional-changelog/commitlint)** - Lint commit messages
 -   🐙 **[@testing-library](https://testing-library.com/)** - to unit test react components
 
 ## 🚀 Getting started

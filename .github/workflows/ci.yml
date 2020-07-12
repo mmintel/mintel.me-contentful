@@ -16,13 +16,6 @@ jobs:
       run: yarn lint
     - name: Lint Markdown
       run: yarn lint-md
-  audit:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: bahmutov/npm-install@v1
-    - name: Audit
-      run: yarn audit
   unit:
     runs-on: ubuntu-latest
     steps:
