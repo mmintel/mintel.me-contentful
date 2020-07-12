@@ -1,6 +1,3 @@
-// export { default, getStaticProps } from '@/views/page';
-
-
 import React from 'react';
 import PageTemplate from '@/components/templates/page';
 import {
@@ -24,7 +21,7 @@ if (process.env.NODE_ENV === 'production' && process.browser) {
 
 export async function getStaticPaths() {
   return {
-    paths: ['/','/about'],
+    paths: ['/about'],
     fallback: false,
   };
 }
