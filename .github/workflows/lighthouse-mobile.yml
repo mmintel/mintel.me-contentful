@@ -18,6 +18,8 @@ jobs:
       - name: Run Lighthouse on urls and validate with lighthouserc
         uses: treosh/lighthouse-ci-action@v3
         with:
-          runs: 1
+          urls: |
+            https://nextjs-mintel-me.vercel.app
+          runs: 3
           configPath: '.github/lighthouse/mobile.json'
           uploadArtifacts: true
