@@ -45,6 +45,7 @@ CustomError.getInitialProps = async (ctx: NextPageContext) => {
   }
 
   if (ctx.err) {
+    logger.error(ctx.err.message);
     Sentry.captureException(ctx.err);
     return customErrorInitialProps;
   }
