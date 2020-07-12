@@ -13,6 +13,9 @@ const {
 process.env.SENTRY_DSN = SENTRY_DSN
 
 module.exports = withSourceMaps({
+  experimental: {
+    optionalCatchAll: true,
+  },
   webpack: (config, options) => {
     if (!options.isServer) {
       config.resolve.alias['@sentry/node'] = '@sentry/browser'

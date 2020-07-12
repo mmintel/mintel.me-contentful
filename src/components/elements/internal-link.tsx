@@ -20,7 +20,7 @@ const InternalLink = ({ href, children }: InternalLinkProps) => {
   }
 
   return (
-    <Link href={url}>
+    <Link href="/[[...slug]]" as={url}>
       <a href={url}>{children}</a>
     </Link>
   );
