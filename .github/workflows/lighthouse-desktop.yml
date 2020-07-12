@@ -8,6 +8,7 @@ on:
     - cron: '0 0 * * *'
   repository_dispatch:
     types: lighthouse
+  deployment:
 
 jobs:
   lighthouse:
