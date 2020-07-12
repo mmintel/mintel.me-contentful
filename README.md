@@ -48,19 +48,24 @@ Then, you can clone this repository and run the following commands inside the pr
 
 To view the project you can open `http://localhost:3000`.
 
-## 🤝 Contributing
-
-1.  Fork this repository;
-2.  Create your branch: `git checkout -b my-new-feature`;
-3.  Commit your changes: `git commit -m 'Add some feature'`;
-4.  Push to the branch: `git push origin my-new-feature`.
-
 **After your pull request is merged**, you can safely delete your branch.
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for more information.
+This project is not licensed at all for the public domain.
+
+### You can:
+-  View the code and learn from it
+-  Clone or download the project
+-  Build or run the project
+-  Try or test the project
+-  Store or delete the entire project in your own physical disk
+
+### You can not:
+-  Make changes or modify the project
+-  Re-upload the project on the internet
+-  Re-submit the project to any market place
+-  Copy & paste the files or code to any other project
 
 ---
-
 Made with ☕️ by Marc Mintel
