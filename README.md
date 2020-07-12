@@ -1,8 +1,19 @@
 # Mintel.me
-
-![David](https://img.shields.io/david/mmintel/mintel.me) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mmintel/mintel.me/CI) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mmintel/mintel.me/Lighthouse%20Desktop?label=lighthouse%3Adesktop) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mmintel/mintel.me/Lighthouse%20Mobile?label=lighthouse%3Amobile) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/32eb63c8d1fd4a0fa088619552f99b82)](https://app.codacy.com/manual/mmintel/mintel.me?utm_source=github.com&utm_medium=referral&utm_content=mmintel/mintel.me&utm_campaign=Badge_Grade_Dashboard) [![codecov](https://codecov.io/gh/mmintel/mintel.me/branch/master/graph/badge.svg)](https://codecov.io/gh/mmintel/mintel.me) ![Uptime Robot status](https://img.shields.io/uptimerobot/status/m778100040-cb2fa189bae8424d14d6e9bf) ![Uptime Robot ratio (30 days)](https://img.shields.io/uptimerobot/ratio/m778100040-cb2fa189bae8424d14d6e9bf)
-
 Personal website of Marc Mintel.
+
+## 🏆 Badges
+### Essential
+![David](https://img.shields.io/david/mmintel/mintel.me) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mmintel/mintel.me/CI?label=ci) [![codecov](https://codecov.io/gh/mmintel/mintel.me/branch/master/graph/badge.svg)](https://codecov.io/gh/mmintel/mintel.me)
+
+### Code quality
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/32eb63c8d1fd4a0fa088619552f99b82)](https://app.codacy.com/manual/mmintel/mintel.me?utm_source=github.com&utm_medium=referral&utm_content=mmintel/mintel.me&utm_campaign=Badge_Grade_Dashboard) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mmintel_mintel.me&metric=alert_status)](https://sonarcloud.io/dashboard?id=mmintel_mintel.me) [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=mmintel_mintel.me&metric=code_smells)](https://sonarcloud.io/dashboard?id=mmintel_mintel.me) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=mmintel_mintel.me&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=mmintel_mintel.me) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=mmintel_mintel.me&metric=security_rating)](https://sonarcloud.io/dashboard?id=mmintel_mintel.me)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=mmintel_mintel.me&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=mmintel_mintel.me) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=mmintel_mintel.me&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=mmintel_mintel.me)
+
+### Uptime
+![Uptime Robot status](https://img.shields.io/uptimerobot/status/m778100040-cb2fa189bae8424d14d6e9bf) ![Uptime Robot ratio (30 days)](https://img.shields.io/uptimerobot/ratio/m778100040-cb2fa189bae8424d14d6e9bf)
+
+### Performance
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mmintel/mintel.me/Lighthouse%20Desktop?label=lighthouse%3Adesktop) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mmintel/mintel.me/Lighthouse%20Mobile?label=lighthouse%3Amobile)
 
 ## ⚙️ Infrastructure
 -   **[Typescript](https://www.typescriptlang.org/)**  - for typesafe Javascript
@@ -18,6 +29,7 @@ Personal website of Marc Mintel.
 -   **[UptimeRobot](https://uptimerobot.com/)** - to monitor website status
 -   **[Codecov](https://codecov.io/)** - for coverage reports
 -   **[Codacy](https://codacy.com)** - for code analysis
+-   **[Sonarcould](https://sonarcloud.io/)** - for even more code analysis
 -   **[Lighthouse](https://developers.google.com/web/tools/lighthouse)**  - for performance reports
 
 ## 🧰 Tools
