@@ -13,6 +13,7 @@ const PageTemplate = ({ page, before, after }: PageTemplateProps) => (
   <div className="container">
     <Head>
       <title>{page.title}</title>
+      <meta name="description" content={page.description} />
       <link rel="icon" href="/favicon.ico" />
     </Head>
     {before}
