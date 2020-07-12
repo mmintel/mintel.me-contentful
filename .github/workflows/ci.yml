@@ -14,8 +14,6 @@ jobs:
     - uses: bahmutov/npm-install@v1
     - name: Lint Javascript
       run: yarn lint
-    - name: Lint Markdown
-      run: yarn lint-md
   unit:
     runs-on: ubuntu-latest
     steps:
