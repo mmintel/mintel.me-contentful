@@ -9,7 +9,7 @@ interface PageTemplateProps {
   after?: ReactNode;
 }
 
-const PageTemplate = ({ page, before, after }: PageTemplateProps) => (
+const PageTemplate: React.FC<PageTemplateProps> = ({ page, before, after }) => (
   <div className="container">
     <Head>
       <title>{page.title}</title>

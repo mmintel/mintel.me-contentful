@@ -5,6 +5,7 @@ import {
   GetStaticProps,
   GetStaticPropsContext,
   InferGetStaticPropsType,
+  GetStaticPaths,
 } from 'next';
 import MainNavigation from '@/components/layout/main-navigation';
 import { Greeter } from '@/lib/greeter';
@@ -14,27 +15,17 @@ import { Logger, createLogger } from '@/lib/logger';
 if (process.env.NODE_ENV === 'production' && process.browser) {
   const greeter = new Greeter(
     console,
-    'color: #bada55; font-family: monospace;',
+    'color: green; background-color: #333; font-family: monospace;',
   );
   greeter.greet();
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: ['/about'],
     fallback: false,
   };
 }
-
-const PageView: NextPage = ({
-  mainNavigation,
-  page,
-}: InferGetStaticPropsType<typeof getStaticProps>) => (
-  <PageTemplate
-    before={<MainNavigation navigation={mainNavigation.data} />}
-    page={page.data}
-  />
-);
 
 export const getStaticProps: GetStaticProps = async ({
   params,
@@ -63,5 +54,15 @@ export const getStaticProps: GetStaticProps = async ({
     },
   };
 };
+
+const PageView: NextPage = ({
+  mainNavigation,
+  page,
+}: InferGetStaticPropsType<typeof getStaticProps>) => (
+  <PageTemplate
+    before={<MainNavigation navigation={mainNavigation.data} />}
+    page={page.data}
+  />
+);
 
 export default PageView;

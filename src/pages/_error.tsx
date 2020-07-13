@@ -16,7 +16,7 @@ const CustomError = ({
   statusCode,
   hasGetInitialPropsRun,
   err,
-}: CustomErrorProps) => {
+}: CustomErrorProps): React.ReactNode => {
   if (!hasGetInitialPropsRun && err) {
     // getInitialProps is not called in case of
     // https://github.com/vercel/next.js/issues/8592. As a workaround, we pass
@@ -28,7 +28,7 @@ const CustomError = ({
   return <NextErrorComponent statusCode={statusCode} />;
 };
 
-CustomError.getInitialProps = async (ctx: NextPageContext) => {
+CustomError.getInitialProps = async (ctx: NextPageContext): Promise<CustomErrorProps> => {
   const errorInitialProps: ErrorProps = await NextErrorComponent.getInitialProps(
     ctx,
   );

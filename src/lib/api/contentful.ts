@@ -61,6 +61,7 @@ export class ContentfulApiClient implements ApiClient {
   private convertQuery(query: Query): ContentfulQuery {
     const fields = dot.dot({ fields: query.fields });
     const converted = {
+      // eslint-disable-next-line @typescript-eslint/camelcase
       content_type: query.type,
       include: query.levels,
       ...fields,
@@ -71,13 +72,14 @@ export class ContentfulApiClient implements ApiClient {
 
   private entryToRecord<T>(entry: ContentfulEntry<T>): Record<T> {
     const { fields, sys } = entry;
-    const { createdAt, updatedAt, id } = sys;
+    const { createdAt, updatedAt, id, locale } = sys;
 
     return {
       meta: {
         id,
         createdAt,
         updatedAt,
+        locale,
       },
       data: this.parseFields<T>(fields),
     };

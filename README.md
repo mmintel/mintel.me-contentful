@@ -36,6 +36,7 @@ Personal website of Marc Mintel.
 - 📏 **[ESLint](https://eslint.org/)** — Pluggable JavaScript linter
 - 💖 **[Prettier](https://prettier.io/)** - Opinionated Code Formatter
 - 🐙 **[@testing-library](https://testing-library.com/)** - to unit test react components
+- 🕌 **[Istanbul](https://istanbul.js.org/)** - to collect code coverage
 
 ## 🚀 Getting started
 

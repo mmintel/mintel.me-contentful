@@ -1,12 +1,14 @@
 module.exports = {
-  parser: '@typescript-eslint/parser',
+  parser: "babel-eslint",
   extends: [
+    'eslint:recommended',
     'plugin:react/recommended',
-    'plugin:@typescript-eslint/recommended',
-    'prettier/@typescript-eslint',
-    'plugin:jest/recommended',
+    "prettier",
   ],
-  plugins: ['react-hooks', 'jest'],
+  plugins: ['react-hooks'],
+  env: {
+    node: true,
+  },
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module',
@@ -16,26 +18,54 @@ module.exports = {
       version: "detect"
     }
   },
-  env: {
-    "jest/globals": true
-  },
   rules: {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
-    '@typescript-eslint/ban-ts-ignore': 0,
-    '@typescript-eslint/no-use-before-define': 0,
-    '@typescript-eslint/explicit-function-return-type': 0,
-    '@typescript-eslint/no-explicit-any': 0,
-    '@typescript-eslint/camelcase': 0,
-    '@typescript-eslint/no-unused-vars': [
-      'error',
-      {
-        vars: 'all',
-        args: 'after-used',
-        ignoreRestSiblings: true
-      },
-    ],
     'react/prop-types': 0,
     'react/display-name': 0,
   },
+  overrides: [
+    {
+      files: ["**/*.e2e.{js,ts}"],
+      plugins: ['cypress', "chai-friendly"],
+      extends: [
+        "plugin:cypress/recommended",
+        "plugin:chai-friendly/recommended"
+      ],
+      env: {
+        "cypress/globals": true
+      }
+    },
+    {
+      files: ["**/*.spec.{jsx?,tsx?}"],
+      plugins: ['jest'],
+      extends: [
+        'plugin:jest/recommended',
+      ],
+      env: {
+        "jest/globals": true
+      }
+    },
+    {
+      files: ["**/*.tsx?"],
+      parser: '@typescript-eslint/parser',
+      extends: [
+        'plugin:@typescript-eslint/recommended',
+        'prettier/@typescript-eslint',
+      ],
+      rules: {
+        '@typescript-eslint/no-explicit-any': 0,
+        '@typescript-eslint/member-delimiter-style': ['error', {
+          multiline: {
+            delimiter: "comma",
+            requireLast: true
+          },
+          singleline: {
+            delimiter: "none",
+            requireLast: false
+          }
+        }],
+      }
+    }
+  ]
 };

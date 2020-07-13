@@ -4,12 +4,7 @@ module.exports = {
     '!**/*.d.ts',
     '!**/node_modules/**',
   ],
-  coverageReporters: [
-    "json-summary",
-    "text",
-    "lcov"
-  ],
-  coverageDirectory: "coverage",
+  coverageDirectory: "jest-coverage",
   coverageThreshold: {
     global: {
       branches: 0,
@@ -19,7 +14,7 @@ module.exports = {
     },
   },
   setupFilesAfterEnv: ['<rootDir>/setup-tests.js'],
-  testPathIgnorePatterns: ['/node_modules/', '/.next/'],
+  testPathIgnorePatterns: ['/node_modules/', '/.next/', '/.cypress/'],
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/node_modules/babel-jest',
   },

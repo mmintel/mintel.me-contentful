@@ -11,7 +11,7 @@ Sentry.init({
 class CustomApp extends App {
   private logger: Logger = createLogger('App');
 
-  componentDidCatch(error: Error, info: React.ErrorInfo) {
+  componentDidCatch(error: Error, info: React.ErrorInfo): void {
     this.logger.error(error.message);
 
     Sentry.withScope(scope => {
@@ -22,7 +22,7 @@ class CustomApp extends App {
     super.componentDidCatch(error, info);
   }
 
-  render() {
+  render(): JSX.Element {
     const { Component, pageProps } = this.props;
 
     return <Component {...pageProps} />;
