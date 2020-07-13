@@ -47,7 +47,7 @@
     "@types/dot-object": "^2.1.1",
     "@types/lodash": "^4.14.157",
     "@types/node": "^14.0.22",
-    "@types/react": "^16.9.23",
+    "@types/react": "^16.9.43",
     "@types/react-dom": "^16.9.5",
     "@typescript-eslint/eslint-plugin": "^2.24.0",
     "@typescript-eslint/parser": "^2.24.0",
