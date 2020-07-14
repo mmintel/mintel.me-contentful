@@ -1,7 +1,7 @@
 import { Record } from '@/models';
 
 export enum ContentType {
-  Page = 'page',
+  page = 'page',
   navigation = 'navigation',
 }
 
