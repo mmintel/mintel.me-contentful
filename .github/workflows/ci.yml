@@ -42,7 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cypress-io/github-action@1
+    - uses: cypress-io/github-action@v2
       with:
         build: yarn build
         command: npm run e2e:ci
