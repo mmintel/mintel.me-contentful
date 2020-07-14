@@ -55,7 +55,7 @@
     "@babel/core": "^7.10.4",
     "@babel/plugin-proposal-decorators": "^7.10.4",
     "@cypress/code-coverage": "^3.8.1",
-    "@sentry/node": "^5.19.1",
+    "@sentry/node": "^5.19.2",
     "@testing-library/cypress": "^6.0.0",
     "@types/dot-object": "^2.1.1",
     "@types/dotenv": "^8.2.0",
