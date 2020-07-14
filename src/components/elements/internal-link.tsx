@@ -2,8 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 
 interface InternalLinkProps {
-  href: string;
-  children: React.ReactNode;
+  href: string,
+  children: React.ReactNode,
 }
 
 const InternalLink = ({ href, children }: InternalLinkProps) => {

@@ -11,7 +11,11 @@
         },
         "extensions": [".js", ".ts", ".jsx", ".tsx"]
       }
-    ],
-    "istanbul"
-  ]
+    ]
+  ],
+  "env": {
+    "e2e": {
+      "plugins": ["istanbul"]
+    }
+  }
 }

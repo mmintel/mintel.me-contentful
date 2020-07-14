@@ -5,11 +5,11 @@ import Gallery from './gallery';
 import Stage from './stage';
 
 interface BlocksProps {
-  blocks: Document;
+  blocks: Document,
 }
 
 interface Entries {
-  [key: string]: ReactNode;
+  [key: string]: ReactNode,
 }
 
 const options = {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface GalleryProps {
-  title: string;
+  title: string,
 }
 
 const Gallery = ({ title }: GalleryProps) => {
