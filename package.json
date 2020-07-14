@@ -15,7 +15,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "start:coverage": "nyc --silent next start",
+    "start:coverage": "NODE_ENV=e2e nyc --silent next start",
     "lint": "eslint --ignore-path .gitignore \"src/**/*.+(ts|tsx|js|jsx)\"",
     "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|tsx|js|jsx)\" --write",
     "test": "jest",
