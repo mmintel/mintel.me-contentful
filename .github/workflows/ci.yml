@@ -43,10 +43,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: cypress-io/github-action@v2
-      with:
-        build: yarn build
-        command: npm run e2e:ci
-        headless: true
       env:
         NEXT_PUBLIC_CONTENTFUL_SPACE_ID: ${{ secrets.NEXT_PUBLIC_CONTENTFUL_SPACE_ID }}
         NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN: ${{ secrets.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN }}
