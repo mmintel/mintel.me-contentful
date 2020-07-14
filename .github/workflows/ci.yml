@@ -68,11 +68,11 @@ jobs:
       with:
         name: cypress-coverage
     - name: Codecov
-        uses: codecov/codecov-action@v1.0.10
-        with:
-          name: Mintel.me
-          token: ${{ secrets.CODECOV_TOKEN }}
-          flags: unittests
+      uses: codecov/codecov-action@v1.0.10
+      with:
+        name: Mintel.me
+        token: ${{ secrets.CODECOV_TOKEN }}
+        flags: unittests
   deploy:
     runs-on: ubuntu-latest
     steps:
