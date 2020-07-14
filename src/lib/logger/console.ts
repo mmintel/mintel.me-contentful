@@ -2,10 +2,10 @@ import { Logger, LogLevel } from './logger';
 import chalk from 'chalk';
 
 interface LogOptions {
-  message: string;
-  data: any;
-  level: LogLevel;
-  method?: LogMethod;
+  message: string,
+  data: any,
+  level: LogLevel,
+  method?: LogMethod,
 }
 
 enum LogMethod {
@@ -16,10 +16,10 @@ enum LogMethod {
 }
 
 export interface LogClient {
-  log: (...data: any) => void;
-  info: (...data: any) => void;
-  warn: (...data: any) => void;
-  error: (...data: any) => void;
+  log: (...data: any) => void,
+  info: (...data: any) => void,
+  warn: (...data: any) => void,
+  error: (...data: any) => void,
 }
 
 export class ConsoleLogger implements Logger {

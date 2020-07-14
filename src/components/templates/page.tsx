@@ -4,9 +4,9 @@ import Blocks from '@/components/blocks';
 import { Page as PageModel } from '@/models';
 
 interface PageTemplateProps {
-  page: PageModel;
-  before?: ReactNode;
-  after?: ReactNode;
+  page: PageModel,
+  before?: ReactNode,
+  after?: ReactNode,
 }
 
 const PageTemplate: React.FC<PageTemplateProps> = ({ page, before, after }) => (

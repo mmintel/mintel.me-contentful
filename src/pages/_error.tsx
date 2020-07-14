@@ -7,9 +7,9 @@ import { Logger, createLogger } from '@/lib/logger';
 const logger: Logger = createLogger('ErrorPage');
 
 interface CustomErrorProps {
-  statusCode: number;
-  hasGetInitialPropsRun?: boolean;
-  err?: Error;
+  statusCode: number,
+  hasGetInitialPropsRun?: boolean,
+  err?: Error,
 }
 
 const CustomError = ({

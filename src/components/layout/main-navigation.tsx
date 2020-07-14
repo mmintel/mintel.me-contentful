@@ -3,7 +3,7 @@ import InternalLink from '@/components/elements/internal-link';
 import { Navigation } from '@/models';
 
 interface MainNavigationProps {
-  navigation: Navigation;
+  navigation: Navigation,
 }
 
 const MainNavigation = ({ navigation }: MainNavigationProps) => (
