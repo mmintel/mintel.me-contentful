@@ -39,7 +39,7 @@
     "@testing-library/jest-dom": "^5.11.0",
     "@testing-library/react": "^10.4.3",
     "@types/chalk": "^2.2.0",
-    "@types/jest": "^26.0.4",
+    "@types/jest": "^26.0.7",
     "@zeit/next-source-maps": "0.0.3",
     "chalk": "^4.1.0",
     "contentful": "^7.14.5",
