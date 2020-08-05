@@ -16,7 +16,6 @@
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "jsx": "preserve",
-    "types": ["node", "jest"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "baseUrl": "./src",
