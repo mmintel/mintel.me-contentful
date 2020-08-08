@@ -53,7 +53,7 @@
     "@sentry/node": "^5.19.1",
     "@testing-library/cypress": "^6.0.0",
     "@testing-library/jest-dom": "^5.11.0",
-    "@testing-library/react": "^10.4.3",
+    "@testing-library/react": "^10.4.8",
     "@types/chalk": "^2.2.0",
     "@types/dot-object": "^2.1.1",
     "@types/dotenv": "^8.2.0",
