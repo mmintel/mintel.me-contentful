@@ -70,7 +70,7 @@ This project is not licensed at all for the public domain.
 -  Clone or download the project
 -  Build or run the project
 -  Try or test the project
--  Store or delete the entire project in your own physical disk
+-  Store or delete the entire project on your own physical disk
 
 ### You can not:
 -  Make changes or modify the project
