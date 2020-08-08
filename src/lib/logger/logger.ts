@@ -9,10 +9,10 @@ export enum LogLevel {
 }
 
 export interface Logger {
-  trace(message: string, ...data: any): void;
-  debug(message: string, ...data: any): void;
-  info(message: string, ...data: any): void;
-  warn(message: string, ...data: any): void;
-  error(message: string, ...data: any): void;
-  fatal(message: string, ...data: any): void;
+  trace(message: string, ...data: any): void,
+  debug(message: string, ...data: any): void,
+  info(message: string, ...data: any): void,
+  warn(message: string, ...data: any): void,
+  error(message: string, ...data: any): void,
+  fatal(message: string, ...data: any): void,
 }

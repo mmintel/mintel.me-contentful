@@ -26,7 +26,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ["**/*.e2e.{js,ts}"],
+      files: ["**/*.e2e.js"],
       plugins: ['cypress', "chai-friendly"],
       extends: [
         "plugin:cypress/recommended",
@@ -37,7 +37,12 @@ module.exports = {
       }
     },
     {
-      files: ["**/*.spec.{jsx?,tsx?}"],
+      files: [
+        "**/*.spec.js",
+        "**/*.spec.jsx",
+        "**/*.spec.ts",
+        "**/*.spec.tsx",
+      ],
       plugins: ['jest'],
       extends: [
         'plugin:jest/recommended',
@@ -47,7 +52,7 @@ module.exports = {
       }
     },
     {
-      files: ["**/*.tsx?"],
+      files: ["**/*.ts", "**/*.tsx"],
       parser: '@typescript-eslint/parser',
       extends: [
         'plugin:@typescript-eslint/recommended',

@@ -9,19 +9,19 @@ export type ContentfulEntry<T> = contentful.Entry<T>;
 export type ContentfulEntryCollection<T> = contentful.EntryCollection<T>;
 
 export interface ContentfulQuery {
-  [key: string]: any;
-  content_type?: string;
-  include?: number;
+  [key: string]: any,
+  content_type?: string,
+  include?: number,
 }
 
 interface Options {
-  space: string;
-  accessToken: string;
-  preview?: boolean;
+  space: string,
+  accessToken: string,
+  preview?: boolean,
 }
 
 interface Fields {
-  [key: string]: any;
+  [key: string]: any,
 }
 
 export class RecordNotFoundError extends Error {
