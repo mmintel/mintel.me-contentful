@@ -47,7 +47,7 @@
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.4",
+    "@babel/core": "^7.11.1",
     "@babel/plugin-proposal-decorators": "^7.10.4",
     "@cypress/code-coverage": "^3.8.1",
     "@sentry/node": "^5.19.1",
