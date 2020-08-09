@@ -24,8 +24,7 @@ module.exports = {
     'react/prop-types': 0,
     'react/display-name': 0,
   },
-  overrides: [
-    {
+  overrides: [{
       files: ["**/*.e2e.js"],
       plugins: ['cypress', "chai-friendly"],
       extends: [
@@ -62,7 +61,7 @@ module.exports = {
         '@typescript-eslint/no-explicit-any': 0,
         '@typescript-eslint/member-delimiter-style': ['error', {
           multiline: {
-            delimiter: "comma",
+            delimiter: "semicolon",
             requireLast: true
           },
           singleline: {

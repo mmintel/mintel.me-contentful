@@ -6,13 +6,16 @@ export enum NavigationName {
 }
 
 export interface Navigation {
-  title: string,
-  name: NavigationName,
-  items: Record<NavigationItem>[],
+  title: string;
+  name: NavigationName;
+  items: Record<NavigationItem>[];
 }
 
 export interface NavigationItem {
-  title: string,
-  internal: boolean,
-  page: Record<Page>,
+  title: string;
+  internal: boolean;
+  url?: string;
+  page?: {
+    slug: string;
+  };
 }

@@ -1,21 +1,6 @@
-import { Record } from '@/models';
-
-export enum ContentType {
-  page = 'page',
-  navigation = 'navigation',
-}
-
-export interface Query {
-  type: ContentType,
-  levels?: number,
-  fields?: FieldsQuery,
-}
-
-export interface FieldsQuery {
-  [key: string]: any,
-}
+import { Page, Navigation, Record, Locale } from '@/models';
 
 export interface ApiClient {
-  getOne: <T>(query: Query) => Promise<Record<T>>,
-  getMany: <T>(query: Query) => Promise<Record<T>[]>,
+  getNavigation(name: string, locale: Locale): Promise<Record<Navigation>>;
+  getPage(slug: string): Promise<Page>;
 }

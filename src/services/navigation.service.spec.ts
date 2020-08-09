@@ -1,22 +1,21 @@
 import { ApiClient } from '@/lib/api';
 import { NavigationService } from './navigation.service';
+import { Locale } from '@/models';
 
+// TODO move to __mocks__
 const mockApi: ApiClient = {
-  getOne: jest.fn(),
-  getMany: jest.fn(),
+  getNavigation: jest.fn(),
+  getPage: jest.fn(),
 };
 
 describe('NavigationService', () => {
   it('requests the mainNavigation', async () => {
     const navigationService = new NavigationService(mockApi);
-    await navigationService.getMainNavigation();
-    expect(mockApi.getOne).toHaveBeenCalledTimes(1);
-    expect(mockApi.getOne).toHaveBeenCalledWith(
-      expect.objectContaining({
-        fields: {
-          name: 'main-navigation',
-        },
-      }),
+    await navigationService.getMainNavigation(Locale.DE);
+    expect(mockApi.getNavigation).toHaveBeenCalledTimes(1);
+    expect(mockApi.getNavigation).toHaveBeenCalledWith(
+      'main-navigation',
+      Locale.DE,
     );
   });
 });
