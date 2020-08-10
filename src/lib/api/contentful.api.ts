@@ -10,6 +10,7 @@ import {
 } from '@/models';
 import gql from 'graphql-tag';
 import { createLogger } from '../logger';
+import { Json } from '@/types/json.type';
 
 interface Collection<T> {
   items: T[];
@@ -50,12 +51,23 @@ interface ContentfulSystemData {
   publishedAt: string;
 }
 
+interface ContentfulPage extends ContentfulRecord {
+  title: string;
+  description: string;
+  slug: string;
+  components: Json;
+}
+
 export class NavigationRequestError extends Error {
   name = 'NavigationRequestError';
 }
 
 export class NavigationItemRequestError extends Error {
   name = 'NavigationItemRequestError';
+}
+
+export class PageRequestError extends Error {
+  name = 'PageRequestError';
 }
 
 export class ContentfulApiClient implements ApiClient {
@@ -131,8 +143,96 @@ export class ContentfulApiClient implements ApiClient {
     };
   }
 
-  async getPage(slug: string): Promise<Page> {
-    return this.graphqlClient.request<Page>(``);
+  async getPage(slug: string, locale: Locale): Promise<Record<Page>> {
+    const response = await this.graphqlClient.request<ContentfulPage[]>(
+      gql`
+        query PageQuery($slug: String!, $locale: String!) {
+          pageCollection(limit: 1, locale: $locale, where: { slug: $slug }) {
+            items {
+              slug
+              components
+              title
+              description
+              components {
+                links {
+                  entries {
+                    block {
+                      sys {
+                        id
+                      }
+                    }
+                  }
+                }
+              }
+              sys {
+                id
+                firstPublishedAt
+                publishedAt
+              }
+            }
+          }
+        }
+      `,
+      { slug, locale },
+    );
+
+    if (!response.data || response.errors) {
+      if (response.errors) {
+        response.errors.map(err => this.logger.error(err.message));
+      }
+
+      throw new PageRequestError(`Could not find page by: "${slug}".`);
+    }
+
+    const page = response.data[0];
+
+    return {
+      data: {
+        title: page.title,
+        description: page.description,
+        components: page.components,
+        slug: page.slug,
+      },
+      meta: {
+        id: page.sys.id,
+        createdAt: page.sys.firstPublishedAt,
+        updatedAt: page.sys.publishedAt,
+        locale,
+      },
+    };
+  }
+
+  async getAllPages(locale: Locale): Promise<Record<Page>> {
+    const response = await this.graphqlClient.request<ContentfulPage[]>(
+      gql`
+        query PageQuery($slug: String!, $locale: String!) {
+          pageCollection(locale: $locale) {
+            items {
+              slug
+            }
+          }
+        }
+      `,
+      { locale },
+    );
+
+    if (!response.data || response.errors) {
+      if (response.errors) {
+        response.errors.map(err => this.logger.error(err.message));
+      }
+
+      throw new PageRequestError(`Could not query pages.`);
+    }
+
+    return {
+      data,
+      meta: {
+        id: response.data.sys.id,
+        createdAt: response.data.sys.firstPublishedAt,
+        updatedAt: response.data.sys.publishedAt,
+        locale,
+      },
+    };
   }
 
   private async getNavigationItemsByID(
