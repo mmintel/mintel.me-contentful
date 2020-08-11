@@ -83,7 +83,7 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^4.0.8",
     "html-validate": "^3.0.0",
-    "jest": "^26.1.0",
+    "jest": "^26.3.0",
     "nyc": "^15.1.0",
     "prettier": "^1.19.1",
     "start-server-and-test": "^1.11.2",
