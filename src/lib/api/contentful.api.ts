@@ -2,6 +2,7 @@ import { ApiClient } from './api';
 import { GraphqlClient } from '@/lib/graphql';
 import {
   Page,
+  PageTeaser,
   Record,
   Navigation,
   NavigationItem,
@@ -11,6 +12,8 @@ import {
 import gql from 'graphql-tag';
 import { createLogger } from '../logger';
 import { Json } from '@/types/json.type';
+
+// TODO move graphql queries to own files
 
 interface Collection<T> {
   items: T[];
@@ -49,6 +52,10 @@ interface ContentfulSystemData {
   id: string;
   firstPublishedAt: string;
   publishedAt: string;
+}
+
+interface ContentfulPageCollection<T> {
+  pageCollection: Collection<T>;
 }
 
 interface ContentfulPage extends ContentfulRecord {
@@ -111,18 +118,7 @@ export class ContentfulApiClient implements ApiClient {
     );
 
     this.logger.info('Received navigation response', response);
-
-    if (!response.data || response.errors) {
-      if (response.errors) {
-        response.errors.map(err => this.logger.error(err.message));
-      }
-
-      throw new NavigationRequestError(
-        `Could not find navigation with name: "${name}".`,
-      );
-    }
-
-    const navigation = response.data.navigationCollection.items[0];
+    const navigation = response.navigationCollection.items[0];
     const navigationItems = await this.getNavigationItemsByID(
       navigation.itemsCollection.items.map(i => i.sys.id),
       locale,
@@ -138,19 +134,19 @@ export class ContentfulApiClient implements ApiClient {
         id: navigation.sys.id,
         createdAt: navigation.sys.firstPublishedAt,
         updatedAt: navigation.sys.publishedAt,
-        locale,
       },
     };
   }
 
   async getPage(slug: string, locale: Locale): Promise<Record<Page>> {
-    const response = await this.graphqlClient.request<ContentfulPage[]>(
+    const response = await this.graphqlClient.request<
+      ContentfulPageCollection<ContentfulPage>
+    >(
       gql`
         query PageQuery($slug: String!, $locale: String!) {
           pageCollection(limit: 1, locale: $locale, where: { slug: $slug }) {
             items {
               slug
-              components
               title
               description
               components {
@@ -176,15 +172,7 @@ export class ContentfulApiClient implements ApiClient {
       { slug, locale },
     );
 
-    if (!response.data || response.errors) {
-      if (response.errors) {
-        response.errors.map(err => this.logger.error(err.message));
-      }
-
-      throw new PageRequestError(`Could not find page by: "${slug}".`);
-    }
-
-    const page = response.data[0];
+    const page = response.pageCollection.items[0];
 
     return {
       data: {
@@ -197,13 +185,14 @@ export class ContentfulApiClient implements ApiClient {
         id: page.sys.id,
         createdAt: page.sys.firstPublishedAt,
         updatedAt: page.sys.publishedAt,
-        locale,
       },
     };
   }
 
-  async getAllPages(locale: Locale): Promise<Record<Page>> {
-    const response = await this.graphqlClient.request<ContentfulPage[]>(
+  async getAllPages(locale: Locale): Promise<PageTeaser[]> {
+    const response = await this.graphqlClient.request<
+      ContentfulPageCollection<Pick<ContentfulPage, 'slug'>>
+    >(
       gql`
         query PageQuery($slug: String!, $locale: String!) {
           pageCollection(locale: $locale) {
@@ -216,23 +205,7 @@ export class ContentfulApiClient implements ApiClient {
       { locale },
     );
 
-    if (!response.data || response.errors) {
-      if (response.errors) {
-        response.errors.map(err => this.logger.error(err.message));
-      }
-
-      throw new PageRequestError(`Could not query pages.`);
-    }
-
-    return {
-      data,
-      meta: {
-        id: response.data.sys.id,
-        createdAt: response.data.sys.firstPublishedAt,
-        updatedAt: response.data.sys.publishedAt,
-        locale,
-      },
-    };
+    return response.pageCollection.items;
   }
 
   private async getNavigationItemsByID(
@@ -267,15 +240,7 @@ export class ContentfulApiClient implements ApiClient {
       { locale, ids },
     );
 
-    if (!response.data || response.errors) {
-      if (response.errors) {
-        response.errors.map(err => this.logger.error(err.message));
-      }
-
-      throw new NavigationItemRequestError(`Could not find navigation items.`);
-    }
-
-    return response.data.navigationItemCollection.items.map(item => ({
+    return response.navigationItemCollection.items.map(item => ({
       data: {
         title: item.title,
         page: item.page,
@@ -286,7 +251,6 @@ export class ContentfulApiClient implements ApiClient {
         id: item.sys.id,
         createdAt: item.sys.firstPublishedAt,
         updatedAt: item.sys.publishedAt,
-        locale,
       },
     }));
   }

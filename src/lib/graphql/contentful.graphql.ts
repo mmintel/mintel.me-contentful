@@ -1,10 +1,6 @@
-import {
-  GraphqlClient,
-  GraphqlQuery,
-  GraphqlVariables,
-  GraphqlResponse,
-} from './client';
+import { GraphqlClient, GraphqlQuery, GraphqlVariables } from './client';
 import { GraphQLClient as GraphQLRequest } from 'graphql-request';
+import { createLogger } from '../logger';
 
 export interface ContentfulGraphqlClientOptions {
   url: string;
@@ -13,16 +9,23 @@ export interface ContentfulGraphqlClientOptions {
 }
 
 export class ContentfulGraphqlClient implements GraphqlClient {
+  private logger = createLogger('ContentfulGraphqlClient');
   private client: GraphQLRequest;
 
   constructor(options: ContentfulGraphqlClientOptions) {
-    this.client = new GraphQLRequest(options.url + options.spaceId);
+    const url = `${options.url}/${options.spaceId}`;
+    this.logger.debug('Creating GraphQLRequest client with url', url);
+    this.client = new GraphQLRequest(url, {
+      headers: {
+        Authorization: `Bearer ${options.accessToken}`,
+      },
+    });
   }
 
   async request(
     query: GraphqlQuery,
     variables?: GraphqlVariables,
-  ): Promise<GraphqlResponse> {
+  ): Promise<any> {
     return this.client.request(query, variables);
   }
 }

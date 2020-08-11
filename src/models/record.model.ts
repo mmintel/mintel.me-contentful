@@ -12,5 +12,4 @@ interface RecordMeta {
   id: string;
   createdAt: string;
   updatedAt: string;
-  locale: Locale;
 }

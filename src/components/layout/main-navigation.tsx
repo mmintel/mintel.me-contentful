@@ -3,7 +3,7 @@ import InternalLink from '@/components/elements/internal-link';
 import { Navigation } from '@/models';
 
 interface MainNavigationProps {
-  navigation: Navigation,
+  navigation: Navigation;
 }
 
 const MainNavigation = ({ navigation }: MainNavigationProps) => (
@@ -12,7 +12,7 @@ const MainNavigation = ({ navigation }: MainNavigationProps) => (
     <ul>
       {navigation.items.map(item => (
         <li key={item.meta.id}>
-          <InternalLink href={item.data.page.data.slug}>
+          <InternalLink href={item.data.page.slug}>
             {item.data.title} {item.data.internal && <span>(internal)</span>}
           </InternalLink>
         </li>

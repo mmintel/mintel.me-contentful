@@ -1,25 +1,17 @@
-import { ApiClient, ContentType } from '@/lib/api';
-import { Record, Page } from '@/models';
+import { ApiClient } from '@/lib/api';
+import { Record, Page, Locale, PageTeaser } from '@/models';
 
 export class PageService {
   constructor(private apiClient: ApiClient) {}
 
-  public async getPage(slug: string): Promise<Record<Page>> {
-    const item = await this.apiClient.getOne<Page>({
-      type: ContentType.page,
-      levels: 2,
-      fields: {
-        slug: this.sanitizeSlug(slug),
-      },
-    });
+  public async getPage(slug: string, locale: Locale): Promise<Record<Page>> {
+    const item = await this.apiClient.getPage(slug, locale);
 
     return item;
   }
 
-  public async getPages(): Promise<Record<Page>[]> {
-    return this.apiClient.getMany<Page>({
-      type: ContentType.page,
-    });
+  public async getAllPages(locale: Locale): Promise<PageTeaser[]> {
+    return this.apiClient.getAllPages(locale);
   }
 
   private removeLeadingSlashes(str: string) {

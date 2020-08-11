@@ -9,12 +9,7 @@ export interface GraphQLError {
 }
 
 export interface GraphqlClient {
-  request<T>(query: GraphqlQuery, variables?: GraphqlVariables): Promise<GraphqlResponse<T>>,
+  request<T>(query: GraphqlQuery, variables?: GraphqlVariables): Promise<T>,
 }
 
 export type GraphqlQuery = DocumentNode | string;
-
-export interface GraphqlResponse<T = any> {
-  data?: T,
-  errors?: GraphQLError[]
-}

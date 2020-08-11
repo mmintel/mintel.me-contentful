@@ -11,6 +11,7 @@ import MainNavigation from '@/components/layout/main-navigation';
 import { Greeter } from '@/lib/greeter';
 import { navigationService, pageService } from '@/services';
 import { Logger, createLogger } from '@/lib/logger';
+import { Locale } from '@/models';
 
 if (process.env.NODE_ENV === 'production' && process.browser) {
   const greeter = new Greeter(
@@ -25,7 +26,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths: ['/about'],
     fallback: false,
   };
-}
+};
 
 export const getStaticProps: GetStaticProps = async ({
   params,
@@ -40,11 +41,11 @@ export const getStaticProps: GetStaticProps = async ({
   }
 
   logger.info('Requesting pageService with', slug);
-  const page = await pageService.getPage(slug);
+  const page = await pageService.getPage(slug, Locale.DE);
   logger.info('Received page', page);
 
   logger.info('Requesting mainNavigation...');
-  const mainNavigation = await navigationService.getMainNavigation();
+  const mainNavigation = await navigationService.getMainNavigation(Locale.DE);
   logger.info('Received mainNavigation', mainNavigation);
 
   return {
