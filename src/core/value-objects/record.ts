@@ -3,8 +3,3 @@ export interface Record {
   createdAt: string;
   updatedAt: string;
 }
-
-export enum Locale {
-  DE = 'de-DE',
-  EN = 'en-US',
-}

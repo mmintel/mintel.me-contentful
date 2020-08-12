@@ -1,14 +1,13 @@
 import { ApiClient } from './api';
 import { GraphqlClient } from '@/lib/graphql';
-import {
-  Page,
-  PageTeaser,
-  Record,
-  Navigation,
-  NavigationItem,
-  NavigationName,
-  Locale,
-} from '@/models';
+import { Page } from '@/core/value-objects/page';
+import { PageTeaser } from '@/core/value-objects/page-teaser';
+import { NavigationItem } from '@/core/value-objects/navigation-item';
+import { Page } from '@/core/value-objects/page';
+import { PageTeaser } from '@/core/value-objects/page-teaser';
+import { NavigationItem } from '@/core/value-objects/navigation-item';
+import { NavigationName } from '@/core/value-objects/navigation-name';
+import { Locale } from '@/core/value-objects/locale';
 import { createLogger } from '../logger';
 import NavigationItemsQuery from '@/graphql/queries/navigation-items.gql';
 import NavigationQuery from '@/graphql/queries/navigation.gql';
@@ -86,10 +85,7 @@ export class ContentfulApiClient implements ApiClient {
 
   constructor(private graphqlClient: GraphqlClient) {}
 
-  async getNavigation(
-    name: NavigationName,
-    locale: Locale,
-  ): Promise<Record<Navigation>> {
+  async getNavigation(name: NavigationName, locale: Locale) {
     const response = await this.graphqlClient.request<
       ContentfulNavigationResponse
     >(NavigationQuery, {
@@ -108,20 +104,16 @@ export class ContentfulApiClient implements ApiClient {
     );
 
     return {
-      data: {
-        title: navigation.title,
-        name: navigation.name as NavigationName,
-        items: navigationItems,
-      },
-      meta: {
-        id: navigation.sys.id,
-        createdAt: navigation.sys.firstPublishedAt,
-        updatedAt: navigation.sys.publishedAt,
-      },
+      id: navigation.sys.id,
+      createdAt: navigation.sys.firstPublishedAt,
+      updatedAt: navigation.sys.publishedAt,
+      title: navigation.title,
+      name: navigation.name as NavigationName,
+      items: navigationItems,
     };
   }
 
-  async getPage(slug: string, locale: Locale): Promise<Record<Page>> {
+  async getPage(slug: string, locale: Locale) {
     const response = await this.graphqlClient.request<
       ContentfulPageCollection<ContentfulPage>
     >(PageQuery, { slug, locale });
@@ -129,48 +121,37 @@ export class ContentfulApiClient implements ApiClient {
     const page = response.pageCollection.items[0];
 
     return {
-      data: {
-        title: page.title,
-        description: page.description,
-        components: page.components,
-        slug: page.slug,
-      },
-      meta: {
-        id: page.sys.id,
-        createdAt: page.sys.firstPublishedAt,
-        updatedAt: page.sys.publishedAt,
-      },
+      id: page.sys.id,
+      createdAt: page.sys.firstPublishedAt,
+      updatedAt: page.sys.publishedAt,
+      title: page.title,
+      description: page.description,
+      components: page.components,
+      slug: page.slug,
     };
   }
 
-  async getAllPages(locale: Locale): Promise<PageTeaser[]> {
+  async getAllPages(locale: Locale) {
     const response = await this.graphqlClient.request<
-      ContentfulPageCollection<Pick<ContentfulPage, 'slug'>>
-    >(AllPagesQuery, { locale });
-
-    return response.pageCollection.items;
+      ContentfulPageCollection<Pick<Cons;
   }
 
-  private async getNavigationItemsByID(
+  privturn response.pageCollection.itemate async getNavigationItemsByID(
     ids: string[],
     locale: Locale,
-  ): Promise<Record<NavigationItem>[]> {
+  ) {
     const response = await this.graphqlClient.request<
       ContentfulNavigationItemsResponse
     >(NavigationItemsQuery, { locale, ids });
 
     return response.navigationItemCollection.items.map(item => ({
-      data: {
-        title: item.title,
-        page: item.page,
-        url: item.url,
-        internal: item.internal,
-      },
-      meta: {
-        id: item.sys.id,
-        createdAt: item.sys.firstPublishedAt,
-        updatedAt: item.sys.publishedAt,
-      },
+      id: item.sys.id,
+      createdAt: item.sys.firstPublishedAt,
+      updatedAt: item.sys.publishedAt,
+      title: item.title,
+      page: item.page,
+      url: item.url,
+      internal: item.internal,
     }));
   }
 }
