@@ -1,0 +1,20 @@
+query NavigationQuery($name: String!, $locale: String!) {
+  navigationCollection(locale: $locale, where: { name: $name }) {
+    items {
+      title
+      name
+      itemsCollection {
+        items {
+          sys {
+            id
+          }
+        }
+      }
+      sys {
+        id
+        firstPublishedAt
+        publishedAt
+      }
+    }
+  }
+}

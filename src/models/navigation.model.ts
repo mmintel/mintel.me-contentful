@@ -1,17 +1,16 @@
-import { Record } from './record.model';
-import { Page } from './page.model';
-
 export enum NavigationName {
   mainNavigation = 'main-navigation',
 }
 
 export interface Navigation {
+  id: string;
   title: string;
   name: NavigationName;
-  items: Record<NavigationItem>[];
+  items: NavigationItem[];
 }
 
 export interface NavigationItem {
+  id: string;
   title: string;
   internal: boolean;
   url?: string;

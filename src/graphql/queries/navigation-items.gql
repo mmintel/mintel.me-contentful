@@ -1,0 +1,17 @@
+query NavigationItemsQuery($ids: [String]!, $locale: String!) {
+  navigationItemCollection(locale: $locale, where: { sys: { id_in: $ids } }) {
+    items {
+      title
+      page {
+        slug
+      }
+      url
+      internal
+      sys {
+        id
+        firstPublishedAt
+        publishedAt
+      }
+    }
+  }
+}

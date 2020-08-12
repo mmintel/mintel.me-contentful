@@ -1,0 +1,25 @@
+query PageQuery($slug: String!, $locale: String!) {
+  pageCollection(limit: 1, locale: $locale, where: { slug: $slug }) {
+    items {
+      slug
+      title
+      description
+      components {
+        links {
+          entries {
+            block {
+              sys {
+                id
+              }
+            }
+          }
+        }
+      }
+      sys {
+        id
+        firstPublishedAt
+        publishedAt
+      }
+    }
+  }
+}

@@ -9,11 +9,15 @@ import {
   NavigationName,
   Locale,
 } from '@/models';
-import gql from 'graphql-tag';
 import { createLogger } from '../logger';
-import { Json } from '@/types/json.type';
+import NavigationItemsQuery from '@/graphql/queries/navigation-items.gql';
+import NavigationQuery from '@/graphql/queries/navigation.gql';
+import PageQuery from '@/graphql/queries/page.gql';
+import AllPagesQuery from '@/graphql/queries/all-pages.gql';
 
-// TODO move graphql queries to own files
+interface Json {
+  [key: string]: any;
+}
 
 interface Collection<T> {
   items: T[];
@@ -88,37 +92,16 @@ export class ContentfulApiClient implements ApiClient {
   ): Promise<Record<Navigation>> {
     const response = await this.graphqlClient.request<
       ContentfulNavigationResponse
-    >(
-      gql`
-        query NavigationQuery($name: String!, $locale: String!) {
-          navigationCollection(locale: $locale, where: { name: $name }) {
-            items {
-              title
-              name
-              itemsCollection {
-                items {
-                  sys {
-                    id
-                  }
-                }
-              }
-              sys {
-                id
-                firstPublishedAt
-                publishedAt
-              }
-            }
-          }
-        }
-      `,
-      {
-        name,
-        locale,
-      },
-    );
+    >(NavigationQuery, {
+      name,
+      locale,
+    });
 
     this.logger.info('Received navigation response', response);
     const navigation = response.navigationCollection.items[0];
+
+    // this is a workaround for contentful limits, maybe we can remove this
+    // and add a limit to the NavigationQuery so contentful won't complain
     const navigationItems = await this.getNavigationItemsByID(
       navigation.itemsCollection.items.map(i => i.sys.id),
       locale,
@@ -141,36 +124,7 @@ export class ContentfulApiClient implements ApiClient {
   async getPage(slug: string, locale: Locale): Promise<Record<Page>> {
     const response = await this.graphqlClient.request<
       ContentfulPageCollection<ContentfulPage>
-    >(
-      gql`
-        query PageQuery($slug: String!, $locale: String!) {
-          pageCollection(limit: 1, locale: $locale, where: { slug: $slug }) {
-            items {
-              slug
-              title
-              description
-              components {
-                links {
-                  entries {
-                    block {
-                      sys {
-                        id
-                      }
-                    }
-                  }
-                }
-              }
-              sys {
-                id
-                firstPublishedAt
-                publishedAt
-              }
-            }
-          }
-        }
-      `,
-      { slug, locale },
-    );
+    >(PageQuery, { slug, locale });
 
     const page = response.pageCollection.items[0];
 
@@ -192,18 +146,7 @@ export class ContentfulApiClient implements ApiClient {
   async getAllPages(locale: Locale): Promise<PageTeaser[]> {
     const response = await this.graphqlClient.request<
       ContentfulPageCollection<Pick<ContentfulPage, 'slug'>>
-    >(
-      gql`
-        query PageQuery($slug: String!, $locale: String!) {
-          pageCollection(locale: $locale) {
-            items {
-              slug
-            }
-          }
-        }
-      `,
-      { locale },
-    );
+    >(AllPagesQuery, { locale });
 
     return response.pageCollection.items;
   }
@@ -214,31 +157,7 @@ export class ContentfulApiClient implements ApiClient {
   ): Promise<Record<NavigationItem>[]> {
     const response = await this.graphqlClient.request<
       ContentfulNavigationItemsResponse
-    >(
-      gql`
-        query NavigationItemsQuery($ids: [String]!, $locale: String!) {
-          navigationItemCollection(
-            locale: $locale
-            where: { sys: { id_in: $ids } }
-          ) {
-            items {
-              title
-              page {
-                slug
-              }
-              url
-              internal
-              sys {
-                id
-                firstPublishedAt
-                publishedAt
-              }
-            }
-          }
-        }
-      `,
-      { locale, ids },
-    );
+    >(NavigationItemsQuery, { locale, ids });
 
     return response.navigationItemCollection.items.map(item => ({
       data: {
