@@ -8,16 +8,13 @@ import {
   GetStaticPaths,
 } from 'next';
 import MainNavigation from '@/components/layout/main-navigation';
-import { Greeter } from '@/adapters/greeter/greeter';
-import { navigationService, pageService } from '@/services';
-import { Logger, createLogger } from '@/lib/logger';
-import { Locale } from '@/models';
+import { Greeter } from '@/adapters/greeter';
+import { navigationController, pageController } from '@/controllers';
+import { Logger } from '@/utils/logger';
+import { Locale } from '@/value-objects';
 
 if (process.env.NODE_ENV === 'production' && process.browser) {
-  const greeter = new Greeter(
-    console,
-    'color: green; background-color: #333; font-family: monospace;',
-  );
+  const greeter = new Greeter(console);
   greeter.greet();
 }
 
@@ -31,7 +28,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({
   params,
 }: GetStaticPropsContext) => {
-  const logger: Logger = createLogger('PageView');
+  const logger: Logger = new Logger('PageView');
   let slug = 'home';
 
   if (params?.slug && typeof params.slug === 'string') {
@@ -41,11 +38,13 @@ export const getStaticProps: GetStaticProps = async ({
   }
 
   logger.info('Requesting pageService with', slug);
-  const page = await pageService.getPage(slug, Locale.DE);
+  const page = await pageController.getPage(slug, Locale.DE);
   logger.info('Received page', page);
 
   logger.info('Requesting mainNavigation...');
-  const mainNavigation = await navigationService.getMainNavigation(Locale.DE);
+  const mainNavigation = await navigationController.getMainNavigation(
+    Locale.DE,
+  );
   logger.info('Received mainNavigation', mainNavigation);
 
   return {

@@ -1,10 +1,10 @@
-import { ApiClient } from '@/lib/api';
-import { Record, Page, Locale, PageTeaser } from '@/models';
+import { ApiService } from '@/services';
+import { Page, Locale, PageTeaser } from '@/value-objects';
 
-export class PageService {
-  constructor(private apiClient: ApiClient) {}
+export class PageController {
+  constructor(private apiClient: ApiService) {}
 
-  public async getPage(slug: string, locale: Locale): Promise<Record<Page>> {
+  public async getPage(slug: string, locale: Locale): Promise<Page> {
     const item = await this.apiClient.getPage(slug, locale);
 
     return item;

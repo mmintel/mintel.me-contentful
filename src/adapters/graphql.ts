@@ -1,6 +1,10 @@
-import { GraphqlClient, GraphqlQuery, GraphqlVariables } from '../../core/services/graphql';
-import { GraphQLClient as GraphQLRequest } from 'graphql-request';
-import { createLogger } from '@/lib/logger';
+import {
+  GraphqlService,
+  GraphqlQuery,
+  GraphqlVariables,
+} from '@/services/graphql';
+import { GraphQLClient } from 'graphql-request';
+import { Logger } from '@/utils';
 
 export interface ContentfulGraphqlClientOptions {
   url: string;
@@ -8,14 +12,14 @@ export interface ContentfulGraphqlClientOptions {
   accessToken: string;
 }
 
-export class GraphqlRequestClient implements GraphqlClient {
-  private logger = createLogger('ContentfulGraphqlClient');
-  private client: GraphQLRequest;
+export class GraphqlClient implements GraphqlService {
+  private logger = new Logger('ContentfulGraphqlClient');
+  private client: GraphQLClient;
 
   constructor(options: ContentfulGraphqlClientOptions) {
     const url = `${options.url}/${options.spaceId}`;
     this.logger.debug('Creating GraphQLRequest client with url', url);
-    this.client = new GraphQLRequest(url, {
+    this.client = new GraphQLClient(url, {
       headers: {
         Authorization: `Bearer ${options.accessToken}`,
       },

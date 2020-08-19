@@ -1,5 +1,5 @@
-import { Logger } from '@/core/services/logger';
-import { LogLevel } from '@/core/value-objects/log-level';
+import { LoggerService } from '@/services/logger';
+import { LogLevel } from '@/value-objects/log-level';
 import chalk from 'chalk';
 
 interface LogOptions {
@@ -23,7 +23,7 @@ export interface LogClient {
   error: (...data: any) => void;
 }
 
-export class ConsoleLogger implements Logger {
+export class Logger implements LoggerService {
   private defaultLogMethod: LogMethod = LogMethod.log;
 
   constructor(

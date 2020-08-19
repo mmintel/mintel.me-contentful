@@ -1,9 +1,11 @@
+import { GreeterService } from '@/services/greeter';
+
 interface Loggable {
-  log: (message: string, ...data: any) => void,
+  log: (message: string, ...data: any) => void;
 }
 
-export class Greeter {
-  constructor(private logger: Loggable, private style: string) {}
+export class Greeter implements GreeterService {
+  constructor(private logger: Loggable) {}
 
   greet() {
     this.logger.log(
@@ -16,7 +18,7 @@ export class Greeter {
       Actually you can even have a look at the source code over
       at Github on https://github.com/mmintel/mintel.me.
     `,
-      this.style,
+      'color: green; background-color: #333; font-family: monospace;',
     );
   }
 }

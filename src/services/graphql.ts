@@ -8,7 +8,7 @@ export interface GraphQLError {
   path: string[]
 }
 
-export interface GraphqlClient {
+export interface GraphqlService {
   request<T>(query: GraphqlQuery, variables?: GraphqlVariables): Promise<T>,
 }
 

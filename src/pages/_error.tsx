@@ -2,9 +2,9 @@ import React from 'react';
 import NextErrorComponent, { ErrorProps } from 'next/error';
 import * as Sentry from '@sentry/node';
 import { NextPageContext } from 'next';
-import { Logger, createLogger } from '@/lib/logger';
+import { Logger } from '@/adapters';
 
-const logger: Logger = createLogger('ErrorPage');
+const logger = new Logger('ErrorPage');
 
 interface CustomErrorProps {
   statusCode: number,

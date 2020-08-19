@@ -1,18 +1,10 @@
-import { ApiClient } from './api';
-import { GraphqlClient } from '@/lib/graphql';
-import { Page } from '@/core/value-objects/page';
-import { PageTeaser } from '@/core/value-objects/page-teaser';
-import { NavigationItem } from '@/core/value-objects/navigation-item';
-import { Page } from '@/core/value-objects/page';
-import { PageTeaser } from '@/core/value-objects/page-teaser';
-import { NavigationItem } from '@/core/value-objects/navigation-item';
-import { NavigationName } from '@/core/value-objects/navigation-name';
-import { Locale } from '@/core/value-objects/locale';
-import { createLogger } from '../logger';
-import NavigationItemsQuery from '@/graphql/queries/navigation-items.gql';
-import NavigationQuery from '@/graphql/queries/navigation.gql';
-import PageQuery from '@/graphql/queries/page.gql';
-import AllPagesQuery from '@/graphql/queries/all-pages.gql';
+import { GraphqlService, ApiService } from '@/services';
+import { Locale, NavigationName, PageTeaser } from '@/value-objects';
+import { Logger } from '@/utils';
+import NavigationItemsQuery from '@/graphql/navigation-items.gql';
+import NavigationQuery from '@/graphql/navigation.gql';
+import PageQuery from '@/graphql/page.gql';
+import AllPagesQuery from '@/graphql/all-pages.gql';
 
 interface Json {
   [key: string]: any;
@@ -80,13 +72,13 @@ export class PageRequestError extends Error {
   name = 'PageRequestError';
 }
 
-export class ContentfulApiClient implements ApiClient {
-  private logger = createLogger('ContentfulApiClient');
+export class ApiClient implements ApiService {
+  private logger = new Logger('ContentfulApiClient');
 
-  constructor(private graphqlClient: GraphqlClient) {}
+  constructor(private graphqlService: GraphqlService) {}
 
   async getNavigation(name: NavigationName, locale: Locale) {
-    const response = await this.graphqlClient.request<
+    const response = await this.graphqlService.request<
       ContentfulNavigationResponse
     >(NavigationQuery, {
       name,
@@ -103,6 +95,7 @@ export class ContentfulApiClient implements ApiClient {
       locale,
     );
 
+    // TODO controller should instantiate a Navigation, Navigation should be an entity
     return {
       id: navigation.sys.id,
       createdAt: navigation.sys.firstPublishedAt,
@@ -114,12 +107,13 @@ export class ContentfulApiClient implements ApiClient {
   }
 
   async getPage(slug: string, locale: Locale) {
-    const response = await this.graphqlClient.request<
+    const response = await this.graphqlService.request<
       ContentfulPageCollection<ContentfulPage>
     >(PageQuery, { slug, locale });
 
     const page = response.pageCollection.items[0];
 
+    // TODO controller should instantiate a Page, Page should be an entity
     return {
       id: page.sys.id,
       createdAt: page.sys.firstPublishedAt,
@@ -131,16 +125,16 @@ export class ContentfulApiClient implements ApiClient {
     };
   }
 
-  async getAllPages(locale: Locale) {
-    const response = await this.graphqlClient.request<
-      ContentfulPageCollection<Pick<Cons;
+  async getAllPages(locale: Locale): Promise<PageTeaser[]> {
+    const response = await this.graphqlService.request<
+      ContentfulPageCollection<Pick<ContentfulPage, 'slug'>>
+    >(AllPagesQuery, { locale });
+
+    return response.pageCollection.items;
   }
 
-  privturn response.pageCollection.itemate async getNavigationItemsByID(
-    ids: string[],
-    locale: Locale,
-  ) {
-    const response = await this.graphqlClient.request<
+  private async getNavigationItemsByID(ids: string[], locale: Locale) {
+    const response = await this.graphqlService.request<
       ContentfulNavigationItemsResponse
     >(NavigationItemsQuery, { locale, ids });
 

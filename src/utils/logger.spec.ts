@@ -1,5 +1,5 @@
-import { LogLevel } from '../../core/services/logger';
-import { ConsoleLogger, LogClient } from './console';
+import { LogLevel } from '@/value-objects/log-level';
+import { Logger, LogClient } from './logger';
 
 const mockConsole: LogClient = {
   log: jest.fn(),
@@ -10,9 +10,7 @@ const mockConsole: LogClient = {
 
 describe('ConsoleLogger', () => {
   it('initializes without crashing', () => {
-    expect(
-      () => new ConsoleLogger('Foo', LogLevel.info, mockConsole),
-    ).not.toThrow();
+    expect(() => new Logger('Foo', LogLevel.info, mockConsole)).not.toThrow();
   });
 
   describe('trace', () => {
@@ -21,11 +19,7 @@ describe('ConsoleLogger', () => {
         'should not log if LogLevel is "%s"',
         (level: unknown) => {
           expect(mockConsole.log).not.toHaveBeenCalled();
-          const logger = new ConsoleLogger(
-            'Foo',
-            level as LogLevel,
-            mockConsole,
-          );
+          const logger = new Logger('Foo', level as LogLevel, mockConsole);
           logger.trace('bar');
           expect(mockConsole.log).not.toHaveBeenCalled();
         },
@@ -35,7 +29,7 @@ describe('ConsoleLogger', () => {
     describe('when LogLevel matches', () => {
       it('should log if LogLevel is "trace"', () => {
         expect(mockConsole.log).not.toHaveBeenCalled();
-        const logger = new ConsoleLogger('Foo', LogLevel.trace, mockConsole);
+        const logger = new Logger('Foo', LogLevel.trace, mockConsole);
         logger.trace('bar');
         expect(mockConsole.log).toHaveBeenCalledTimes(1);
         expect(mockConsole.log).toHaveBeenCalledWith(
@@ -52,11 +46,7 @@ describe('ConsoleLogger', () => {
         'should not log if LogLevel is "%s"',
         (level: unknown) => {
           expect(mockConsole.log).not.toHaveBeenCalled();
-          const logger = new ConsoleLogger(
-            'Foo',
-            level as LogLevel,
-            mockConsole,
-          );
+          const logger = new Logger('Foo', level as LogLevel, mockConsole);
           logger.trace('bar');
           expect(mockConsole.log).not.toHaveBeenCalled();
         },
@@ -70,11 +60,7 @@ describe('ConsoleLogger', () => {
         'should not log if LogLevel is "%s"',
         (level: unknown) => {
           expect(mockConsole.log).not.toHaveBeenCalled();
-          const logger = new ConsoleLogger(
-            'Foo',
-            level as LogLevel,
-            mockConsole,
-          );
+          const logger = new Logger('Foo', level as LogLevel, mockConsole);
           logger.debug('bar');
           expect(mockConsole.log).not.toHaveBeenCalled();
         },
@@ -84,7 +70,7 @@ describe('ConsoleLogger', () => {
     describe('when LogLevel matches', () => {
       it('should log if LogLevel is "debug"', () => {
         expect(mockConsole.log).not.toHaveBeenCalled();
-        const logger = new ConsoleLogger('Foo', LogLevel.debug, mockConsole);
+        const logger = new Logger('Foo', LogLevel.debug, mockConsole);
         logger.debug('bar');
         expect(mockConsole.log).toHaveBeenCalledTimes(1);
         expect(mockConsole.log).toHaveBeenCalledWith(
@@ -101,11 +87,7 @@ describe('ConsoleLogger', () => {
         'should not log if LogLevel is "%s"',
         (level: unknown) => {
           expect(mockConsole.log).not.toHaveBeenCalled();
-          const logger = new ConsoleLogger(
-            'Foo',
-            level as LogLevel,
-            mockConsole,
-          );
+          const logger = new Logger('Foo', level as LogLevel, mockConsole);
           logger.debug('bar');
           expect(mockConsole.log).not.toHaveBeenCalled();
         },
@@ -119,11 +101,7 @@ describe('ConsoleLogger', () => {
         'should not log if LogLevel is "%s"',
         (level: unknown) => {
           expect(mockConsole.log).not.toHaveBeenCalled();
-          const logger = new ConsoleLogger(
-            'Foo',
-            level as LogLevel,
-            mockConsole,
-          );
+          const logger = new Logger('Foo', level as LogLevel, mockConsole);
           logger.info('bar');
           expect(mockConsole.log).not.toHaveBeenCalled();
         },
@@ -133,7 +111,7 @@ describe('ConsoleLogger', () => {
     describe('when LogLevel matches', () => {
       it('should log if LogLevel is "info"', () => {
         expect(mockConsole.log).not.toHaveBeenCalled();
-        const logger = new ConsoleLogger('Foo', LogLevel.info, mockConsole);
+        const logger = new Logger('Foo', LogLevel.info, mockConsole);
         logger.info('bar');
         expect(mockConsole.log).toHaveBeenCalledTimes(1);
         expect(mockConsole.log).toHaveBeenCalledWith(
@@ -150,11 +128,7 @@ describe('ConsoleLogger', () => {
         'should not log if LogLevel is "%s"',
         (level: unknown) => {
           expect(mockConsole.log).not.toHaveBeenCalled();
-          const logger = new ConsoleLogger(
-            'Foo',
-            level as LogLevel,
-            mockConsole,
-          );
+          const logger = new Logger('Foo', level as LogLevel, mockConsole);
           logger.info('bar');
           expect(mockConsole.log).not.toHaveBeenCalled();
         },
@@ -168,11 +142,7 @@ describe('ConsoleLogger', () => {
         'should not log if LogLevel is "%s"',
         (level: unknown) => {
           expect(mockConsole.warn).not.toHaveBeenCalled();
-          const logger = new ConsoleLogger(
-            'Foo',
-            level as LogLevel,
-            mockConsole,
-          );
+          const logger = new Logger('Foo', level as LogLevel, mockConsole);
           logger.warn('bar');
           expect(mockConsole.warn).not.toHaveBeenCalled();
         },
@@ -182,7 +152,7 @@ describe('ConsoleLogger', () => {
     describe('when LogLevel matches', () => {
       it('should log if LogLevel is "warn"', () => {
         expect(mockConsole.warn).not.toHaveBeenCalled();
-        const logger = new ConsoleLogger('Foo', LogLevel.warn, mockConsole);
+        const logger = new Logger('Foo', LogLevel.warn, mockConsole);
         logger.warn('bar');
         expect(mockConsole.warn).toHaveBeenCalledTimes(1);
         expect(mockConsole.warn).toHaveBeenCalledWith(
@@ -199,11 +169,7 @@ describe('ConsoleLogger', () => {
         'should not log if LogLevel is "%s"',
         (level: unknown) => {
           expect(mockConsole.warn).not.toHaveBeenCalled();
-          const logger = new ConsoleLogger(
-            'Foo',
-            level as LogLevel,
-            mockConsole,
-          );
+          const logger = new Logger('Foo', level as LogLevel, mockConsole);
           logger.warn('bar');
           expect(mockConsole.warn).not.toHaveBeenCalled();
         },
@@ -217,11 +183,7 @@ describe('ConsoleLogger', () => {
         'should not log if LogLevel is "%s"',
         (level: unknown) => {
           expect(mockConsole.error).not.toHaveBeenCalled();
-          const logger = new ConsoleLogger(
-            'Foo',
-            level as LogLevel,
-            mockConsole,
-          );
+          const logger = new Logger('Foo', level as LogLevel, mockConsole);
           logger.error('bar');
           expect(mockConsole.error).not.toHaveBeenCalled();
         },
@@ -231,7 +193,7 @@ describe('ConsoleLogger', () => {
     describe('when LogLevel matches', () => {
       it('should log if LogLevel is "error"', () => {
         expect(mockConsole.error).not.toHaveBeenCalled();
-        const logger = new ConsoleLogger('Foo', LogLevel.error, mockConsole);
+        const logger = new Logger('Foo', LogLevel.error, mockConsole);
         logger.error('bar');
         expect(mockConsole.error).toHaveBeenCalledTimes(1);
         expect(mockConsole.error).toHaveBeenCalledWith(
@@ -248,11 +210,7 @@ describe('ConsoleLogger', () => {
         'should not log if LogLevel is "%s"',
         (level: unknown) => {
           expect(mockConsole.error).not.toHaveBeenCalled();
-          const logger = new ConsoleLogger(
-            'Foo',
-            level as LogLevel,
-            mockConsole,
-          );
+          const logger = new Logger('Foo', level as LogLevel, mockConsole);
           logger.error('bar');
           expect(mockConsole.error).not.toHaveBeenCalled();
         },
@@ -266,11 +224,7 @@ describe('ConsoleLogger', () => {
         'should not log if LogLevel is "%s"',
         (level: unknown) => {
           expect(mockConsole.error).not.toHaveBeenCalled();
-          const logger = new ConsoleLogger(
-            'Foo',
-            level as LogLevel,
-            mockConsole,
-          );
+          const logger = new Logger('Foo', level as LogLevel, mockConsole);
           logger.fatal('bar');
           expect(mockConsole.error).not.toHaveBeenCalled();
         },
@@ -280,7 +234,7 @@ describe('ConsoleLogger', () => {
     describe('when LogLevel matches', () => {
       it('should log if LogLevel is "fatal"', () => {
         expect(mockConsole.error).not.toHaveBeenCalled();
-        const logger = new ConsoleLogger('Foo', LogLevel.fatal, mockConsole);
+        const logger = new Logger('Foo', LogLevel.fatal, mockConsole);
         logger.fatal('bar');
         expect(mockConsole.error).toHaveBeenCalledTimes(1);
         expect(mockConsole.error).toHaveBeenCalledWith(
