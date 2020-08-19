@@ -8,7 +8,7 @@ import {
   GetStaticPaths,
 } from 'next';
 import MainNavigation from '@/components/layout/main-navigation';
-import { Greeter } from '@/lib/greeter';
+import { Greeter } from '@/adapters/greeter/greeter';
 import { navigationService, pageService } from '@/services';
 import { Logger, createLogger } from '@/lib/logger';
 import { Locale } from '@/models';

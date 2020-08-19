@@ -1,4 +1,4 @@
-import { LogLevel } from './logger';
+import { LogLevel } from '../../core/services/logger';
 import { ConsoleLogger, LogClient } from './console';
 
 const mockConsole: LogClient = {

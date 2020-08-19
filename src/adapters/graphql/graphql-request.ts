@@ -1,6 +1,6 @@
-import { GraphqlClient, GraphqlQuery, GraphqlVariables } from './client';
+import { GraphqlClient, GraphqlQuery, GraphqlVariables } from '../../core/services/graphql';
 import { GraphQLClient as GraphQLRequest } from 'graphql-request';
-import { createLogger } from '../logger';
+import { createLogger } from '@/lib/logger';
 
 export interface ContentfulGraphqlClientOptions {
   url: string;
@@ -8,7 +8,7 @@ export interface ContentfulGraphqlClientOptions {
   accessToken: string;
 }
 
-export class ContentfulGraphqlClient implements GraphqlClient {
+export class GraphqlRequestClient implements GraphqlClient {
   private logger = createLogger('ContentfulGraphqlClient');
   private client: GraphQLRequest;
 

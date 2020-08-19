@@ -1,11 +1,12 @@
-import { Logger, LogLevel } from './logger';
+import { Logger } from '@/core/services/logger';
+import { LogLevel } from '@/core/value-objects/log-level';
 import chalk from 'chalk';
 
 interface LogOptions {
-  message: string,
-  data: any,
-  level: LogLevel,
-  method?: LogMethod,
+  message: string;
+  data: any;
+  level: LogLevel;
+  method?: LogMethod;
 }
 
 enum LogMethod {
@@ -16,10 +17,10 @@ enum LogMethod {
 }
 
 export interface LogClient {
-  log: (...data: any) => void,
-  info: (...data: any) => void,
-  warn: (...data: any) => void,
-  error: (...data: any) => void,
+  log: (...data: any) => void;
+  info: (...data: any) => void;
+  warn: (...data: any) => void;
+  error: (...data: any) => void;
 }
 
 export class ConsoleLogger implements Logger {
@@ -27,7 +28,7 @@ export class ConsoleLogger implements Logger {
 
   constructor(
     private name: string,
-    private level: LogLevel,
+    private level: LogLevel = process.env.LOG_LEVEL,
     private client: LogClient = console,
   ) {
     if (!level && level !== 0) {
