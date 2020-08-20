@@ -1,21 +1,30 @@
-import { GraphqlService, ApiService } from '@/services';
-import { Locale, NavigationName, PageTeaser } from '@/value-objects';
-import { Logger } from '@/utils';
+import { GraphqlService, ApiService } from '@/abstract/services';
+import {
+  Locale,
+  NavigationName,
+  PageTeaser,
+  JSONValue,
+  JSONObject,
+  JSONArray,
+} from '@/abstract/types';
+import { Logger } from '@/implementations/utils';
 import NavigationItemsQuery from '@/graphql/navigation-items.gql';
 import NavigationQuery from '@/graphql/navigation.gql';
 import PageQuery from '@/graphql/page.gql';
 import AllPagesQuery from '@/graphql/all-pages.gql';
 
-interface Json {
-  [key: string]: any;
-}
-
-interface Collection<T> {
+interface Collection<T extends JSONValue> extends JSONObject {
   items: T[];
 }
 
-interface ContentfulRecord {
+interface ContentfulRecord extends JSONObject {
   sys: ContentfulSystemData;
+}
+
+interface ContentfulSystemData extends JSONObject {
+  id: string;
+  firstPublishedAt: string;
+  publishedAt: string;
 }
 
 interface ContentfulNavigationResponse {
@@ -43,13 +52,7 @@ interface ContentfulNavigationItem extends ContentfulRecord {
   };
 }
 
-interface ContentfulSystemData {
-  id: string;
-  firstPublishedAt: string;
-  publishedAt: string;
-}
-
-interface ContentfulPageCollection<T> {
+interface ContentfulPageCollection<T extends JSONValue> {
   pageCollection: Collection<T>;
 }
 
@@ -57,7 +60,7 @@ interface ContentfulPage extends ContentfulRecord {
   title: string;
   description: string;
   slug: string;
-  components: Json;
+  components: JSONArray;
 }
 
 export class NavigationRequestError extends Error {
@@ -88,22 +91,8 @@ export class ApiClient implements ApiService {
     this.logger.info('Received navigation response', response);
     const navigation = response.navigationCollection.items[0];
 
-    // this is a workaround for contentful limits, maybe we can remove this
-    // and add a limit to the NavigationQuery so contentful won't complain
-    const navigationItems = await this.getNavigationItemsByID(
-      navigation.itemsCollection.items.map(i => i.sys.id),
-      locale,
-    );
-
     // TODO controller should instantiate a Navigation, Navigation should be an entity
-    return {
-      id: navigation.sys.id,
-      createdAt: navigation.sys.firstPublishedAt,
-      updatedAt: navigation.sys.publishedAt,
-      title: navigation.title,
-      name: navigation.name as NavigationName,
-      items: navigationItems,
-    };
+    return navigation;
   }
 
   async getPage(slug: string, locale: Locale) {
@@ -114,18 +103,10 @@ export class ApiClient implements ApiService {
     const page = response.pageCollection.items[0];
 
     // TODO controller should instantiate a Page, Page should be an entity
-    return {
-      id: page.sys.id,
-      createdAt: page.sys.firstPublishedAt,
-      updatedAt: page.sys.publishedAt,
-      title: page.title,
-      description: page.description,
-      components: page.components,
-      slug: page.slug,
-    };
+    return page;
   }
 
-  async getAllPages(locale: Locale): Promise<PageTeaser[]> {
+  async getPageSlugs(locale: Locale) {
     const response = await this.graphqlService.request<
       ContentfulPageCollection<Pick<ContentfulPage, 'slug'>>
     >(AllPagesQuery, { locale });

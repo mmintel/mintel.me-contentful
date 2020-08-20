@@ -1,5 +1,5 @@
-import { Record, Navigation, NavigationName, Locale } from '@/value-objects';
-import { ApiService } from '@/services';
+import { Record, Navigation, NavigationName, Locale } from '@/abstract/types';
+import { ApiService } from '@/abstract/services';
 
 export class NavigationController {
   constructor(private apiService: ApiService) {}

@@ -2,9 +2,9 @@ import {
   GraphqlService,
   GraphqlQuery,
   GraphqlVariables,
-} from '@/services/graphql';
+} from '@/abstract/services/graphql';
 import { GraphQLClient } from 'graphql-request';
-import { Logger } from '@/utils';
+import { Logger } from '@/implementations/utils';
 
 export interface ContentfulGraphqlClientOptions {
   url: string;

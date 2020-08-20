@@ -1,4 +1,4 @@
-import { GreeterService } from '@/services/greeter';
+import { GreeterService } from '@/abstract/services/greeter';
 
 interface Loggable {
   log: (message: string, ...data: any) => void;

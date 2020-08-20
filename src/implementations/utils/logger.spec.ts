@@ -1,4 +1,4 @@
-import { LogLevel } from '@/value-objects/log-level';
+import { LogLevel } from '@/abstract/types/log-level';
 import { Logger, LogClient } from './logger';
 
 const mockConsole: LogClient = {

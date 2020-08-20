@@ -2,14 +2,14 @@ import React from 'react';
 import NextErrorComponent, { ErrorProps } from 'next/error';
 import * as Sentry from '@sentry/node';
 import { NextPageContext } from 'next';
-import { Logger } from '@/adapters';
+import { Logger } from '@/implementations/services';
 
 const logger = new Logger('ErrorPage');
 
 interface CustomErrorProps {
-  statusCode: number,
-  hasGetInitialPropsRun?: boolean,
-  err?: Error,
+  statusCode: number;
+  hasGetInitialPropsRun?: boolean;
+  err?: Error;
 }
 
 const CustomError = ({
@@ -28,7 +28,9 @@ const CustomError = ({
   return <NextErrorComponent statusCode={statusCode} />;
 };
 
-CustomError.getInitialProps = async (ctx: NextPageContext): Promise<CustomErrorProps> => {
+CustomError.getInitialProps = async (
+  ctx: NextPageContext,
+): Promise<CustomErrorProps> => {
   const errorInitialProps: ErrorProps = await NextErrorComponent.getInitialProps(
     ctx,
   );

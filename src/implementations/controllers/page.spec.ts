@@ -1,6 +1,6 @@
-import { ApiService } from '@/services';
+import { ApiService } from '@/abstract/services';
 import { PageController } from './page';
-import { Locale } from '@/value-objects';
+import { Locale } from '@/abstract/types';
 
 // TODO move to __mocks__
 const mockApi: ApiService = {

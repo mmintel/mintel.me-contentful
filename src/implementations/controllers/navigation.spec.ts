@@ -1,5 +1,5 @@
-import { ApiService } from '@/services';
-import { Locale } from '@/value-objects';
+import { ApiService } from '@/abstract/services';
+import { Locale } from '@/abstract/types';
 import { NavigationController } from './navigation';
 
 // TODO move to __mocks__

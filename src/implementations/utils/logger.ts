@@ -1,5 +1,5 @@
-import { LoggerService } from '@/services/logger';
-import { LogLevel } from '@/value-objects/log-level';
+import { LoggerService } from '@/abstract/utils/logger';
+import { LogLevel } from '@/abstract/types/log-level';
 import chalk from 'chalk';
 
 interface LogOptions {

@@ -1,4 +1,4 @@
-import { Component } from './component';
+import { Component } from '../types/component';
 import { Record } from './record';
 
 export interface Page extends Record {

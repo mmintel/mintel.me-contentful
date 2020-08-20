@@ -1,5 +1,5 @@
-import { ApiService } from '@/services';
-import { Page, Locale, PageTeaser } from '@/value-objects';
+import { ApiService } from '@/abstract/services';
+import { Page, Locale, PageTeaser } from '@/abstract/types';
 
 export class PageController {
   constructor(private apiClient: ApiService) {}
