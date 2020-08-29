@@ -1,4 +1,4 @@
-export interface NavigationItem {
+export interface NavigationItemEntity {
   id: string;
   title: string;
   internal: boolean;
