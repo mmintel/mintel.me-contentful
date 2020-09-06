@@ -1,4 +1,4 @@
-import { NavigationName } from '@/core/domains/navigation/gateways';
+import { NavigationName } from '@/core/domain/NavigationName';
 
 export interface GetNavigationRequestDTO {
   name: NavigationName;

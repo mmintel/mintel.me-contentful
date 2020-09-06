@@ -1,8 +1,5 @@
-import {
-  NavigationGateway,
-  NavigationName,
-} from '@/core/domains/navigation/gateways';
-import { Navigation } from '@/core/domains/navigation/entities';
+import { NavigationGateway, NavigationName } from '@/core/gateways';
+import { Navigation } from '@/core/domain';
 
 export class ContentfulNavigationGateway implements NavigationGateway {
   async getNavigation(name: NavigationName): Promise<Navigation | undefined> {
