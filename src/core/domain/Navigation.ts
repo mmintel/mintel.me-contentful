@@ -1,10 +1,12 @@
-import { NavigationItem } from './NavigationItem';
-
 interface NavigationProps {
   id: string;
   title: string;
   name: string;
   items: NavigationItem[];
+}
+
+export enum NavigationName {
+  MAIN_NAVIGATION = 'main_navigation',
 }
 
 export class Navigation {
@@ -21,4 +23,16 @@ export class Navigation {
   get name(): string {
     return this.props.id;
   }
+}
+
+export interface NavigationItem {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  title: string;
+  internal: boolean;
+  url?: string;
+  page?: {
+    slug: string;
+  };
 }

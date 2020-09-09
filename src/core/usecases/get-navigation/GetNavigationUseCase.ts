@@ -1,7 +1,7 @@
 import { UseCase } from '@/core/definitions/UseCase';
 import { Result } from '@/core/definitions/Result';
 import { Navigation } from '@/core/domain/Navigation';
-import { NavigationName } from '@/core/domain/NavigationName';
+import { NavigationName } from '@/core/domain/Navigation';
 import { NavigationGateway } from '@/core/gateways';
 import { NavigationNotFoundError } from './NavigationNotFoundError';
 
