@@ -2,7 +2,7 @@ import React from 'react';
 import NextErrorComponent, { ErrorProps } from 'next/error';
 import * as Sentry from '@sentry/node';
 import { NextPageContext } from 'next';
-import { Logger } from '@/implementations/services';
+import { Logger } from '@/old/implementations/services';
 
 const logger = new Logger('ErrorPage');
 

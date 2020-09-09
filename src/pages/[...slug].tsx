@@ -8,13 +8,13 @@ import {
   GetStaticPaths,
 } from 'next';
 import MainNavigation from '@/components/layout/main-navigation';
-import { Greeter } from '@/implementations/services/greeter';
+import { Greeter } from '@/old/implementations/services/greeter';
 import {
   navigationController,
   pageController,
-} from '@/implementations/controllers';
-import { Logger } from '@/implementations/utils/logger';
-import { Locale } from '@/abstract/types';
+} from '@/old/implementations/controllers';
+import { Logger } from '@/old/implementations/utils/logger';
+import { Locale } from '@/old/abstract/types';
 
 if (process.env.NODE_ENV === 'production' && process.browser) {
   const greeter = new Greeter(console);
