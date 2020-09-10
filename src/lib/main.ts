@@ -1,26 +1,17 @@
-import { Locale } from '@/lib/core/definitions';
-import { LogLevel, LoggerFactory } from '@/lib/data/utils';
-import {
-  GraphqlService,
-  DataService,
-  GreeterService,
-} from '@/lib/core/services';
-import {
-  ContentfulDataService,
-  GraphqlRequestGraphqlService,
-  ConsoleGreeter,
-} from '@/lib/data/services';
+import { Locale } from '@/lib/shared/domain';
+import { LogLevel, LoggerFactory } from '@/lib/shared/utils';
+import { ContentfulService, GraphqlService } from '@/lib/shared/services';
 
 // import navigation feature
-import { GetNavigationUseCase } from '@/lib/core/features/navigation/usecases';
-import { NavigationGateway } from '@/lib/core/features/navigation/gateways';
-import { NavigationName } from '@/lib/core/features/navigation/domain';
-import { ContentfulNavigationGateway } from '@/lib/data/features/navigation/gateways';
+import { GetNavigationUseCase } from '@/lib/features/navigation/usecases';
+import { NavigationGateway } from '@/lib/features/navigation/gateways';
+import { NavigationName } from '@/lib/features/navigation/domain';
+import { ContentfulNavigationGateway } from '@/lib/features/navigation/gateways/implementations';
 
 // import page feature
-import { GetPageUseCase } from '@/lib/core/features/page/usecases';
-import { PageGateway } from '@/lib/core/features/page/gateways';
-import { ContentfulPageGateway } from '@/lib/data/features/page/gateways';
+import { GetPageUseCase } from '@/lib/features/page/usecases';
+import { PageGateway } from '@/lib/features/page/gateways';
+import { ContentfulPageGateway } from '@/lib/data/features/page/gateways/implementations';
 
 export class Main {
   // factories
@@ -28,8 +19,7 @@ export class Main {
 
   // services
   private graphqlService: GraphqlService;
-  private dataService: DataService;
-  private greeterService: GreeterService;
+  private contentfulService: ContentfulService;
 
   // page feature
   private pageGateway: PageGateway;
@@ -47,7 +37,7 @@ export class Main {
     );
 
     // setup services
-    this.graphqlService = new GraphqlRequestGraphqlService(
+    this.graphqlService = new GraphqlService(
       this.loggerFactory.create('GraphqlService'),
       {
         url: `${process.env.CONTENTFUL_API_URL!}/${process.env
@@ -55,20 +45,19 @@ export class Main {
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN!,
       },
     );
-    this.greeterService = new ConsoleGreeter(console);
-    this.dataService = new ContentfulDataService(this.graphqlService, locale);
+    this.contentfulService = new ContentfulService(this.graphqlService, locale);
 
     // setup page feature
     this.pageGateway = new ContentfulPageGateway(
       this.loggerFactory.create('PageGateway'),
-      this.dataService,
+      this.contentfulService,
     );
     this.getPageUseCase = new GetPageUseCase(this.pageGateway);
 
     // setup navigation feature
     this.navigationGateway = new ContentfulNavigationGateway(
       this.loggerFactory.create('NavigationGateway'),
-      this.dataService,
+      this.contentfulService,
     );
     this.getNavigationUseCase = new GetNavigationUseCase(
       this.navigationGateway,
@@ -77,7 +66,6 @@ export class Main {
 
   init() {
     return {
-      greet: () => this.greeterService.greet(),
       getPage: (slug: string) => this.getPageUseCase.execute({ slug }),
       getMainNavigation: () =>
         this.getNavigationUseCase.execute({
