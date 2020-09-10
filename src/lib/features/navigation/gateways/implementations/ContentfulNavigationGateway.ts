@@ -42,8 +42,6 @@ export class ContentfulNavigationGateway implements NavigationGateway {
     });
 
     if (!response) {
-      // TODO throw an error or return null?? mhmmmm
-      this.logger.error('WTF, no navigation.');
       throw new Error('No navigation found.');
     }
 

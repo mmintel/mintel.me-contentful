@@ -9,14 +9,15 @@ export class GetNavigationUseCase
   constructor(private navigationGateway: NavigationGateway) {}
 
   async execute(request: GetNavigationRequestDTO) {
-    const navigation = await this.navigationGateway.getNavigation(request.name);
-
-    if (!navigation) {
+    try {
+      const navigation = await this.navigationGateway.getNavigation(
+        request.name,
+      );
+      return Result.ok<Navigation>(navigation);
+    } catch (e) {
       return Result.fail<Navigation, NavigationNotFoundError>(
-        new NavigationNotFoundError('Could not find navigation.'),
+        new NavigationNotFoundError(e),
       );
     }
-
-    return Result.ok<Navigation>(navigation);
   }
 }
