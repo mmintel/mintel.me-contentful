@@ -1,5 +1,6 @@
+import config from '@/config';
 import { Locale } from '@/lib/shared/domain';
-import { LogLevel, LoggerFactory } from '@/lib/shared/utils';
+import { LoggerFactory } from '@/lib/shared/utils';
 import { ContentfulService, GraphqlService } from '@/lib/shared/services';
 
 // import navigation feature
@@ -11,7 +12,7 @@ import { ContentfulNavigationGateway } from '@/lib/features/navigation/gateways/
 // import page feature
 import { GetPageUseCase } from '@/lib/features/page/usecases';
 import { PageGateway } from '@/lib/features/page/gateways';
-import { ContentfulPageGateway } from '@/lib/data/features/page/gateways/implementations';
+import { ContentfulPageGateway } from '@/lib/features/page/gateways/implementations';
 
 export class Main {
   // factories
@@ -31,10 +32,7 @@ export class Main {
 
   constructor(locale: Locale) {
     // create factories
-    this.loggerFactory = new LoggerFactory(
-      LogLevel[process.env.LOG_LEVEL!],
-      console,
-    );
+    this.loggerFactory = new LoggerFactory(config.logLevel, console);
 
     // setup services
     this.graphqlService = new GraphqlService(

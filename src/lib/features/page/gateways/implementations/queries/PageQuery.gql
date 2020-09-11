@@ -5,15 +5,7 @@ query PageQuery($slug: String!, $locale: String!) {
       title
       description
       components {
-        links {
-          entries {
-            block {
-              sys {
-                id
-              }
-            }
-          }
-        }
+        json
       }
       sys {
         id

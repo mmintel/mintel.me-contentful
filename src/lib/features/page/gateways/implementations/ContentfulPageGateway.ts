@@ -1,20 +1,23 @@
 import { PageGateway } from '@/lib/features/page/gateways';
 import PageQuery from './queries/PageQuery.gql';
 import { Logger } from '@/lib/shared/utils';
-import { ContentfulService } from '@/lib/shared/services';
+import {
+  ContentfulService,
+  ContentfulCollection,
+  ContentfulRecord,
+} from '@/lib/shared/services';
+import { Page } from '../../domain';
 
 interface ContentfulPageResponse {
-  pageCollection: {
-    items: ContentfulPage[];
-  };
+  pageCollection: ContentfulCollection<ContentfulPage>;
 }
 
-interface ContentfulPage {
+interface ContentfulPage extends ContentfulRecord {
   id: string;
-  createdAt: string;
-  updatedAt: string;
   title: string;
-  name: string;
+  slug: string;
+  description: string;
+  components: any;
 }
 
 export class ContentfulPageGateway implements PageGateway {
@@ -31,13 +34,19 @@ export class ContentfulPageGateway implements PageGateway {
     });
 
     if (!response) {
-      this.logger.error('WTF, no page.');
       throw new Error('No page found.');
     }
 
     this.logger.debug('Received page response', response);
-    const page = response.pageCollection.items[0];
+    const rawPage = response.pageCollection.items[0];
+    const page = new Page({
+      id: rawPage.sys.id,
+      description: rawPage.description,
+      slug: rawPage.slug,
+      title: rawPage.title,
+      components: rawPage.components,
+    });
 
-    return new PageModel(page);
+    return page;
   }
 }

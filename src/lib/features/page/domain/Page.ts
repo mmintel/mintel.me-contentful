@@ -3,6 +3,7 @@ interface PageProps {
   title: string;
   slug: string;
   description: string;
+  components: any;
 }
 
 export class Page {
@@ -22,5 +23,9 @@ export class Page {
 
   get description(): string {
     return this.props.description;
+  }
+
+  get components(): any {
+    return this.props.components;
   }
 }
