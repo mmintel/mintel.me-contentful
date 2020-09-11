@@ -1,3 +1,3 @@
 export enum NavigationName {
-  MAIN_NAVIGATION = 'main_navigation',
+  MAIN_NAVIGATION = 'main-navigation',
 }
