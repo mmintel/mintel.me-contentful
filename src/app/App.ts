@@ -1,20 +1,24 @@
-import config from '@/config';
-import { Locale } from '@/lib/shared/domain';
-import { LoggerFactory } from '@/lib/shared/utils';
-import { ContentfulService, GraphqlService } from '@/lib/shared/services';
+import config from '@/app/config';
+import { Locale } from '@/app/shared/domain';
+import { LoggerFactory } from '@/app/shared/utils';
+import { ContentfulService, GraphqlService } from '@/app/shared/services';
 
 // import navigation feature
-import { GetNavigationUseCase } from '@/lib/features/navigation/usecases';
-import { NavigationGateway } from '@/lib/features/navigation/gateways';
-import { NavigationName } from '@/lib/features/navigation/domain';
-import { ContentfulNavigationGateway } from '@/lib/features/navigation/gateways/implementations';
+import { GetNavigationUseCase } from '@/app/features/navigation/usecases';
+import { NavigationGateway } from '@/app/features/navigation/gateways';
+import { NavigationName } from '@/app/features/navigation/domain';
+import { ContentfulNavigationGateway } from '@/app/features/navigation/gateways/implementations';
 
 // import page feature
-import { GetPageUseCase } from '@/lib/features/page/usecases';
-import { PageGateway } from '@/lib/features/page/gateways';
-import { ContentfulPageGateway } from '@/lib/features/page/gateways/implementations';
+import { GetPageUseCase } from '@/app/features/page/usecases';
+import { PageGateway } from '@/app/features/page/gateways';
+import { ContentfulPageGateway } from '@/app/features/page/gateways/implementations';
 
-export class Main {
+interface AppOptions {
+  locale: Locale;
+}
+
+export class App {
   // factories
   private loggerFactory: LoggerFactory;
 
@@ -30,7 +34,7 @@ export class Main {
   private navigationGateway: NavigationGateway;
   private getNavigationUseCase: GetNavigationUseCase;
 
-  constructor(locale: Locale) {
+  constructor(options: AppOptions) {
     // create factories
     this.loggerFactory = new LoggerFactory(config.logLevel, console);
 
@@ -38,12 +42,14 @@ export class Main {
     this.graphqlService = new GraphqlService(
       this.loggerFactory.create('GraphqlService'),
       {
-        url: `${process.env.CONTENTFUL_API_URL!}/${process.env
-          .CONTENTFUL_SPACE_ID!}`,
-        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN!,
+        url: `${config.contentfulURL}/${config.contentfulSpaceId}`,
+        accessToken: config.contentfulAccessToken,
       },
     );
-    this.contentfulService = new ContentfulService(this.graphqlService, locale);
+    this.contentfulService = new ContentfulService(
+      this.graphqlService,
+      options.locale,
+    );
 
     // setup page feature
     this.pageGateway = new ContentfulPageGateway(
@@ -64,6 +70,7 @@ export class Main {
 
   init() {
     return {
+      createLogger: (name: string) => this.loggerFactory.create(name),
       getPage: (slug: string) => this.getPageUseCase.execute({ slug }),
       getMainNavigation: () =>
         this.getNavigationUseCase.execute({

@@ -1,5 +1,5 @@
-import { Locale } from '@/lib/shared/domain';
-import { GraphqlService, GraphqlQuery } from '@/lib/shared/services';
+import { Locale } from '@/app/shared/domain';
+import { GraphqlService, GraphqlQuery } from '@/app/shared/services';
 
 export interface ContentfulRecord {
   sys: {

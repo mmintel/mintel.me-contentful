@@ -1,9 +1,9 @@
-import { Logger } from '@/lib/shared/utils';
+import { Logger } from '@/app/shared/utils';
 import {
   ContentfulService,
   ContentfulCollection,
   ContentfulRecord,
-} from '@/lib/shared/services';
+} from '@/app/shared/services';
 
 import { NavigationGateway } from '..';
 import { Navigation, NavigationName } from '../../domain';

@@ -1,71 +1,58 @@
 import React from 'react';
 import PageTemplate from '@/components/templates/page';
-import {
-  NextPage,
-  GetStaticProps,
-  GetStaticPropsContext,
-  InferGetStaticPropsType,
-  GetStaticPaths,
-} from 'next';
+import { NextPage } from 'next';
 import MainNavigation from '@/components/layout/main-navigation';
-import { Greeter } from '@/old/implementations/services/greeter';
-import {
-  navigationController,
-  pageController,
-} from '@/old/implementations/controllers';
-import { Logger } from '@/old/implementations/utils/logger';
-import { Locale } from '@/old/abstract/types';
+import { App } from '@/app/App';
+import { Locale } from '@/app/shared/domain';
+import { Navigation } from '@/app/features/navigation/domain';
+import { Page } from '@/app/features/page/domain';
+import { QueryParser } from '@/utils/query-parser';
 
-if (process.env.NODE_ENV === 'production' && process.browser) {
-  const greeter = new Greeter(console);
-  greeter.greet();
+interface PageViewProps {
+  mainNavigation: Navigation;
+  page: Page;
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    paths: ['/about'],
-    fallback: false,
-  };
-};
-
-export const getStaticProps: GetStaticProps = async ({
-  params,
-}: GetStaticPropsContext) => {
-  const logger: Logger = new Logger('PageView');
-  let slug = 'home';
-
-  if (params?.slug && typeof params.slug === 'string') {
-    slug = params.slug;
-  } else if (params?.slug && Array.isArray(params.slug)) {
-    slug = params.slug.join('/');
-  }
-
-  logger.info('Requesting pageService with', slug);
-  const page = await pageController.getPage(slug, Locale.DE);
-  logger.info('Received page', page);
-
-  logger.info('Requesting mainNavigation...');
-  const mainNavigation = await navigationController.getMainNavigation(
-    Locale.DE,
-  );
-  logger.info('Received mainNavigation', mainNavigation);
-
-  return {
-    props: {
-      mainNavigation,
-      page,
-    },
-  };
-};
-
-const PageView: NextPage = ({
+const PageView: NextPage<PageViewProps | undefined> = ({
   mainNavigation,
   page,
-}: InferGetStaticPropsType<typeof getStaticProps>) => (
+}) => (
   <PageTemplate
-    before={<MainNavigation navigation={mainNavigation.data} />}
-    page={page.data}
+    before={<MainNavigation navigation={mainNavigation} />}
+    page={page}
   />
 );
+
+PageView.getInitialProps = async ({ req, res, query }) => {
+  const app = new App({
+    locale: Locale.DE,
+  }).init();
+  const logger = app.createLogger('PageView');
+  const queryParser = new QueryParser(query);
+  const slug = queryParser.getSlug();
+
+  const page = await app.getPage(slug);
+  const mainNavigation = await app.getMainNavigation();
+
+  if (res && (mainNavigation.isError || page.isError)) {
+    if (mainNavigation.isError) {
+      logger.error(
+        'Error receiving mainNavigation',
+        mainNavigation.getError()?.message!,
+      );
+    } else if (page.isError) {
+      logger.error('Error receiving page', page.getError()?.message!);
+    }
+
+    res.statusCode = 500;
+    res.end('Whoooops, something went wrong.');
+    return;
+  }
+
+  return {
+    mainNavigation: mainNavigation.getValue(),
+    page: page.getValue(),
+  };
+};
 
 export default PageView;

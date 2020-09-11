@@ -1,4 +1,4 @@
-import { UseCase, Result } from '@/lib/shared/core';
+import { UseCase, Result } from '@/app/shared/core';
 import { Page } from '../domain';
 import { PageGateway } from '../gateways';
 import { PageNotFoundError } from './PageNotFoundError';

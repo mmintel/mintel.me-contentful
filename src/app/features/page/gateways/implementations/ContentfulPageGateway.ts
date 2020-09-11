@@ -1,11 +1,11 @@
-import { PageGateway } from '@/lib/features/page/gateways';
+import { PageGateway } from '@/app/features/page/gateways';
 import PageQuery from './queries/PageQuery.gql';
-import { Logger } from '@/lib/shared/utils';
+import { Logger } from '@/app/shared/utils';
 import {
   ContentfulService,
   ContentfulCollection,
   ContentfulRecord,
-} from '@/lib/shared/services';
+} from '@/app/shared/services';
 import { Page } from '../../domain';
 
 interface ContentfulPageResponse {

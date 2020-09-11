@@ -1,4 +1,4 @@
-import { UseCase, Result } from '@/lib/shared/core';
+import { UseCase, Result } from '@/app/shared/core';
 import { Navigation } from '../../domain';
 import { NavigationGateway } from '../../gateways';
 import { GetNavigationRequestDTO } from './GetNavigationRequestDTO';

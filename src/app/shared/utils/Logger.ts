@@ -67,7 +67,7 @@ export class Logger implements ILogger {
       5: chalk.red,
       6: chalk.red,
     };
-    const formattedName = chalk.blueBright(`[${this.name}]`);
+    const formattedName = messageColors[level](`[${this.name}]`);
     const formattedMessage = messageColors[level](message);
     const logMethod = method || this.defaultLogMethod;
 

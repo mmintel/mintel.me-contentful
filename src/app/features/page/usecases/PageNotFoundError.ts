@@ -1,3 +1,3 @@
-import { UseCaseError } from '@/lib/shared/core';
+import { UseCaseError } from '@/app/shared/core';
 
 export class PageNotFoundError extends UseCaseError {}

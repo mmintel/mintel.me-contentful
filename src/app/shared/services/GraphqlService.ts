@@ -1,6 +1,6 @@
 import { GraphQLClient } from 'graphql-request';
 import { DocumentNode } from 'graphql/language/ast';
-import { Logger } from '@/lib/shared/utils';
+import { Logger } from '@/app/shared/utils';
 
 export type GraphqlQuery = string | DocumentNode;
 export type GraphqlVariables = {

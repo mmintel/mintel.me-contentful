@@ -1,4 +1,4 @@
-import { Page } from '@/lib/features/page/domain';
+import { Page } from '@/app/features/page/domain';
 
 export interface PageGateway {
   getPage(slug: string): Promise<Page>;
