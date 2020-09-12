@@ -9,19 +9,7 @@ import {
 import MainNavigation from '@/components/layout/main-navigation';
 import { App } from '@/app/App';
 import { Locale } from '@/app/shared/domain';
-import { Navigation } from '@/app/features/navigation/domain';
-import { Page } from '@/app/features/page/domain';
-import { QueryParser } from '@/utils/query-parser';
-
-const PageView: NextPage = ({
-  mainNavigation,
-  page,
-}: InferGetStaticPropsType<typeof getStaticProps>) => (
-  <PageTemplate
-    before={<MainNavigation navigation={mainNavigation} />}
-    page={page}
-  />
-);
+import { QueryParser } from '@/utils/QueryParser';
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const app = new App({
@@ -36,13 +24,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const mainNavigation = await app.getMainNavigation();
 
   if (mainNavigation.isError || page.isError) {
-    if (mainNavigation.isError) {
+    if (mainNavigation.getError()) {
       logger.error(
         'Error receiving mainNavigation',
-        mainNavigation.getError()?.message!,
+        mainNavigation.getError().message,
       );
-    } else if (page.isError) {
-      logger.error('Error receiving page', page.getError()?.message!);
+    } else if (page.getError()) {
+      logger.error('Error receiving page', page.getError().message);
     }
     throw new Error('Whoooops, something went wrong.');
   }
@@ -61,5 +49,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
     fallback: false,
   };
 };
+
+const PageView: NextPage = ({
+  mainNavigation,
+  page,
+}: InferGetStaticPropsType<typeof getStaticProps>) => (
+  <PageTemplate
+    before={<MainNavigation navigation={mainNavigation} />}
+    page={page}
+  />
+);
 
 export default PageView;

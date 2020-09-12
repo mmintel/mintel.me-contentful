@@ -14,7 +14,7 @@
     "isolatedModules": true,
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
-    "noImplicitReturns": true,
+    "noImplicitReturns": false,
     "jsx": "preserve",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,

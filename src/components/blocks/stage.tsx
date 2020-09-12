@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface StageProps {
-  title: string,
+  title: string;
 }
 
 const Stage = ({ title }: StageProps) => {
