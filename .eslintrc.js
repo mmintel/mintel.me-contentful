@@ -1,10 +1,6 @@
 module.exports = {
-  parser: "babel-eslint",
-  extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    "prettier",
-  ],
+  parser: 'babel-eslint',
+  extends: ['eslint:recommended', 'plugin:react/recommended', 'prettier'],
   plugins: ['react-hooks'],
   env: {
     node: true,
@@ -15,8 +11,8 @@ module.exports = {
   },
   settings: {
     react: {
-      version: "detect"
-    }
+      version: 'detect',
+    },
   },
   rules: {
     'react-hooks/rules-of-hooks': 'error',
@@ -24,34 +20,28 @@ module.exports = {
     'react/prop-types': 0,
     'react/display-name': 0,
   },
-  overrides: [{
-      files: ["**/*.e2e.js"],
-      plugins: ['cypress', "chai-friendly"],
+  overrides: [
+    {
+      files: ['**/*.e2e.js'],
+      plugins: ['cypress', 'chai-friendly'],
       extends: [
-        "plugin:cypress/recommended",
-        "plugin:chai-friendly/recommended"
+        'plugin:cypress/recommended',
+        'plugin:chai-friendly/recommended',
       ],
       env: {
-        "cypress/globals": true
-      }
+        'cypress/globals': true,
+      },
     },
     {
-      files: [
-        "**/*.spec.js",
-        "**/*.spec.jsx",
-        "**/*.spec.ts",
-        "**/*.spec.tsx",
-      ],
+      files: ['**/*.spec.js', '**/*.spec.jsx', '**/*.spec.ts', '**/*.spec.tsx'],
       plugins: ['jest'],
-      extends: [
-        'plugin:jest/recommended',
-      ],
+      extends: ['plugin:jest/recommended'],
       env: {
-        "jest/globals": true
-      }
+        'jest/globals': true,
+      },
     },
     {
-      files: ["**/*.ts", "**/*.tsx"],
+      files: ['**/*.ts', '**/*.tsx'],
       parser: '@typescript-eslint/parser',
       extends: [
         'plugin:@typescript-eslint/recommended',
@@ -59,17 +49,20 @@ module.exports = {
       ],
       rules: {
         '@typescript-eslint/no-explicit-any': 0,
-        '@typescript-eslint/member-delimiter-style': ['error', {
-          multiline: {
-            delimiter: "semicolon",
-            requireLast: true
+        '@typescript-eslint/member-delimiter-style': [
+          'error',
+          {
+            multiline: {
+              delimiter: 'semi',
+              requireLast: true,
+            },
+            singleline: {
+              delimiter: 'comma',
+              requireLast: false,
+            },
           },
-          singleline: {
-            delimiter: "comma",
-            requireLast: false
-          }
-        }],
-      }
-    }
-  ]
+        ],
+      },
+    },
+  ],
 };
