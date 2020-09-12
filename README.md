@@ -3,7 +3,7 @@ Personal website of Marc Mintel.
 
 ## 🏆 Badges
 ### Essential
-![David](https://img.shields.io/david/mmintel/mintel.me) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mmintel/mintel.me/CI?label=ci) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mmintel/mintel.me/Security?label=security) [![codecov](https://codecov.io/gh/mmintel/mintel.me/branch/master/graph/badge.svg)](https://codecov.io/gh/mmintel/mintel.me)
+![David](https://img.shields.io/david/mmintel/mintel.me) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mmintel/mintel.me/CI?label=ci) [![codecov](https://codecov.io/gh/mmintel/mintel.me/branch/master/graph/badge.svg)](https://codecov.io/gh/mmintel/mintel.me)
 
 ### Code quality
  [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mmintel_mintel.me&metric=alert_status)](https://sonarcloud.io/dashboard?id=mmintel_mintel.me) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=mmintel_mintel.me&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=mmintel_mintel.me) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=mmintel_mintel.me&metric=security_rating)](https://sonarcloud.io/dashboard?id=mmintel_mintel.me)
