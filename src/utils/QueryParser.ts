@@ -3,7 +3,7 @@ import { ParsedUrlQuery } from 'querystring';
 export class QueryParser {
   constructor(private query?: ParsedUrlQuery) {}
 
-  getSlug() {
+  getSlug(): string {
     const query = this.query;
     let slug = 'home';
 

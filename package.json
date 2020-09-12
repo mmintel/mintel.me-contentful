@@ -45,7 +45,7 @@
     "graphql-request": "^3.0.0",
     "graphql-tag": "^2.11.0",
     "lodash": "^4.17.19",
-    "next": "^9.4.4",
+    "next": "^9.5.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "shallow-equal-object": "^1.1.1"
