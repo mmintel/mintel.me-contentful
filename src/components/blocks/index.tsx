@@ -5,18 +5,18 @@ import Gallery from './gallery';
 import Stage from './stage';
 
 interface BlocksProps {
-  blocks: Document,
+  blocks: Document;
 }
 
 interface Entries {
-  [key: string]: ReactNode,
+  [key: string]: ReactNode;
 }
 
 const options = {
   renderNode: {
     [BLOCKS.EMBEDDED_ENTRY]: (node: Block | Inline) => {
       const fields = node.data.target.fields;
-      const id = node.data.target.sys.contentType.sys.id;
+      const id = node.data.target.sys.id;
       const entries: Entries = {
         gallery: <Gallery {...fields} />,
         stage: <Stage {...fields} />,

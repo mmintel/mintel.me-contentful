@@ -2,14 +2,11 @@ import React from 'react';
 import NextErrorComponent, { ErrorProps } from 'next/error';
 import * as Sentry from '@sentry/node';
 import { NextPageContext } from 'next';
-import { Logger, createLogger } from '@/lib/logger';
-
-const logger: Logger = createLogger('ErrorPage');
 
 interface CustomErrorProps {
-  statusCode: number,
-  hasGetInitialPropsRun?: boolean,
-  err?: Error,
+  statusCode: number;
+  hasGetInitialPropsRun?: boolean;
+  err?: Error;
 }
 
 const CustomError = ({
@@ -21,14 +18,15 @@ const CustomError = ({
     // getInitialProps is not called in case of
     // https://github.com/vercel/next.js/issues/8592. As a workaround, we pass
     // err via _app.js so it can be captured
-    logger.error(err.message);
     Sentry.captureException(err);
   }
 
   return <NextErrorComponent statusCode={statusCode} />;
 };
 
-CustomError.getInitialProps = async (ctx: NextPageContext): Promise<CustomErrorProps> => {
+CustomError.getInitialProps = async (
+  ctx: NextPageContext,
+): Promise<CustomErrorProps> => {
   const errorInitialProps: ErrorProps = await NextErrorComponent.getInitialProps(
     ctx,
   );
@@ -45,7 +43,6 @@ CustomError.getInitialProps = async (ctx: NextPageContext): Promise<CustomErrorP
   }
 
   if (ctx.err) {
-    logger.error(ctx.err.message);
     Sentry.captureException(ctx.err);
     return customErrorInitialProps;
   }

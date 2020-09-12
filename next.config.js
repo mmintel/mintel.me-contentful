@@ -14,6 +14,12 @@ process.env.SENTRY_DSN = SENTRY_DSN
 
 module.exports = withSourceMaps({
   webpack: (config, options) => {
+    config.module.rules.push({
+      test: /\.(graphql|gql)$/,
+      exclude: /node_modules/,
+      loader: 'graphql-tag/loader',
+    })
+
     if (!options.isServer) {
       config.resolve.alias['@sentry/node'] = '@sentry/browser'
     }

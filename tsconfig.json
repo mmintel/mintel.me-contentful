@@ -14,7 +14,7 @@
     "isolatedModules": true,
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
-    "noImplicitReturns": true,
+    "noImplicitReturns": false,
     "jsx": "preserve",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -24,5 +24,11 @@
     }
   },
   "exclude": ["node_modules"],
-  "include": ["src/**/*.ts", "src/**/*.tsx", "environment.d.ts", "next-env.d.ts"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "graphql.d.ts",
+    "environment.d.ts",
+    "next-env.d.ts"
+  ]
 }
