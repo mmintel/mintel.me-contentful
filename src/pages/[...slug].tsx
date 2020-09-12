@@ -15,7 +15,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const app = new App({
     locale: Locale.DE,
   }).init();
-  const logger = app.createLogger('PageView');
 
   const queryParser = new QueryParser(params);
   const slug = queryParser.getSlug();
@@ -23,22 +22,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const page = await app.getPage(slug);
   const mainNavigation = await app.getMainNavigation();
 
-  if (mainNavigation.isError || page.isError) {
-    if (mainNavigation.getError()) {
-      logger.error(
-        'Error receiving mainNavigation',
-        mainNavigation.getError().message,
-      );
-    } else if (page.getError()) {
-      logger.error('Error receiving page', page.getError().message);
-    }
-    throw new Error('Whoooops, something went wrong.');
-  }
-
   return {
     props: {
-      mainNavigation: mainNavigation.getValue().toJson(),
-      page: page.getValue().toJson(),
+      mainNavigation: mainNavigation.toJson(),
+      page: page.toJson(),
     },
   };
 };
