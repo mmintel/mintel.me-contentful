@@ -1,7 +1,7 @@
 import { ParsedUrlQuery } from 'querystring';
 
 export class QueryParser {
-  constructor(private query: ParsedUrlQuery) {}
+  constructor(private query?: ParsedUrlQuery) {}
 
   getSlug() {
     const query = this.query;

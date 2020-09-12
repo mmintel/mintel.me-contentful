@@ -1,6 +1,11 @@
 import React from 'react';
 import PageTemplate from '@/components/templates/page';
-import { NextPage } from 'next';
+import {
+  GetStaticPaths,
+  NextPage,
+  GetStaticProps,
+  InferGetStaticPropsType,
+} from 'next';
 import MainNavigation from '@/components/layout/main-navigation';
 import { App } from '@/app/App';
 import { Locale } from '@/app/shared/domain';
@@ -8,33 +13,29 @@ import { Navigation } from '@/app/features/navigation/domain';
 import { Page } from '@/app/features/page/domain';
 import { QueryParser } from '@/utils/query-parser';
 
-interface PageViewProps {
-  mainNavigation: Navigation;
-  page: Page;
-}
-
-const PageView: NextPage<PageViewProps | undefined> = ({
+const PageView: NextPage = ({
   mainNavigation,
   page,
-}) => (
+}: InferGetStaticPropsType<typeof getStaticProps>) => (
   <PageTemplate
     before={<MainNavigation navigation={mainNavigation} />}
     page={page}
   />
 );
 
-PageView.getInitialProps = async ({ req, res, query }) => {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const app = new App({
     locale: Locale.DE,
   }).init();
   const logger = app.createLogger('PageView');
-  const queryParser = new QueryParser(query);
+
+  const queryParser = new QueryParser(params);
   const slug = queryParser.getSlug();
 
   const page = await app.getPage(slug);
   const mainNavigation = await app.getMainNavigation();
 
-  if (res && (mainNavigation.isError || page.isError)) {
+  if (mainNavigation.isError || page.isError) {
     if (mainNavigation.isError) {
       logger.error(
         'Error receiving mainNavigation',
@@ -43,15 +44,21 @@ PageView.getInitialProps = async ({ req, res, query }) => {
     } else if (page.isError) {
       logger.error('Error receiving page', page.getError()?.message!);
     }
-
-    res.statusCode = 500;
-    res.end('Whoooops, something went wrong.');
-    return;
+    throw new Error('Whoooops, something went wrong.');
   }
 
   return {
-    mainNavigation: mainNavigation.getValue(),
-    page: page.getValue(),
+    props: {
+      mainNavigation: mainNavigation.getValue().toJson(),
+      page: page.getValue().toJson(),
+    },
+  };
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: ['/about'],
+    fallback: false,
   };
 };
 

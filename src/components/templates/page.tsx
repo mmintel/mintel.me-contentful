@@ -1,10 +1,10 @@
 import React, { ReactNode } from 'react';
 import Head from 'next/head';
 import Blocks from '@/components/blocks';
-import { Page as PageModel } from '@/old/implementations/controllers/node_modules/@/models';
+import { Page } from '@/app/features/page/domain';
 
 interface PageTemplateProps {
-  page: PageModel;
+  page: Page;
   before?: ReactNode;
   after?: ReactNode;
 }
@@ -17,7 +17,7 @@ const PageTemplate: React.FC<PageTemplateProps> = ({ page, before, after }) => (
       <link rel="icon" href="/favicon.ico" />
     </Head>
     {before}
-    <main>{false && <Blocks blocks={page.components} />}</main>
+    <main>{page.components && <Blocks blocks={page.components} />}</main>
     {after}
   </div>
 );

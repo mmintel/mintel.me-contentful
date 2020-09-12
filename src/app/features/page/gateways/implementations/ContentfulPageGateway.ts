@@ -17,7 +17,9 @@ interface ContentfulPage extends ContentfulRecord {
   title: string;
   slug: string;
   description: string;
-  components: any;
+  components: {
+    json: any;
+  };
 }
 
 export class ContentfulPageGateway implements PageGateway {

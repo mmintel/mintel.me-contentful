@@ -26,6 +26,16 @@ export class Page {
   }
 
   get components(): any {
-    return this.props.components;
+    return this.props.components.json;
+  }
+
+  toJson() {
+    return {
+      id: this.id,
+      title: this.title,
+      slug: this.slug,
+      description: this.description,
+      components: this.components,
+    };
   }
 }

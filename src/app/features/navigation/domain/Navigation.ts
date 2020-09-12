@@ -25,4 +25,13 @@ export class Navigation {
   get items(): NavigationItem[] {
     return this.props.items;
   }
+
+  toJson() {
+    return {
+      id: this.id,
+      title: this.title,
+      name: this.name,
+      items: this.items,
+    };
+  }
 }
