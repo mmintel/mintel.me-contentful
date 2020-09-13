@@ -15,4 +15,8 @@ export class QueryParser {
 
     return slug;
   }
+
+  getLanguage(): string {
+    return 'de';
+  }
 }

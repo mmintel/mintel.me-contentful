@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import Head from 'next/head';
 import Blocks from '@/components/blocks';
-import { Page } from '@/app/features/page/domain';
+import { Page } from '@/lib/core/features/page/domain';
 
 interface PageTemplateProps {
   page: Page;

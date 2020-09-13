@@ -7,25 +7,24 @@ import {
   InferGetStaticPropsType,
 } from 'next';
 import MainNavigation from '@/components/layout/main-navigation';
-import { App } from '@/app/App';
-import { Locale } from '@/app/shared/domain';
+import { Main } from '@/lib';
 import { QueryParser } from '@/utils/QueryParser';
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const app = new App({
-    locale: Locale.DE,
-  }).init();
-
   const queryParser = new QueryParser(params);
   const slug = queryParser.getSlug();
+  const language = queryParser.getLanguage();
+  const app = new Main({
+    language,
+  }).init();
 
   const page = await app.getPage(slug);
   const mainNavigation = await app.getMainNavigation();
 
   return {
     props: {
-      mainNavigation: mainNavigation.toJson(),
-      page: page.toJson(),
+      mainNavigation,
+      page,
     },
   };
 };
