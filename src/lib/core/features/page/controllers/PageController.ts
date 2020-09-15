@@ -1,3 +1,4 @@
+import { PageDTO } from '../dtos';
 import { PageGateway } from '../gateways';
 import { GetPageUseCase } from '../usecases';
 
@@ -8,8 +9,7 @@ export class PageController {
     this.getPageUseCase = new GetPageUseCase(pageGateway);
   }
 
-  async getPage(slug: string) {
-    const page = await this.getPageUseCase.execute({ slug });
-    return page.toJson();
+  async getPage(slug: string): Promise<PageDTO> {
+    return this.getPageUseCase.execute({ slug });
   }
 }

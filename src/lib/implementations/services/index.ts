@@ -1,2 +1,1 @@
-export * from './ContentfulService';
-export * from './GraphqlService';
+export * from './GraphqlRequestGraphqlService';

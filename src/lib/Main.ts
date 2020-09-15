@@ -1,6 +1,5 @@
 import config from '@/lib/config';
 import { Locale } from '@/lib/core/domain';
-import { LoggerFactory } from '@/lib/implementations/utils';
 import {
   ContentfulService,
   GraphqlService,
@@ -15,11 +14,17 @@ import { ContentfulNavigationGateway } from '@/lib/implementations/features/navi
 import { PageController } from '@/lib/core/features/page/controllers';
 import { PageGateway } from '@/lib/core/features/page/gateways';
 import { ContentfulPageGateway } from '@/lib/implementations/features/page/gateways';
-import { LocaleParserImpl } from './implementations/utils/LocaleParserImpl';
 import { LocaleParser } from './core/utils';
+import { PageDTO } from './core/features/page/dtos';
+import { NavigationDTO } from './core/features/navigation/dtos';
 
-interface Options {
+interface MainProps {
   language: string;
+}
+
+interface MainControls {
+  getPage(slug: string): Promise<PageDTO>;
+  getMainNavigation(): Promise<NavigationDTO>;
 }
 
 export class Main {
@@ -27,7 +32,6 @@ export class Main {
 
   // utils
   private localeParser: LocaleParser;
-  private loggerFactory: LoggerFactory;
 
   // services
   private graphqlService: GraphqlService;
@@ -41,35 +45,27 @@ export class Main {
   private navigationGateway: NavigationGateway;
   private navigationController: NavigationController;
 
-  constructor(options: Options) {
+  constructor(options: MainProps) {
     // setup utils
-    this.localeParser = new LocaleParserImpl(options.language);
+    this.localeParser = new LocaleParser(options.language);
     this.locale = this.localeParser.parse();
-    this.loggerFactory = new LoggerFactory(config.logLevel, console);
 
     // setup services
-    this.graphqlService = new GraphqlService(
-      this.loggerFactory.create('GraphqlService'),
-      {
-        url: `${config.contentfulURL}/${config.contentfulSpaceId}`,
-        accessToken: config.contentfulAccessToken,
-      },
-    );
+    this.graphqlService = new GraphqlService({
+      url: `${config.contentfulURL}/${config.contentfulSpaceId}`,
+      accessToken: config.contentfulAccessToken,
+    });
     this.contentfulService = new ContentfulService(
       this.graphqlService,
       this.locale,
     );
 
     // setup page feature
-    this.pageGateway = new ContentfulPageGateway(
-      this.loggerFactory.create('PageGateway'),
-      this.contentfulService,
-    );
+    this.pageGateway = new ContentfulPageGateway(this.contentfulService);
     this.pageController = new PageController(this.pageGateway);
 
     // setup navigation feature
     this.navigationGateway = new ContentfulNavigationGateway(
-      this.loggerFactory.create('NavigationGateway'),
       this.contentfulService,
     );
     this.navigationController = new NavigationController(
@@ -77,9 +73,8 @@ export class Main {
     );
   }
 
-  init() {
+  init(): MainControls {
     return {
-      createLogger: (name: string) => this.loggerFactory.create(name),
       getPage: (slug: string) => this.pageController.getPage(slug),
       getMainNavigation: () => this.navigationController.getMainNavigation(),
     };

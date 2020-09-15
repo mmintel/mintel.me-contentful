@@ -5,6 +5,6 @@ export class UseCaseError extends Error {
   }
 
   private getErrorType(): string {
-    return this.constructor.name.toUpperCase();
+    return this.constructor.name;
   }
 }

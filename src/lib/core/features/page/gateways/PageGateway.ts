@@ -1,5 +1,5 @@
-import { Page } from '@/lib/core/features/page/domain';
+import { PageDTO } from '../dtos';
 
 export interface PageGateway {
-  getPage(slug: string): Promise<Page>;
+  getPage(slug: string): Promise<PageDTO>;
 }

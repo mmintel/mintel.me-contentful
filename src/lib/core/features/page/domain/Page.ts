@@ -1,3 +1,5 @@
+import { PageDTO } from '../dtos';
+
 interface PageProps {
   id: string;
   title: string;
@@ -29,13 +31,13 @@ export class Page {
     return this.props.components.json;
   }
 
-  toJson() {
+  toDTO(page: Page): PageDTO {
     return {
-      id: this.id,
-      title: this.title,
-      slug: this.slug,
-      description: this.description,
-      components: this.components,
+      id: page.id,
+      title: page.title,
+      slug: page.slug,
+      description: page.description,
+      components: page.components,
     };
   }
 }

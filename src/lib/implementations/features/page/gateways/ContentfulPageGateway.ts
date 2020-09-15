@@ -1,18 +1,18 @@
 import { PageGateway } from '@/lib/core/features/page/gateways';
-import PageQuery from './queries/PageQuery.gql';
-import { Logger } from '@/lib/implementations/utils';
-import {
-  ContentfulService,
-  ContentfulCollection,
-  ContentfulRecord,
-} from '@/lib/implementations/services';
+import { PageQuery } from './queries/PageQuery';
 import { Page } from '@/lib/core/features/page/domain';
+import { PageDTO } from '@/lib/core/features/page/dtos';
+import {
+  ContentfulCollectionDTO,
+  ContentfulRecordDTO,
+} from '@/lib/implementations/dtos';
+import { GraphqlService } from '@/lib/core/services';
 
 interface ContentfulPageResponse {
-  pageCollection: ContentfulCollection<ContentfulPage>;
+  pageCollection: ContentfulCollectionDTO<ContentfulPage>;
 }
 
-interface ContentfulPage extends ContentfulRecord {
+interface ContentfulPage extends ContentfulRecordDTO {
   id: string;
   title: string;
   slug: string;
@@ -23,23 +23,20 @@ interface ContentfulPage extends ContentfulRecord {
 }
 
 export class ContentfulPageGateway implements PageGateway {
-  constructor(
-    private logger: Logger,
-    private contentfulService: ContentfulService,
-  ) {}
+  constructor(private graphqlService: GraphqlService) {}
 
-  async getPage(slug: string) {
-    const response = await this.contentfulService.request<
-      ContentfulPageResponse
-    >(PageQuery, {
-      slug,
-    });
+  async getPage(slug: string): Promise<PageDTO> {
+    const response = await this.graphqlService.request<ContentfulPageResponse>(
+      PageQuery,
+      {
+        slug,
+      },
+    );
 
     if (!response) {
       throw new Error('No page found.');
     }
 
-    this.logger.debug('Received page response', response);
     const rawPage = response.pageCollection.items[0];
     const page = new Page({
       id: rawPage.sys.id,

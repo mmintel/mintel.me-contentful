@@ -1,4 +1,5 @@
 import { NavigationName } from '../domain';
+import { NavigationDTO } from '../dtos';
 import { NavigationGateway } from '../gateways';
 import { GetNavigationUseCase } from '../usecases';
 
@@ -9,10 +10,10 @@ export class NavigationController {
     this.getNavigationUseCase = new GetNavigationUseCase(navigationGateway);
   }
 
-  async getMainNavigation() {
+  async getMainNavigation(): Promise<NavigationDTO> {
     const navigation = await this.getNavigationUseCase.execute({
       name: NavigationName.MAIN_NAVIGATION,
     });
-    return navigation.toJson();
+    return navigation;
   }
 }

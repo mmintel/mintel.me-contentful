@@ -1,19 +1,25 @@
 import { UseCase } from '@/lib/core/definitions';
-import { Navigation } from '../../domain';
 import { NavigationGateway } from '../../gateways';
+import { NavigationDTO } from '../../dtos';
 import { GetNavigationRequestDTO } from './GetNavigationRequestDTO';
 import { NavigationNotFoundError } from './NavigationNotFoundError';
 
 export class GetNavigationUseCase
-  implements UseCase<GetNavigationRequestDTO, Navigation> {
+  implements UseCase<GetNavigationRequestDTO, NavigationDTO> {
   constructor(private navigationGateway: NavigationGateway) {}
 
-  async execute(request: GetNavigationRequestDTO): Promise<Navigation> {
+  async execute(request: GetNavigationRequestDTO): Promise<NavigationDTO> {
     try {
       const navigation = await this.navigationGateway.getNavigation(
         request.name,
       );
-      return navigation;
+
+      return {
+        id: navigation.id,
+        items: navigation.items,
+        name: navigation.name,
+        title: navigation.title,
+      };
     } catch (e) {
       throw new NavigationNotFoundError(e);
     }
