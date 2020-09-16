@@ -3,7 +3,7 @@ import { NavigationName } from '@/lib/core/features/navigation/domain';
 import { GraphqlService } from '@/lib/core/services';
 import {
   ContentfulNavigationGateway,
-  ContentfulNavigationResponseDTO,
+  ContentfulNavigationResponse,
   ContentfulNavigation,
 } from './ContentfulNavigationGateway';
 import { NavigationQuery } from './queries/NavigationQuery';
@@ -21,6 +21,8 @@ describe('ContentfulNavigationGateway', () => {
 
   describe('getNavigation', () => {
     it('calls the graphqlService', () => {
+      expect(mockGraphqlService.request).not.toHaveBeenCalled();
+
       const gateway = new ContentfulNavigationGateway(
         mockGraphqlService,
         Locale.DE,
@@ -37,6 +39,8 @@ describe('ContentfulNavigationGateway', () => {
     });
 
     it('maps the data from contentful', async () => {
+      expect(mockGraphqlService.request).not.toHaveBeenCalled();
+
       const mockNavigation: ContentfulNavigation = {
         title: 'foo',
         name: 'foobar',
@@ -49,7 +53,7 @@ describe('ContentfulNavigationGateway', () => {
           publishedAt: '213123',
         },
       };
-      const mockResponse: ContentfulNavigationResponseDTO = {
+      const mockResponse: ContentfulNavigationResponse = {
         navigationCollection: {
           items: [mockNavigation],
         },

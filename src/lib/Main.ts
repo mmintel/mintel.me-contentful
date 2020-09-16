@@ -1,9 +1,5 @@
 import config from '@/lib/config';
 import { Locale } from '@/lib/core/domain';
-import {
-  ContentfulService,
-  GraphqlService,
-} from '@/lib/implementations/services';
 
 // import navigation feature
 import { NavigationController } from '@/lib/core/features/navigation/controllers';
@@ -17,6 +13,10 @@ import { ContentfulPageGateway } from '@/lib/implementations/features/page/gatew
 import { LocaleParser } from './core/utils';
 import { PageDTO } from './core/features/page/dtos';
 import { NavigationDTO } from './core/features/navigation/dtos';
+import { GetNavigationUseCase } from './core/features/navigation/usecases';
+import { GraphqlService } from './core/services';
+import { GraphqlRequestGraphqlService } from './implementations/services';
+import { GetNavigation } from './core/features/navigation/usecases/get-navigation/GetNavigation';
 
 interface MainProps {
   language: string;
@@ -35,7 +35,6 @@ export class Main {
 
   // services
   private graphqlService: GraphqlService;
-  private contentfulService: ContentfulService;
 
   // page feature
   private pageGateway: PageGateway;
@@ -44,6 +43,7 @@ export class Main {
   // navigation feature
   private navigationGateway: NavigationGateway;
   private navigationController: NavigationController;
+  private getNavigationUseCase: GetNavigationUseCase;
 
   constructor(options: MainProps) {
     // setup utils
@@ -51,25 +51,26 @@ export class Main {
     this.locale = this.localeParser.parse();
 
     // setup services
-    this.graphqlService = new GraphqlService({
+    this.graphqlService = new GraphqlRequestGraphqlService({
       url: `${config.contentfulURL}/${config.contentfulSpaceId}`,
       accessToken: config.contentfulAccessToken,
     });
-    this.contentfulService = new ContentfulService(
+
+    // setup page feature
+    this.pageGateway = new ContentfulPageGateway(
       this.graphqlService,
       this.locale,
     );
-
-    // setup page feature
-    this.pageGateway = new ContentfulPageGateway(this.contentfulService);
     this.pageController = new PageController(this.pageGateway);
 
     // setup navigation feature
     this.navigationGateway = new ContentfulNavigationGateway(
-      this.contentfulService,
+      this.graphqlService,
+      this.locale,
     );
+    this.getNavigationUseCase = new GetNavigation(this.navigationGateway);
     this.navigationController = new NavigationController(
-      this.navigationGateway,
+      this.getNavigationUseCase,
     );
   }
 

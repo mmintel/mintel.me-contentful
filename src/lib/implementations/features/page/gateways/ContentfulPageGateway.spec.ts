@@ -20,8 +20,11 @@ describe('ContentfulPageGateway', () => {
 
   describe('getPage', () => {
     it('calls the graphqlService', () => {
+      expect(mockGraphqlService.request).not.toHaveBeenCalled();
+
       const gateway = new ContentfulPageGateway(mockGraphqlService, Locale.DE);
       gateway.getPage('foo');
+
       expect(mockGraphqlService.request).toHaveBeenCalledTimes(1);
       expect(mockGraphqlService.request).toHaveBeenCalledWith(
         PageQuery,
@@ -33,6 +36,8 @@ describe('ContentfulPageGateway', () => {
     });
 
     it('maps the data from contentful', async () => {
+      expect(mockGraphqlService.request).not.toHaveBeenCalled();
+
       const mockPage: ContentfulPage = {
         title: 'foo',
         description: 'foobar',
