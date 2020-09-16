@@ -3,17 +3,16 @@ import { PageQuery } from './queries/PageQuery';
 import { Page } from '@/lib/core/features/page/domain';
 import { PageDTO } from '@/lib/core/features/page/dtos';
 import {
-  ContentfulCollectionDTO,
-  ContentfulRecordDTO,
+  ContentfulCollection,
+  ContentfulRecord,
 } from '@/lib/implementations/dtos';
-import { GraphqlService } from '@/lib/core/services';
+import { ContentfulGateway } from '@/lib/implementations/gateways';
 
-interface ContentfulPageResponse {
-  pageCollection: ContentfulCollectionDTO<ContentfulPage>;
+export interface ContentfulPageResponse {
+  pageCollection: ContentfulCollection<ContentfulPage>;
 }
 
-interface ContentfulPage extends ContentfulRecordDTO {
-  id: string;
+export interface ContentfulPage extends ContentfulRecord {
   title: string;
   slug: string;
   description: string;
@@ -22,16 +21,12 @@ interface ContentfulPage extends ContentfulRecordDTO {
   };
 }
 
-export class ContentfulPageGateway implements PageGateway {
-  constructor(private graphqlService: GraphqlService) {}
-
+export class ContentfulPageGateway extends ContentfulGateway
+  implements PageGateway {
   async getPage(slug: string): Promise<PageDTO> {
-    const response = await this.graphqlService.request<ContentfulPageResponse>(
-      PageQuery,
-      {
-        slug,
-      },
-    );
+    const response = await this.request<ContentfulPageResponse>(PageQuery, {
+      slug,
+    });
 
     if (!response) {
       throw new Error('No page found.');

@@ -4,23 +4,23 @@ import {
 } from '@/lib/core/features/navigation/domain';
 import { NavigationGateway } from '@/lib/core/features/navigation/gateways';
 import {
-  ContentfulCollectionDTO,
-  ContentfulRecordDTO,
+  ContentfulCollection,
+  ContentfulRecord,
 } from '@/lib/implementations/dtos';
 import { ContentfulGateway } from '@/lib/implementations/gateways';
 import { NavigationQuery } from './queries/NavigationQuery';
 
-export interface ContentfulNavigationResponseDTO {
-  navigationCollection: ContentfulCollectionDTO<ContentfulNavigation>;
+export interface ContentfulNavigationResponse {
+  navigationCollection: ContentfulCollection<ContentfulNavigation>;
 }
 
-export interface ContentfulNavigation extends ContentfulRecordDTO {
+export interface ContentfulNavigation extends ContentfulRecord {
   title: string;
   name: string;
-  itemsCollection: ContentfulCollectionDTO<ContentfulNavigationItem>;
+  itemsCollection: ContentfulCollection<ContentfulNavigationItem>;
 }
 
-export interface ContentfulNavigationItem extends ContentfulRecordDTO {
+export interface ContentfulNavigationItem extends ContentfulRecord {
   title: string;
   url: string;
   internal: boolean;
@@ -32,7 +32,7 @@ export interface ContentfulNavigationItem extends ContentfulRecordDTO {
 export class ContentfulNavigationGateway extends ContentfulGateway
   implements NavigationGateway {
   async getNavigation(name: NavigationName): Promise<Navigation> {
-    const response = await this.request<ContentfulNavigationResponseDTO>(
+    const response = await this.request<ContentfulNavigationResponse>(
       NavigationQuery,
       {
         name,

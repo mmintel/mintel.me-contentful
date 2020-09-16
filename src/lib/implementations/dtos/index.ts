@@ -1,2 +1,2 @@
-export * from './ContentfulCollectionDTO';
-export * from './ContentfulRecordDTO';
+export * from '../gateways/contentful/ContentfulCollection';
+export * from '../gateways/contentful/ContentfulRecord';

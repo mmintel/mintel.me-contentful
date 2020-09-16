@@ -1,1 +1,1 @@
-export * from './ContentfulGateway';
+export * from './contentful';
