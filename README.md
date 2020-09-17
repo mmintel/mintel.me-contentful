@@ -16,6 +16,7 @@ Personal website of Marc Mintel.
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mmintel/mintel.me/Lighthouse%20Desktop?label=lighthouse%3Adesktop) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mmintel/mintel.me/Lighthouse%20Mobile?label=lighthouse%3Amobile)
 
 ## ⚙️ Infrastructure
+- **[Yarn](https://yarnpkg.com/)** - as package manager
 - **[Typescript](https://www.typescriptlang.org/)**  - for typesafe Javascript
 - **[React.js](https://reactjs.org/)** - as ui library
 - **[Next.js](https://nextjs.org/)** - for server side rendering
@@ -32,10 +33,11 @@ Personal website of Marc Mintel.
 - **[Lighthouse](https://developers.google.com/web/tools/lighthouse)**  - for performance reports
 
 ## 🧰 Tools
-- 📏 **[ESLint](https://eslint.org/)** — Pluggable JavaScript linter
-- 💖 **[Prettier](https://prettier.io/)** - Opinionated Code Formatter
-- 🐙 **[@testing-library](https://testing-library.com/)** - to unit test react components
-- 🕌 **[Istanbul](https://istanbul.js.org/)** - to collect code coverage
+- **[ESLint](https://eslint.org/)** — Pluggable JavaScript linter
+- **[Prettier](https://prettier.io/)** - Opinionated Code Formatter
+- **[@testing-library](https://testing-library.com/)** - to unit test react components
+- **[Istanbul](https://istanbul.js.org/)** - to collect code coverage
+- **[GraphqlRequest](https://github.com/prisma-labs/graphql-request)** - as graphql client
 
 ## 🚀 Getting started
 
