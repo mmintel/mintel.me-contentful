@@ -7,7 +7,7 @@ interface Adjustment {
   value: string | number;
 }
 
-export class ContentfulImageQueryString {
+export class ImageQueryString {
   private adjustments: Adjustments = {};
 
   get value(): string {

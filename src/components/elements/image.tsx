@@ -1,4 +1,4 @@
-import { ContentfulImageQueryString } from '@/utils/ContentfulImageQueryString';
+import { ImageQueryString } from '@/utils/ImageQueryString';
 import React from 'react';
 
 interface ImageProps {
@@ -13,7 +13,7 @@ export const Image: React.FC<ImageProps> = ({
   height,
   ...props
 }) => {
-  const queryString = new ContentfulImageQueryString();
+  const queryString = new ImageQueryString();
 
   if (width) {
     queryString.setWidth(width);
