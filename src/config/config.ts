@@ -16,11 +16,8 @@ if (!process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID) {
   );
 }
 
-export default {
-  isProduction: process.env.NODE_ENV === 'production',
-  env: process.env.NODE_ENV || 'development',
-  logLevel: Number(process.env.LOG_LEVEL || 3),
-  contentfulSpaceId: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID,
-  contentfulAccessToken: process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN,
-  contentfulURL: process.env.NEXT_PUBLIC_CONTENTFUL_API_URL,
-};
+export const isProduction = process.env.NODE_ENV === 'production';
+export const contentfulSpaceId = process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID;
+export const contentfulAccessToken =
+  process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN;
+export const contentfulURL = process.env.NEXT_PUBLIC_CONTENTFUL_API_URL;

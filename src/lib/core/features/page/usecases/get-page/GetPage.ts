@@ -1,13 +1,10 @@
-import { UseCase } from '@/lib/core/definitions';
-import { PageDTO } from '../dtos';
-import { PageGateway } from '../gateways';
+import { PageDTO } from '../../dtos';
+import { PageGateway } from '../../gateways';
+import { GetPageRequestDTO } from './GetPageRequestDTO';
+import { GetPageUseCase } from './GetPageUseCase';
 import { PageNotFoundError } from './PageNotFoundError';
 
-interface GetPageRequestDTO {
-  slug: string;
-}
-
-export class GetPageUseCase implements UseCase<GetPageRequestDTO, PageDTO> {
+export class GetPage implements GetPageUseCase {
   constructor(private pageGateway: PageGateway) {}
 
   async execute(request: GetPageRequestDTO): Promise<PageDTO> {

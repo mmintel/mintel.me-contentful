@@ -1,1 +1,1 @@
-export * from './GetPageUseCase';
+export * from './get-page';

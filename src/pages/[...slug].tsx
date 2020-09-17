@@ -12,7 +12,7 @@ import { QueryParser } from '@/utils/QueryParser';
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const queryParser = new QueryParser(params);
-  const slug = queryParser.getSlug();
+  const slug = queryParser.getSlug() || 'home';
   const language = queryParser.getLanguage();
   const app = new Main({
     language,
