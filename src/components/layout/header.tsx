@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import { Image } from '../elements';
 
 interface HeaderProps {
   logo: string;
@@ -7,7 +8,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ logo, children }) => (
   <div>
-    <img src={logo} />
+    <Image src={logo} width={100} />
     {children}
   </div>
 );
