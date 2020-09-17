@@ -1,8 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
+import { UrlObject } from 'url';
 
 interface InternalLinkProps {
-  href: string;
+  href: string | UrlObject;
   children: React.ReactNode;
 }
 
@@ -20,8 +21,8 @@ const InternalLink = ({ href, children }: InternalLinkProps) => {
   }
 
   return (
-    <Link href="/[[...slug]]" as={url}>
-      <a href={url}>{children}</a>
+    <Link href={url}>
+      <a>{children}</a>
     </Link>
   );
 };
