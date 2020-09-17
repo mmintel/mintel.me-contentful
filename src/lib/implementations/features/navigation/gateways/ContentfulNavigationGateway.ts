@@ -5,9 +5,9 @@ import {
 import { NavigationGateway } from '@/lib/core/features/navigation/gateways';
 import {
   ContentfulCollection,
+  ContentfulGateway,
   ContentfulRecord,
-} from '@/lib/implementations/dtos';
-import { ContentfulGateway } from '@/lib/implementations/gateways';
+} from '@/lib/implementations/gateways';
 import { NavigationQuery } from './queries/NavigationQuery';
 
 export interface ContentfulNavigationResponse {

@@ -4,9 +4,9 @@ import { Page } from '@/lib/core/features/page/domain';
 import { PageDTO } from '@/lib/core/features/page/dtos';
 import {
   ContentfulCollection,
+  ContentfulGateway,
   ContentfulRecord,
-} from '@/lib/implementations/dtos';
-import { ContentfulGateway } from '@/lib/implementations/gateways';
+} from '@/lib/implementations/gateways';
 
 export interface ContentfulPageResponse {
   pageCollection: ContentfulCollection<ContentfulPage>;
