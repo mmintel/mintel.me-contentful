@@ -10,7 +10,7 @@ export class ContentfulGateway {
 
   protected request<T>(
     query: GraphqlQuery,
-    variables?: GraphqlVariables,
+    variables: GraphqlVariables = {},
   ): Promise<T> {
     return this.graphqlService.request<T>(query, {
       locale: this.locale,

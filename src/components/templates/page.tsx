@@ -2,17 +2,26 @@ import React, { ReactNode } from 'react';
 import Head from 'next/head';
 import Blocks from '@/components/blocks/blocks';
 import { Page } from '@/lib/core/features/page/domain';
+import { Site } from '@/lib/core/features/site/domain';
 
 interface PageTemplateProps {
+  site: Site;
   page: Page;
   before?: ReactNode;
   after?: ReactNode;
 }
 
-const PageTemplate: React.FC<PageTemplateProps> = ({ page, before, after }) => (
+const PageTemplate: React.FC<PageTemplateProps> = ({
+  site,
+  page,
+  before,
+  after,
+}) => (
   <div className="container">
     <Head>
-      <title>{page.title}</title>
+      <title>
+        {page.title} - {site.title}
+      </title>
       <meta name="description" content={page.description} />
       <link rel="icon" href="/favicon.ico" />
     </Head>

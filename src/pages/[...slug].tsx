@@ -6,6 +6,7 @@ import {
   GetStaticProps,
   InferGetStaticPropsType,
 } from 'next';
+import Header from '@/components/layout/header';
 import MainNavigation from '@/components/layout/main-navigation';
 import { Main } from '@/lib';
 import { QueryParser } from '@/utils/QueryParser';
@@ -20,9 +21,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const page = await app.getPage(slug);
   const mainNavigation = await app.getMainNavigation();
+  const site = await app.getSite();
 
   return {
     props: {
+      site,
       mainNavigation,
       page,
     },
@@ -39,9 +42,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
 const PageView: NextPage = ({
   mainNavigation,
   page,
+  site,
 }: InferGetStaticPropsType<typeof getStaticProps>) => (
   <PageTemplate
-    before={<MainNavigation navigation={mainNavigation} />}
+    before={
+      <Header logo={site.logo}>
+        <MainNavigation navigation={mainNavigation} />
+      </Header>
+    }
+    site={site}
     page={page}
   />
 );

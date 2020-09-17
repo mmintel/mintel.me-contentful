@@ -25,11 +25,19 @@ import { PageDTO } from './core/features/page/dtos';
 import { ContentfulPageGateway } from '@/lib/implementations/features/page/gateways';
 import { GetPage, GetPageUseCase } from './core/features/page/usecases';
 
+// import site feature
+import { SiteGateway } from './core/features/site/gateways';
+import { SiteController } from './core/features/site/controllers';
+import { GetSite, GetSiteUseCase } from './core/features/site/usecases';
+import { ContentfulSiteGateway } from './implementations/features/site/gateways';
+import { SiteDTO } from './core/features/site/dtos';
+
 interface MainProps {
   language: string;
 }
 
 interface MainControls {
+  getSite(): Promise<SiteDTO>;
   getPage(slug: string): Promise<PageDTO>;
   getMainNavigation(): Promise<NavigationDTO>;
 }
@@ -42,6 +50,11 @@ export class Main {
 
   // services
   private graphqlService: GraphqlService;
+
+  // site feature
+  private siteGateway: SiteGateway;
+  private siteController: SiteController;
+  private getSiteUseCase: GetSiteUseCase;
 
   // page feature
   private pageGateway: PageGateway;
@@ -68,6 +81,14 @@ export class Main {
       },
     );
 
+    // setup site feature
+    this.siteGateway = new ContentfulSiteGateway(
+      this.graphqlService,
+      this.locale,
+    );
+    this.getSiteUseCase = new GetSite(this.siteGateway);
+    this.siteController = new SiteController(this.getSiteUseCase);
+
     // setup page feature
     this.pageGateway = new ContentfulPageGateway(
       this.graphqlService,
@@ -89,6 +110,7 @@ export class Main {
 
   init(): MainControls {
     return {
+      getSite: () => this.siteController.getSite(),
       getPage: (slug: string) => this.pageController.getPage(slug),
       getMainNavigation: () => this.navigationController.getMainNavigation(),
     };
