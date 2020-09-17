@@ -6,7 +6,7 @@ interface MainNavigationProps {
   navigation: Navigation;
 }
 
-const MainNavigation = ({ navigation }: MainNavigationProps) => (
+const MainNavigation: React.FC<MainNavigationProps> = ({ navigation }) => (
   <div>
     {navigation.title}
     <ul>

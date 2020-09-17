@@ -4,7 +4,7 @@ interface StageProps {
   title: string;
 }
 
-const Stage = ({ title }: StageProps) => {
+const Stage: React.FC<StageProps> = ({ title }) => {
   return <div>Stage {title}</div>;
 };
 

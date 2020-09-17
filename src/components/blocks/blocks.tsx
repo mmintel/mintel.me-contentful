@@ -26,7 +26,7 @@ const options = {
   },
 };
 
-const Blocks = ({ blocks }: BlocksProps) => {
+const Blocks: React.FC<BlocksProps> = ({ blocks }) => {
   return <>{documentToReactComponents(blocks, options)}</>;
 };
 

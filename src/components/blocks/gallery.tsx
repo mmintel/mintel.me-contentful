@@ -4,7 +4,7 @@ interface GalleryProps {
   title: string;
 }
 
-const Gallery = ({ title }: GalleryProps) => {
+const Gallery: React.FC<GalleryProps> = ({ title }: GalleryProps) => {
   return <div>Gallery {title}</div>;
 };
 
