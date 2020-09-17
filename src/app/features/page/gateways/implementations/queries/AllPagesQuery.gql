@@ -1,7 +1,0 @@
-query AllPagesQuery($slug: String!, $locale: String!) {
-  pageCollection(locale: $locale) {
-    items {
-      slug
-    }
-  }
-}

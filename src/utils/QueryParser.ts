@@ -3,9 +3,9 @@ import { ParsedUrlQuery } from 'querystring';
 export class QueryParser {
   constructor(private query?: ParsedUrlQuery) {}
 
-  getSlug(): string {
+  getSlug(): string | null {
     const query = this.query;
-    let slug = 'home';
+    let slug = null;
 
     if (query?.slug && typeof query.slug === 'string') {
       slug = query.slug;
@@ -14,5 +14,9 @@ export class QueryParser {
     }
 
     return slug;
+  }
+
+  getLanguage(): string {
+    return 'de';
   }
 }
