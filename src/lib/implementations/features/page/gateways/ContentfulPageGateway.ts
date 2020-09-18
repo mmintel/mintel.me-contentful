@@ -1,30 +1,15 @@
 import { PageGateway } from '@/lib/core/features/page/gateways';
 import { PageQuery } from './queries/PageQuery';
 import { Page } from '@/lib/core/features/page/domain';
-import { PageDTO } from '@/lib/core/features/page/dtos';
-import {
-  ContentfulCollection,
-  ContentfulGateway,
-  ContentfulRecord,
-} from '@/lib/implementations/gateways';
-
-export interface ContentfulPageResponse {
-  pageCollection: ContentfulCollection<ContentfulPage>;
-}
-
-export interface ContentfulPage extends ContentfulRecord {
-  title: string;
-  slug: string;
-  description: string;
-  components: {
-    json: any;
-  };
-}
+import { ContentfulGateway } from '@/lib/implementations/gateways';
+import { AllPagesQuery } from './queries/AllPagesQuery';
+import { ContentfulPageResponseDTO } from '../dtos/ContentfulPageResponseDTO';
+import { ContentfulPageMapper } from '../mappers';
 
 export class ContentfulPageGateway extends ContentfulGateway
   implements PageGateway {
-  async getPage(slug: string): Promise<PageDTO> {
-    const response = await this.request<ContentfulPageResponse>(PageQuery, {
+  async getPage(slug: string): Promise<Page> {
+    const response = await this.request<ContentfulPageResponseDTO>(PageQuery, {
       slug,
     });
 
@@ -32,15 +17,20 @@ export class ContentfulPageGateway extends ContentfulGateway
       throw new Error('No page found.');
     }
 
-    const rawPage = response.pageCollection.items[0];
-    const page = new Page({
-      id: rawPage.sys.id,
-      description: rawPage.description,
-      slug: rawPage.slug,
-      title: rawPage.title,
-      components: rawPage.components,
-    });
+    const contentfulPage = response.pageCollection.items[0];
+    const mapper = new ContentfulPageMapper(contentfulPage);
 
-    return page;
+    return mapper.toDomain();
+  }
+
+  async getAllPages(): Promise<Page[]> {
+    const response = await this.request<ContentfulPageResponseDTO>(
+      AllPagesQuery,
+    );
+
+    return response.pageCollection.items.map(contentfulPage => {
+      const mapper = new ContentfulPageMapper(contentfulPage);
+      return mapper.toDomain();
+    });
   }
 }

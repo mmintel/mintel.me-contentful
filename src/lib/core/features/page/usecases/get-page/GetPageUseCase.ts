@@ -1,5 +1,5 @@
 import { UseCase } from '@/lib/core/definitions';
-import { PageDTO } from '../../dtos';
+import { Page } from '../../domain';
 import { GetPageRequestDTO } from './GetPageRequestDTO';
 
-export type GetPageUseCase = UseCase<GetPageRequestDTO, PageDTO>;
+export type GetPageUseCase = UseCase<GetPageRequestDTO, Page>;

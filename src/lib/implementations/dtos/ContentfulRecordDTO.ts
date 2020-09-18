@@ -1,4 +1,4 @@
-export interface ContentfulRecord {
+export interface ContentfulRecordDTO {
   sys: {
     id: string;
     firstPublishedAt: string;

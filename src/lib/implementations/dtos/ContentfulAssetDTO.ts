@@ -1,4 +1,4 @@
-export interface ContentfulAsset {
+export interface ContentfulAssetDTO {
   title: string;
   description: string;
   contentType: string;

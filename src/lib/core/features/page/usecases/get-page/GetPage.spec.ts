@@ -1,8 +1,8 @@
-import { PageDTO } from '../../dtos';
+import { Page } from '../../domain';
 import { PageGateway } from '../../gateways';
 import { GetPage } from './GetPage';
 
-const mockPage: PageDTO = {
+const mockPage: Page = new Page({
   id: '123',
   description: 'foo',
   slug: 'foo-bar',
@@ -10,10 +10,11 @@ const mockPage: PageDTO = {
   components: {
     json: {},
   },
-};
+});
 
 const mockGateway: jest.Mocked<PageGateway> = {
   getPage: jest.fn(),
+  getAllPages: jest.fn(),
 };
 
 describe('GetPage', () => {

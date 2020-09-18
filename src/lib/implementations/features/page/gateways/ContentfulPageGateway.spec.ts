@@ -1,10 +1,8 @@
 import { Locale } from '@/lib/core/domain';
 import { GraphqlService } from '@/lib/core/services';
-import {
-  ContentfulPageGateway,
-  ContentfulPage,
-  ContentfulPageResponse,
-} from './ContentfulPageGateway';
+import { ContentfulPageDTO } from '../dtos/ContentfulPageDTO';
+import { ContentfulPageResponseDTO } from '../dtos/ContentfulPageResponseDTO';
+import { ContentfulPageGateway } from './ContentfulPageGateway';
 import { PageQuery } from './queries/PageQuery';
 
 const mockGraphqlService: jest.Mocked<GraphqlService> = {
@@ -38,7 +36,7 @@ describe('ContentfulPageGateway', () => {
     it('maps the data from contentful', async () => {
       expect(mockGraphqlService.request).not.toHaveBeenCalled();
 
-      const mockPage: ContentfulPage = {
+      const mockPage: ContentfulPageDTO = {
         title: 'foo',
         description: 'foobar',
         slug: 'foo-bar',
@@ -51,7 +49,7 @@ describe('ContentfulPageGateway', () => {
           publishedAt: '213123',
         },
       };
-      const mockResponse: ContentfulPageResponse = {
+      const mockResponse: ContentfulPageResponseDTO = {
         pageCollection: {
           items: [mockPage],
         },

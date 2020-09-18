@@ -2,10 +2,10 @@ import { Locale } from '@/lib/core/domain';
 import { NavigationName } from '@/lib/core/features/navigation/domain';
 import { GraphqlService } from '@/lib/core/services';
 import {
-  ContentfulNavigationGateway,
-  ContentfulNavigationResponse,
-  ContentfulNavigation,
-} from './ContentfulNavigationGateway';
+  ContentfulNavigationDTO,
+  ContentfulNavigationResponseDTO,
+} from '../dtos';
+import { ContentfulNavigationGateway } from './ContentfulNavigationGateway';
 import { NavigationQuery } from './queries/NavigationQuery';
 
 const mockGraphqlService: jest.Mocked<GraphqlService> = {
@@ -41,7 +41,7 @@ describe('ContentfulNavigationGateway', () => {
     it('maps the data from contentful', async () => {
       expect(mockGraphqlService.request).not.toHaveBeenCalled();
 
-      const mockNavigation: ContentfulNavigation = {
+      const mockNavigation: ContentfulNavigationDTO = {
         title: 'foo',
         name: 'foobar',
         itemsCollection: {
@@ -53,7 +53,7 @@ describe('ContentfulNavigationGateway', () => {
           publishedAt: '213123',
         },
       };
-      const mockResponse: ContentfulNavigationResponse = {
+      const mockResponse: ContentfulNavigationResponseDTO = {
         navigationCollection: {
           items: [mockNavigation],
         },

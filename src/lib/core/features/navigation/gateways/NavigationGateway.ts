@@ -1,6 +1,8 @@
-import { NavigationName } from '@/lib/core/features/navigation/domain';
-import { NavigationDTO } from '../dtos';
+import {
+  Navigation,
+  NavigationName,
+} from '@/lib/core/features/navigation/domain';
 
 export interface NavigationGateway {
-  getNavigation(name: NavigationName): Promise<NavigationDTO>;
+  getNavigation(name: NavigationName): Promise<Navigation>;
 }

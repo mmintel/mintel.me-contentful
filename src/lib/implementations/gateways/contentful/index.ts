@@ -1,4 +1,4 @@
-export * from './ContentfulCollection';
-export * from './ContentfulRecord';
+export * from '../../dtos/ContentfulCollectionDTO';
+export * from '../../dtos/ContentfulRecordDTO';
 export * from './ContentfulGateway';
-export * from './ContentfulAsset';
+export * from '../../dtos/ContentfulAssetDTO';
