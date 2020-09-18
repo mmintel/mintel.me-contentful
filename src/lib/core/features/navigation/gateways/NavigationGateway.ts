@@ -1,8 +1,9 @@
+import { Locale } from '@/lib/core/domain';
 import {
   Navigation,
   NavigationName,
 } from '@/lib/core/features/navigation/domain';
 
 export interface NavigationGateway {
-  getNavigation(name: NavigationName): Promise<Navigation>;
+  getNavigation(locale: Locale, name: NavigationName): Promise<Navigation>;
 }

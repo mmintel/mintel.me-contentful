@@ -1,22 +1,27 @@
+import { Locale } from '@/lib/core/domain';
 import {
   Navigation,
   NavigationName,
 } from '@/lib/core/features/navigation/domain';
 import { NavigationGateway } from '@/lib/core/features/navigation/gateways';
-import { ContentfulGateway } from '@/lib/implementations/gateways';
+import { GraphqlService } from '@/lib/core/services';
 import { ContentfulNavigationResponseDTO } from '../dtos';
 import { ContentfulNavigationMapper } from '../mappers';
 import { NavigationQuery } from './queries/NavigationQuery';
 
-export class ContentfulNavigationGateway extends ContentfulGateway
-  implements NavigationGateway {
-  async getNavigation(name: NavigationName): Promise<Navigation> {
-    const response = await this.request<ContentfulNavigationResponseDTO>(
-      NavigationQuery,
-      {
-        name,
-      },
-    );
+export class ContentfulNavigationGateway implements NavigationGateway {
+  constructor(private graphqlService: GraphqlService) {}
+
+  async getNavigation(
+    locale: Locale,
+    name: NavigationName,
+  ): Promise<Navigation> {
+    const response = await this.graphqlService.request<
+      ContentfulNavigationResponseDTO
+    >(NavigationQuery, {
+      locale,
+      name,
+    });
 
     if (!response) {
       throw new Error('No navigation found.');

@@ -1,6 +1,5 @@
 import { Locale } from '@/lib/core/domain';
 
-export interface GetPageRequestDTO {
+export interface GetSiteRequestDTO {
   locale: Locale;
-  slug: string;
 }

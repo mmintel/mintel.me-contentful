@@ -15,7 +15,7 @@ const mockGraphqlService: jest.Mocked<GraphqlService> = {
 describe('ContentfulNavigationGateway', () => {
   it('initializes without crashing', () => {
     expect(
-      () => new ContentfulNavigationGateway(mockGraphqlService, Locale.DE),
+      () => new ContentfulNavigationGateway(mockGraphqlService),
     ).not.toThrow();
   });
 
@@ -23,16 +23,12 @@ describe('ContentfulNavigationGateway', () => {
     it('calls the graphqlService', () => {
       expect(mockGraphqlService.request).not.toHaveBeenCalled();
 
-      const gateway = new ContentfulNavigationGateway(
-        mockGraphqlService,
-        Locale.DE,
-      );
-      gateway.getNavigation(NavigationName.MAIN_NAVIGATION);
+      const gateway = new ContentfulNavigationGateway(mockGraphqlService);
+      gateway.getNavigation(Locale.DE, NavigationName.MAIN_NAVIGATION);
       expect(mockGraphqlService.request).toHaveBeenCalledTimes(1);
       expect(mockGraphqlService.request).toHaveBeenCalledWith(
         NavigationQuery,
         expect.objectContaining({
-          locale: Locale.DE,
           name: NavigationName.MAIN_NAVIGATION,
         }),
       );
@@ -60,11 +56,9 @@ describe('ContentfulNavigationGateway', () => {
       };
       mockGraphqlService.request.mockResolvedValue(mockResponse);
 
-      const gateway = new ContentfulNavigationGateway(
-        mockGraphqlService,
-        Locale.DE,
-      );
+      const gateway = new ContentfulNavigationGateway(mockGraphqlService);
       const navigation = await gateway.getNavigation(
+        Locale.DE,
         NavigationName.MAIN_NAVIGATION,
       );
 
@@ -75,12 +69,9 @@ describe('ContentfulNavigationGateway', () => {
 
     it('throws an error if no data', async () => {
       mockGraphqlService.request.mockResolvedValue(null);
-      const gateway = new ContentfulNavigationGateway(
-        mockGraphqlService,
-        Locale.DE,
-      );
+      const gateway = new ContentfulNavigationGateway(mockGraphqlService);
       await expect(
-        gateway.getNavigation(NavigationName.MAIN_NAVIGATION),
+        gateway.getNavigation(Locale.DE, NavigationName.MAIN_NAVIGATION),
       ).rejects.toThrow();
     });
   });

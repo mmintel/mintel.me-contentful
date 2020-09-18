@@ -9,7 +9,7 @@ export class GetPage implements GetPageUseCase {
 
   async execute(request: GetPageRequestDTO): Promise<Page> {
     try {
-      const page = await this.pageGateway.getPage(request.slug);
+      const page = await this.pageGateway.getPage(request.locale, request.slug);
 
       return page;
     } catch (e) {

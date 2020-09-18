@@ -10,6 +10,7 @@ export class GetNavigation implements GetNavigationUseCase {
   async execute(request: GetNavigationRequestDTO): Promise<Navigation> {
     try {
       const navigation = await this.navigationGateway.getNavigation(
+        request.locale,
         request.name,
       );
       return navigation;

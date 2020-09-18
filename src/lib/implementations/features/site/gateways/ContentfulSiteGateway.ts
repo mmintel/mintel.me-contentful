@@ -1,26 +1,19 @@
+import { Locale } from '@/lib/core/domain';
 import { Site } from '@/lib/core/features/site/domain';
 import { SiteGateway } from '@/lib/core/features/site/gateways';
-import {
-  ContentfulCollection,
-  ContentfulGateway,
-  ContentfulRecord,
-  ContentfulAsset,
-} from '@/lib/implementations/gateways';
+import { GraphqlService } from '@/lib/core/services';
+import { ContentfulSiteResponseDTO } from '../dtos';
 import { SiteQuery } from './queries/SiteQuery';
 
-export interface ContentfulSiteResponse {
-  siteCollection: ContentfulCollection<ContentfulSite>;
-}
+export class ContentfulSiteGateway implements SiteGateway {
+  constructor(private graphqlService: GraphqlService) {}
 
-export interface ContentfulSite extends ContentfulRecord {
-  title: string;
-  logo: ContentfulAsset;
-}
-
-export class ContentfulSiteGateway extends ContentfulGateway
-  implements SiteGateway {
-  async getSite(): Promise<Site> {
-    const response = await this.request<ContentfulSiteResponse>(SiteQuery);
+  async getSite(locale: Locale): Promise<Site> {
+    const response = await this.graphqlService.request<
+      ContentfulSiteResponseDTO
+    >(SiteQuery, {
+      locale,
+    });
 
     if (!response) {
       throw new Error('No site found.');

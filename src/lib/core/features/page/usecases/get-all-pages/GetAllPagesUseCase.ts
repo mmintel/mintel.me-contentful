@@ -1,4 +1,4 @@
 import { UseCase } from '@/lib/core/definitions';
-import { PageDTO } from '../../dtos';
+import { Page } from '../../domain';
 
-export type GetAllPagesUseCase = UseCase<void, PageDTO[]>;
+export type GetAllPagesUseCase = UseCase<void, Page[]>;

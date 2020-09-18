@@ -1,14 +1,14 @@
-import { NavigationName } from '../../domain';
-import { NavigationDTO } from '../../dtos';
+import { Locale } from '@/lib/core/domain';
+import { Navigation, NavigationName } from '../../domain';
 import { NavigationGateway } from '../../gateways';
 import { GetNavigation } from './GetNavigation';
 
-const mockNavigation: NavigationDTO = {
+const mockNavigation = new Navigation({
   id: '123',
   title: 'foofoo',
   items: [],
   name: NavigationName.MAIN_NAVIGATION,
-};
+});
 
 const mockGateway: jest.Mocked<NavigationGateway> = {
   getNavigation: jest.fn(),
@@ -28,10 +28,14 @@ describe('GetNavigation', () => {
       expect(mockGateway.getNavigation).not.toHaveBeenCalled();
 
       const useCase = new GetNavigation(mockGateway);
-      await useCase.execute({ name: NavigationName.MAIN_NAVIGATION });
+      await useCase.execute({
+        locale: Locale.DE,
+        name: NavigationName.MAIN_NAVIGATION,
+      });
 
       expect(mockGateway.getNavigation).toHaveBeenCalledTimes(1);
       expect(mockGateway.getNavigation).toHaveBeenCalledWith(
+        Locale.DE,
         NavigationName.MAIN_NAVIGATION,
       );
     });
@@ -39,6 +43,7 @@ describe('GetNavigation', () => {
     it('returns a page if found', async () => {
       const useCase = new GetNavigation(mockGateway);
       const page = await useCase.execute({
+        locale: Locale.DE,
         name: NavigationName.MAIN_NAVIGATION,
       });
 
@@ -50,7 +55,10 @@ describe('GetNavigation', () => {
 
       const useCase = new GetNavigation(mockGateway);
       await expect(
-        useCase.execute({ name: NavigationName.MAIN_NAVIGATION }),
+        useCase.execute({
+          locale: Locale.DE,
+          name: NavigationName.MAIN_NAVIGATION,
+        }),
       ).rejects.toThrow();
     });
   });

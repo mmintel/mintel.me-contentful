@@ -1,3 +1,4 @@
+import { Locale } from '@/lib/core/domain';
 import { SiteDTO } from '../../dtos';
 import { SiteGateway } from '../../gateways';
 import { GetSite } from './GetSite';
@@ -26,14 +27,14 @@ describe('GetSite', () => {
       expect(mockGateway.getSite).not.toHaveBeenCalled();
 
       const useCase = new GetSite(mockGateway);
-      await useCase.execute();
+      await useCase.execute({ locale: Locale.DE });
 
       expect(mockGateway.getSite).toHaveBeenCalledTimes(1);
     });
 
     it('returns a page if found', async () => {
       const useCase = new GetSite(mockGateway);
-      const page = await useCase.execute();
+      const page = await useCase.execute({ locale: Locale.DE });
 
       expect(page).toEqual(expect.objectContaining(mockPage));
     });
@@ -42,7 +43,7 @@ describe('GetSite', () => {
       mockGateway.getSite.mockRejectedValue('Not found');
 
       const useCase = new GetSite(mockGateway);
-      await expect(useCase.execute()).rejects.toThrow();
+      await expect(useCase.execute({ locale: Locale.DE })).rejects.toThrow();
     });
   });
 });

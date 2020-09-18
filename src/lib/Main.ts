@@ -31,23 +31,19 @@ import { SiteController } from './core/features/site/controllers';
 import { GetSite, GetSiteUseCase } from './core/features/site/usecases';
 import { ContentfulSiteGateway } from './implementations/features/site/gateways';
 import { SiteDTO } from './core/features/site/dtos';
-
-interface MainProps {
-  language: string;
-}
+import {
+  GetAllPages,
+  GetAllPagesUseCase,
+} from './core/features/page/usecases/get-all-pages';
 
 interface MainControls {
-  getSite(): Promise<SiteDTO>;
-  getPage(slug: string): Promise<PageDTO>;
-  getMainNavigation(): Promise<NavigationDTO>;
+  getSite(locale: string): Promise<SiteDTO>;
+  getPage(locale: string, slug: string): Promise<PageDTO>;
+  getAllPages(): Promise<PageDTO[]>;
+  getMainNavigation(locale: string): Promise<NavigationDTO>;
 }
 
 export class Main {
-  private locale: Locale;
-
-  // utils
-  private localeParser: LocaleParser;
-
   // services
   private graphqlService: GraphqlService;
 
@@ -60,17 +56,14 @@ export class Main {
   private pageGateway: PageGateway;
   private pageController: PageController;
   private getPageUseCase: GetPageUseCase;
+  private getAllPagesUseCase: GetAllPagesUseCase;
 
   // navigation feature
   private navigationGateway: NavigationGateway;
   private navigationController: NavigationController;
   private getNavigationUseCase: GetNavigationUseCase;
 
-  constructor(options: MainProps) {
-    // setup utils
-    this.localeParser = new LocaleParser(options.language);
-    this.locale = this.localeParser.parse();
-
+  constructor() {
     // setup services
     this.graphqlService = new GraphQLClient(
       `${contentfulURL}/${contentfulSpaceId}`,
@@ -82,25 +75,22 @@ export class Main {
     );
 
     // setup site feature
-    this.siteGateway = new ContentfulSiteGateway(
-      this.graphqlService,
-      this.locale,
-    );
+    this.siteGateway = new ContentfulSiteGateway(this.graphqlService);
     this.getSiteUseCase = new GetSite(this.siteGateway);
     this.siteController = new SiteController(this.getSiteUseCase);
 
     // setup page feature
-    this.pageGateway = new ContentfulPageGateway(
-      this.graphqlService,
-      this.locale,
-    );
+    this.pageGateway = new ContentfulPageGateway(this.graphqlService);
     this.getPageUseCase = new GetPage(this.pageGateway);
-    this.pageController = new PageController(this.getPageUseCase);
+    this.getAllPagesUseCase = new GetAllPages(this.pageGateway);
+    this.pageController = new PageController(
+      this.getPageUseCase,
+      this.getAllPagesUseCase,
+    );
 
     // setup navigation feature
     this.navigationGateway = new ContentfulNavigationGateway(
       this.graphqlService,
-      this.locale,
     );
     this.getNavigationUseCase = new GetNavigation(this.navigationGateway);
     this.navigationController = new NavigationController(
@@ -110,9 +100,12 @@ export class Main {
 
   init(): MainControls {
     return {
-      getSite: () => this.siteController.getSite(),
-      getPage: (slug: string) => this.pageController.getPage(slug),
-      getMainNavigation: () => this.navigationController.getMainNavigation(),
+      getSite: (locale: string) => this.siteController.getSite(locale),
+      getPage: (locale: string, slug: string) =>
+        this.pageController.getPage(locale, slug),
+      getAllPages: () => this.pageController.getAllPages(),
+      getMainNavigation: (locale: string) =>
+        this.navigationController.getMainNavigation(locale),
     };
   }
 }

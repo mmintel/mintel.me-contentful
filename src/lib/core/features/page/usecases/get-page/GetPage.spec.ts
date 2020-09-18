@@ -1,3 +1,4 @@
+import { Locale } from '@/lib/core/domain';
 import { Page } from '../../domain';
 import { PageGateway } from '../../gateways';
 import { GetPage } from './GetPage';
@@ -31,15 +32,21 @@ describe('GetPage', () => {
       expect(mockGateway.getPage).not.toHaveBeenCalled();
 
       const useCase = new GetPage(mockGateway);
-      await useCase.execute({ slug: mockPage.slug });
+      await useCase.execute({ locale: Locale.DE, slug: mockPage.slug });
 
       expect(mockGateway.getPage).toHaveBeenCalledTimes(1);
-      expect(mockGateway.getPage).toHaveBeenCalledWith(mockPage.slug);
+      expect(mockGateway.getPage).toHaveBeenCalledWith(
+        Locale.DE,
+        mockPage.slug,
+      );
     });
 
     it('returns a page if found', async () => {
       const useCase = new GetPage(mockGateway);
-      const page = await useCase.execute({ slug: mockPage.slug });
+      const page = await useCase.execute({
+        locale: Locale.DE,
+        slug: mockPage.slug,
+      });
 
       expect(page).toEqual(expect.objectContaining(mockPage));
     });
@@ -48,7 +55,9 @@ describe('GetPage', () => {
       mockGateway.getPage.mockRejectedValue('Not found');
 
       const useCase = new GetPage(mockGateway);
-      await expect(useCase.execute({ slug: mockPage.slug })).rejects.toThrow();
+      await expect(
+        useCase.execute({ locale: Locale.DE, slug: mockPage.slug }),
+      ).rejects.toThrow();
     });
   });
 });

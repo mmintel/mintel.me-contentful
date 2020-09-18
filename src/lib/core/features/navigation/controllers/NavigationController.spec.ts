@@ -1,3 +1,4 @@
+import { Locale } from '@/lib/core/domain';
 import { Navigation, NavigationName } from '../domain';
 import { GetNavigationUseCase } from '../usecases';
 import { NavigationController } from './NavigationController';
@@ -24,10 +25,11 @@ describe('NavigationController', () => {
       expect(mockUseCase.execute).not.toHaveBeenCalled();
 
       const controller = new NavigationController(mockUseCase);
-      await controller.getMainNavigation();
+      await controller.getMainNavigation('de-DE');
 
       expect(mockUseCase.execute).toHaveBeenCalledTimes(1);
       expect(mockUseCase.execute).toHaveBeenCalledWith({
+        locale: Locale.DE,
         name: NavigationName.MAIN_NAVIGATION,
       });
     });
@@ -36,7 +38,7 @@ describe('NavigationController', () => {
       mockUseCase.execute.mockResolvedValue(mockNavigation);
 
       const controller = new NavigationController(mockUseCase);
-      const navigation = await controller.getMainNavigation();
+      const navigation = await controller.getMainNavigation('de-DE');
 
       expect(navigation).not.toBeInstanceOf(Navigation);
       expect(navigation.id).toEqual(mockNavigation.id);

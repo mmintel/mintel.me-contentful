@@ -27,17 +27,15 @@ const mockPage: ContentfulPageDTO = {
 
 describe('ContentfulPageGateway', () => {
   it('initializes without crashing', () => {
-    expect(
-      () => new ContentfulPageGateway(mockGraphqlService, Locale.DE),
-    ).not.toThrow();
+    expect(() => new ContentfulPageGateway(mockGraphqlService)).not.toThrow();
   });
 
   describe('getPage', () => {
     it('calls the graphqlService', () => {
       expect(mockGraphqlService.request).not.toHaveBeenCalled();
 
-      const gateway = new ContentfulPageGateway(mockGraphqlService, Locale.DE);
-      gateway.getPage('foo');
+      const gateway = new ContentfulPageGateway(mockGraphqlService);
+      gateway.getPage(Locale.DE, 'foo');
 
       expect(mockGraphqlService.request).toHaveBeenCalledTimes(1);
       expect(mockGraphqlService.request).toHaveBeenCalledWith(
@@ -58,8 +56,8 @@ describe('ContentfulPageGateway', () => {
       };
       mockGraphqlService.request.mockResolvedValue(mockResponse);
 
-      const gateway = new ContentfulPageGateway(mockGraphqlService, Locale.DE);
-      const page = await gateway.getPage('foo');
+      const gateway = new ContentfulPageGateway(mockGraphqlService);
+      const page = await gateway.getPage(Locale.DE, 'foo');
 
       expect(mockGraphqlService.request).toHaveBeenCalledTimes(1);
       expect(page).toBeInstanceOf(Page);
@@ -67,8 +65,8 @@ describe('ContentfulPageGateway', () => {
 
     it('throws an error if no data', async () => {
       mockGraphqlService.request.mockResolvedValue(null);
-      const gateway = new ContentfulPageGateway(mockGraphqlService, Locale.DE);
-      await expect(gateway.getPage('foo')).rejects.toThrow();
+      const gateway = new ContentfulPageGateway(mockGraphqlService);
+      await expect(gateway.getPage(Locale.DE, 'foo')).rejects.toThrow();
     });
   });
 
@@ -76,16 +74,11 @@ describe('ContentfulPageGateway', () => {
     it('calls the graphqlService', () => {
       expect(mockGraphqlService.request).not.toHaveBeenCalled();
 
-      const gateway = new ContentfulPageGateway(mockGraphqlService, Locale.DE);
+      const gateway = new ContentfulPageGateway(mockGraphqlService);
       gateway.getAllPages();
 
       expect(mockGraphqlService.request).toHaveBeenCalledTimes(1);
-      expect(mockGraphqlService.request).toHaveBeenCalledWith(
-        AllPagesQuery,
-        expect.objectContaining({
-          locale: Locale.DE,
-        }),
-      );
+      expect(mockGraphqlService.request).toHaveBeenCalledWith(AllPagesQuery);
     });
 
     it('returns a list of pages', async () => {
@@ -98,7 +91,7 @@ describe('ContentfulPageGateway', () => {
       };
       mockGraphqlService.request.mockResolvedValue(mockResponse);
 
-      const gateway = new ContentfulPageGateway(mockGraphqlService, Locale.DE);
+      const gateway = new ContentfulPageGateway(mockGraphqlService);
       const allPages = await gateway.getAllPages();
 
       expect(mockGraphqlService.request).toHaveBeenCalledTimes(1);
@@ -118,7 +111,7 @@ describe('ContentfulPageGateway', () => {
       };
       mockGraphqlService.request.mockResolvedValue(mockResponse);
 
-      const gateway = new ContentfulPageGateway(mockGraphqlService, Locale.DE);
+      const gateway = new ContentfulPageGateway(mockGraphqlService);
       const allPages = await gateway.getAllPages();
 
       expect(mockGraphqlService.request).toHaveBeenCalledTimes(1);
