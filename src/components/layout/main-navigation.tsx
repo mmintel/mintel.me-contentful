@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Navigation } from '@/lib/core/features/navigation/domain';
+import { Navigation } from '@/core/features/navigation/domain';
 
 interface MainNavigationProps {
   navigation: Navigation;

@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react';
 import Head from 'next/head';
 import Blocks from '@/components/blocks/blocks';
-import { Page } from '@/lib/core/features/page/domain';
-import { Site } from '@/lib/core/features/site/domain';
+import { Page } from '@/core/features/page/domain';
+import { Site } from '@/core/features/site/domain';
 
 interface PageTemplateProps {
   site: Site;

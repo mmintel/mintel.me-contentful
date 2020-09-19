@@ -48,7 +48,8 @@
     "next": "^9.5.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "shallow-equal-object": "^1.1.1"
+    "shallow-equal-object": "^1.1.1",
+    "tslog": "^2.8.0"
   },
   "devDependencies": {
     "@babel/core": "^7.10.4",
