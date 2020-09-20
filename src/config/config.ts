@@ -1,3 +1,4 @@
+import { Locale } from '@/core/domain';
 import dotenv from 'dotenv';
 import { readFileSync } from 'fs';
 import { join } from 'path';
@@ -43,12 +44,6 @@ if (!appConfig.defaultLocale) {
 }
 
 type defaultLocale = string;
-
-interface Locale {
-  name: string;
-  value: string;
-  url: string;
-}
 
 export const locales = appConfig.locales as Locale[];
 export const defaultLocale = appConfig.defaultLocale as defaultLocale;

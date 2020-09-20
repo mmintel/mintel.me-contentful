@@ -1,4 +1,5 @@
 import React from 'react';
+import { defaultLocale, locales } from '@/config';
 import { Logger, createLogger } from '@/core/utils';
 import PageTemplate from '@/components/templates/page';
 import {
@@ -16,24 +17,31 @@ const core = new Core().init();
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const logger: Logger = createLogger('getStaticProps');
-  const queryParser = new QueryParser(params);
-  const slug = queryParser.getSlug();
-  const language = queryParser.getLanguage();
-
-  const site = await core.getSite(language);
-  const mainNavigation = await core.getMainNavigation(language);
-  let page;
 
   logger.debug('request params', params);
-  logger.debug('parsed slug', slug);
+
+  const queryParser = new QueryParser({
+    defaultLocale,
+    locales,
+    query: params,
+  });
+  const slug = queryParser.getSlug();
+  const locale = queryParser.getLocale();
+
+  logger.debug('found slug in query', slug);
+  logger.debug('found locale in query', locale);
+
+  const site = await core.getSite(locale);
+  const mainNavigation = await core.getMainNavigation(locale);
+  let page;
 
   try {
     if (site && !slug) {
       logger.debug('requesting homepage with:', site.homepage);
-      page = await core.getPage(language, site.homepage);
+      page = await core.getPage(locale, site.homepage);
     } else if (slug) {
       logger.debug('requesting page with:', slug);
-      page = await core.getPage(language, slug);
+      page = await core.getPage(locale, slug);
     } else {
       logger.error('no slug provided.');
       page = null;
