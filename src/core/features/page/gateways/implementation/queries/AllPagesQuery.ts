@@ -1,7 +1,7 @@
 import { gql } from 'graphql-request';
 
 export const AllPagesQuery = gql`
-  query AllPagesQuery() {
+  query AllPagesQuery {
     pageCollection {
       items {
         slug

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Logger } from "tslog";
+import { Logger } from 'tslog';
 import PageTemplate from '@/components/templates/page';
 import {
   GetStaticPaths,
@@ -15,28 +15,31 @@ import { QueryParser } from '@/utils/QueryParser';
 const core = new Core().init();
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const logger =  new Logger({ name: "getStaticProps" });
+  const logger = new Logger({ name: 'getStaticProps' });
   const queryParser = new QueryParser(params);
   const slug = queryParser.getSlug();
   const language = queryParser.getLanguage();
 
-
   const site = await core.getSite(language);
-  const mainNavigation = await core.getMainNavigation(language)
+  const mainNavigation = await core.getMainNavigation(language);
   let page;
+
+  logger.debug('request params', params);
+  logger.debug('parsed slug', slug);
 
   try {
     if (site && !slug) {
-      logger.debug(`no slug received, homepage is: "${site.homepage}".`);
+      logger.debug('requesting homepage with:', site.homepage);
       page = await core.getPage(language, site.homepage);
     } else if (slug) {
+      logger.debug('requesting page with:', slug);
       page = await core.getPage(language, slug);
     } else {
-      logger.error('no slug provided.')
+      logger.error('no slug provided.');
       page = null;
     }
-  } catch(e) {
-    logger.error(e)
+  } catch (e) {
+    logger.error(e);
     page = null;
   }
 
@@ -50,8 +53,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const logger = new Logger({ name: 'getStaticPaths' });
   const allPages = await core.getAllPages();
-  const paths = allPages.map(page => `/${page.slug}`);
+  const paths = allPages.map((page) => `/${page.slug}`);
+  logger.info('mapped pages to paths', paths);
   return {
     paths,
     fallback: true,
