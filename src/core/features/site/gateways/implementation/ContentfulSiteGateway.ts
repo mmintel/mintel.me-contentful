@@ -1,6 +1,5 @@
-import { Logger } from "tslog";
+import { Logger, createLogger } from '@/core/utils';
 
-import { Locale } from '@/core/domain';
 import { Site } from '@/core/features/site/domain';
 import { SiteGateway } from '@/core/features/site/gateways';
 import { GraphqlService } from '@/core/services';
@@ -9,11 +8,11 @@ import { ContentfulSiteMapper } from './mappers';
 import { SiteQuery } from './queries/SiteQuery';
 
 export class ContentfulSiteGateway implements SiteGateway {
-  private logger: Logger = new Logger({ name: "ContentfulSiteGateway" });
+  private logger: Logger = createLogger('ContentfulSiteGateway');
 
   constructor(private graphqlService: GraphqlService) {}
 
-  async getSite(locale: Locale): Promise<Site> {
+  async getSite(locale: string): Promise<Site> {
     const response = await this.graphqlService.request<
       ContentfulSiteResponseDTO
     >(SiteQuery, {
@@ -21,7 +20,6 @@ export class ContentfulSiteGateway implements SiteGateway {
     });
 
     if (!response) {
-      this.logger.error(response);
       throw new Error('No site found.');
     }
 

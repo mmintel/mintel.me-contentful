@@ -1,4 +1,3 @@
-import { Locale } from '@/core/domain';
 import { Page } from '@/core/features/page/domain';
 import { GraphqlService } from '@/core/services';
 import { ContentfulPageDTO } from './dtos/ContentfulPageDTO';
@@ -35,13 +34,13 @@ describe('ContentfulPageGateway', () => {
       expect(mockGraphqlService.request).not.toHaveBeenCalled();
 
       const gateway = new ContentfulPageGateway(mockGraphqlService);
-      gateway.getPage(Locale.DE, 'foo');
+      gateway.getPage('de-DE', 'foo');
 
       expect(mockGraphqlService.request).toHaveBeenCalledTimes(1);
       expect(mockGraphqlService.request).toHaveBeenCalledWith(
         PageQuery,
         expect.objectContaining({
-          locale: Locale.DE,
+          locale: 'de-DE',
           slug: 'foo',
         }),
       );
@@ -57,7 +56,7 @@ describe('ContentfulPageGateway', () => {
       mockGraphqlService.request.mockResolvedValue(mockResponse);
 
       const gateway = new ContentfulPageGateway(mockGraphqlService);
-      const page = await gateway.getPage(Locale.DE, 'foo');
+      const page = await gateway.getPage('de-DE', 'foo');
 
       expect(mockGraphqlService.request).toHaveBeenCalledTimes(1);
       expect(page).toBeInstanceOf(Page);
@@ -66,7 +65,7 @@ describe('ContentfulPageGateway', () => {
     it('throws an error if no data', async () => {
       mockGraphqlService.request.mockResolvedValue(null);
       const gateway = new ContentfulPageGateway(mockGraphqlService);
-      await expect(gateway.getPage(Locale.DE, 'foo')).rejects.toThrow();
+      await expect(gateway.getPage('de-DE', 'foo')).rejects.toThrow();
     });
   });
 
@@ -96,7 +95,7 @@ describe('ContentfulPageGateway', () => {
 
       expect(mockGraphqlService.request).toHaveBeenCalledTimes(1);
 
-      allPages.forEach(page => {
+      allPages.forEach((page) => {
         expect(page).toBeInstanceOf(Page);
       });
     });

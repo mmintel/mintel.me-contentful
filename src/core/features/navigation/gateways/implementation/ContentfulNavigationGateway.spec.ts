@@ -1,4 +1,3 @@
-import { Locale } from '@/core/domain';
 import { NavigationName } from '@/core/features/navigation/domain';
 import { GraphqlService } from '@/core/services';
 import {
@@ -24,7 +23,7 @@ describe('ContentfulNavigationGateway', () => {
       expect(mockGraphqlService.request).not.toHaveBeenCalled();
 
       const gateway = new ContentfulNavigationGateway(mockGraphqlService);
-      gateway.getNavigation(Locale.DE, NavigationName.MAIN_NAVIGATION);
+      gateway.getNavigation('de-DE', NavigationName.MAIN_NAVIGATION);
       expect(mockGraphqlService.request).toHaveBeenCalledTimes(1);
       expect(mockGraphqlService.request).toHaveBeenCalledWith(
         NavigationQuery,
@@ -58,7 +57,7 @@ describe('ContentfulNavigationGateway', () => {
 
       const gateway = new ContentfulNavigationGateway(mockGraphqlService);
       const navigation = await gateway.getNavigation(
-        Locale.DE,
+        'de-DE',
         NavigationName.MAIN_NAVIGATION,
       );
 
@@ -71,7 +70,7 @@ describe('ContentfulNavigationGateway', () => {
       mockGraphqlService.request.mockResolvedValue(null);
       const gateway = new ContentfulNavigationGateway(mockGraphqlService);
       await expect(
-        gateway.getNavigation(Locale.DE, NavigationName.MAIN_NAVIGATION),
+        gateway.getNavigation('de-DE', NavigationName.MAIN_NAVIGATION),
       ).rejects.toThrow();
     });
   });

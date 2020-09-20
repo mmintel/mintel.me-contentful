@@ -1,5 +1,5 @@
 import { UseCase } from '@/core/definitions';
-import { SiteDTO } from '../../dtos';
+import { Site } from '../../domain';
 import { GetSiteRequestDTO } from './GetSiteRequestDTO';
 
-export type GetSiteUseCase = UseCase<GetSiteRequestDTO, SiteDTO>;
+export type GetSiteUseCase = UseCase<GetSiteRequestDTO, Site>;

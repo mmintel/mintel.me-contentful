@@ -1,4 +1,3 @@
-import { LocaleParser } from '@/core/utils';
 import { NavigationName } from '../domain';
 import { NavigationDTO } from '../dtos';
 import { NavigationMapper } from '../mappers';
@@ -8,9 +7,8 @@ export class NavigationController {
   constructor(private getNavigation: GetNavigationUseCase) {}
 
   async getMainNavigation(locale: string): Promise<NavigationDTO> {
-    const localeParser = new LocaleParser(locale);
     const navigation = await this.getNavigation.execute({
-      locale: localeParser.parse(),
+      locale,
       name: NavigationName.MAIN_NAVIGATION,
     });
     const mapper = new NavigationMapper(navigation);

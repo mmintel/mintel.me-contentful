@@ -1,4 +1,3 @@
-import { Locale } from '@/core/domain';
 import { Navigation, NavigationName } from '../../domain';
 import { NavigationGateway } from '../../gateways';
 import { GetNavigation } from './GetNavigation';
@@ -29,25 +28,25 @@ describe('GetNavigation', () => {
 
       const useCase = new GetNavigation(mockGateway);
       await useCase.execute({
-        locale: Locale.DE,
+        locale: 'de-DE',
         name: NavigationName.MAIN_NAVIGATION,
       });
 
       expect(mockGateway.getNavigation).toHaveBeenCalledTimes(1);
       expect(mockGateway.getNavigation).toHaveBeenCalledWith(
-        Locale.DE,
+        'de-DE',
         NavigationName.MAIN_NAVIGATION,
       );
     });
 
-    it('returns a page if found', async () => {
+    it('returns a navigation if found', async () => {
       const useCase = new GetNavigation(mockGateway);
-      const page = await useCase.execute({
-        locale: Locale.DE,
+      const navigation = await useCase.execute({
+        locale: 'de-DE',
         name: NavigationName.MAIN_NAVIGATION,
       });
 
-      expect(page).toEqual(expect.objectContaining(mockNavigation));
+      expect(navigation).toBeInstanceOf(Navigation);
     });
 
     it('returns an error if not found', async () => {
@@ -56,7 +55,7 @@ describe('GetNavigation', () => {
       const useCase = new GetNavigation(mockGateway);
       await expect(
         useCase.execute({
-          locale: Locale.DE,
+          locale: 'de-DE',
           name: NavigationName.MAIN_NAVIGATION,
         }),
       ).rejects.toThrow();

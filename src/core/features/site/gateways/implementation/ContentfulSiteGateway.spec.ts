@@ -1,4 +1,3 @@
-import { Locale } from '@/core/domain';
 import { GraphqlService } from '@/core/services';
 import { ContentfulSiteDTO, ContentfulSiteResponseDTO } from './dtos';
 import { ContentfulSiteGateway } from './ContentfulSiteGateway';
@@ -48,13 +47,13 @@ describe('ContentfulSiteGateway', () => {
 
       const gateway = new ContentfulSiteGateway(mockGraphqlService);
 
-      await gateway.getSite(Locale.DE);
+      await gateway.getSite('de-DE');
 
       expect(mockGraphqlService.request).toHaveBeenCalledTimes(1);
       expect(mockGraphqlService.request).toHaveBeenCalledWith(
         SiteQuery,
         expect.objectContaining({
-          locale: Locale.DE,
+          locale: 'de-DE',
         }),
       );
     });
@@ -64,7 +63,7 @@ describe('ContentfulSiteGateway', () => {
       mockGraphqlService.request.mockResolvedValue(mockResponse);
 
       const gateway = new ContentfulSiteGateway(mockGraphqlService);
-      const site = await gateway.getSite(Locale.DE);
+      const site = await gateway.getSite('de-DE');
 
       expect(mockGraphqlService.request).toHaveBeenCalledTimes(1);
       expect(site.id).toBe(mockSite.sys.id);
@@ -75,7 +74,7 @@ describe('ContentfulSiteGateway', () => {
     it('throws an error if no data', async () => {
       mockGraphqlService.request.mockResolvedValue(null);
       const gateway = new ContentfulSiteGateway(mockGraphqlService);
-      await expect(gateway.getSite(Locale.DE)).rejects.toThrow();
+      await expect(gateway.getSite('de-DE')).rejects.toThrow();
     });
   });
 });

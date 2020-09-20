@@ -1,8 +1,4 @@
-import { Locale } from '@/core/domain';
-import {
-  Navigation,
-  NavigationName,
-} from '@/core/features/navigation/domain';
+import { Navigation, NavigationName } from '@/core/features/navigation/domain';
 import { NavigationGateway } from '@/core/features/navigation/gateways';
 import { GraphqlService } from '@/core/services';
 import { ContentfulNavigationResponseDTO } from './dtos';
@@ -13,7 +9,7 @@ export class ContentfulNavigationGateway implements NavigationGateway {
   constructor(private graphqlService: GraphqlService) {}
 
   async getNavigation(
-    locale: Locale,
+    locale: string,
     name: NavigationName,
   ): Promise<Navigation> {
     const response = await this.graphqlService.request<

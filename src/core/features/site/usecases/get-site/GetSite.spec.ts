@@ -1,49 +1,47 @@
-import { Locale } from '@/core/domain';
-import { SiteDTO } from '../../dtos';
+import { Site } from '../../domain';
 import { SiteGateway } from '../../gateways';
 import { GetSite } from './GetSite';
 
-const mockPage: SiteDTO = {
+const mockSite = new Site({
   id: '123',
   title: 'foo',
   logo: 'foo',
-};
+  homepage: 'foo',
+});
 
 const mockGateway: jest.Mocked<SiteGateway> = {
   getSite: jest.fn(),
 };
 
 describe('GetSite', () => {
-  beforeEach(() => {
-    mockGateway.getSite.mockResolvedValue(mockPage);
-  });
-
   it('initializes without crashing', () => {
     expect(() => new GetSite(mockGateway)).not.toThrow();
   });
 
   describe('execute', () => {
     it('calls the gateway', async () => {
+      mockGateway.getSite.mockResolvedValue(mockSite);
       expect(mockGateway.getSite).not.toHaveBeenCalled();
 
       const useCase = new GetSite(mockGateway);
-      await useCase.execute({ locale: Locale.DE });
+      await useCase.execute({ locale: 'de-DE' });
 
       expect(mockGateway.getSite).toHaveBeenCalledTimes(1);
     });
 
-    it('returns a page if found', async () => {
+    it('returns a site if found', async () => {
+      mockGateway.getSite.mockResolvedValue(mockSite);
       const useCase = new GetSite(mockGateway);
-      const page = await useCase.execute({ locale: Locale.DE });
+      const site = await useCase.execute({ locale: 'de-DE' });
 
-      expect(page).toEqual(expect.objectContaining(mockPage));
+      expect(site).toBeInstanceOf(Site);
     });
 
     it('returns an error if not found', async () => {
       mockGateway.getSite.mockRejectedValue('Not found');
 
       const useCase = new GetSite(mockGateway);
-      await expect(useCase.execute({ locale: Locale.DE })).rejects.toThrow();
+      await expect(useCase.execute({ locale: 'de-DE' })).rejects.toThrow();
     });
   });
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Logger } from 'tslog';
+import { Logger, createLogger } from '@/core/utils';
 import PageTemplate from '@/components/templates/page';
 import {
   GetStaticPaths,
@@ -15,7 +15,7 @@ import { QueryParser } from '@/utils/QueryParser';
 const core = new Core().init();
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const logger = new Logger({ name: 'getStaticProps' });
+  const logger: Logger = createLogger('getStaticProps');
   const queryParser = new QueryParser(params);
   const slug = queryParser.getSlug();
   const language = queryParser.getLanguage();
@@ -53,7 +53,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const logger = new Logger({ name: 'getStaticPaths' });
+  const logger: Logger = createLogger('getStaticPaths');
   const allPages = await core.getAllPages();
   const paths = allPages.map((page) => `/${page.slug}`);
   logger.info('mapped pages to paths', paths);

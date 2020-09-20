@@ -1,4 +1,3 @@
-import { Locale } from '@/core/domain';
 import { Page } from '../domain';
 import { GetPageUseCase } from '../usecases';
 import { GetAllPagesUseCase } from '../usecases/get-all-pages';
@@ -42,7 +41,7 @@ describe('PageController', () => {
 
       expect(mockGetPageUseCase.execute).toHaveBeenCalledTimes(1);
       expect(mockGetPageUseCase.execute).toHaveBeenCalledWith({
-        locale: Locale.DE,
+        locale: 'de-DE',
         slug: 'foo-bar',
       });
     });
@@ -84,7 +83,7 @@ describe('PageController', () => {
       );
       const allPages = await controller.getAllPages();
 
-      allPages.forEach(page => expect(page).not.toBeInstanceOf(Page));
+      allPages.forEach((page) => expect(page).not.toBeInstanceOf(Page));
     });
   });
 });

@@ -5,12 +5,11 @@ import { AllPagesQuery } from './queries/AllPagesQuery';
 import { ContentfulPageResponseDTO } from './dtos/ContentfulPageResponseDTO';
 import { ContentfulPageMapper } from './mappers';
 import { GraphqlService } from '@/core/services';
-import { Locale } from '@/core/domain';
 
 export class ContentfulPageGateway implements PageGateway {
   constructor(private graphqlService: GraphqlService) {}
 
-  async getPage(locale: Locale, slug: string): Promise<Page> {
+  async getPage(locale: string, slug: string): Promise<Page> {
     const response = await this.graphqlService.request<
       ContentfulPageResponseDTO
     >(PageQuery, {
@@ -33,7 +32,7 @@ export class ContentfulPageGateway implements PageGateway {
       ContentfulPageResponseDTO
     >(AllPagesQuery);
 
-    return response.pageCollection.items.map(contentfulPage => {
+    return response.pageCollection.items.map((contentfulPage) => {
       const mapper = new ContentfulPageMapper(contentfulPage);
       return mapper.toDomain();
     });

@@ -1,4 +1,3 @@
-import { Locale } from '@/core/domain';
 import { Navigation, NavigationName } from '../domain';
 import { GetNavigationUseCase } from '../usecases';
 import { NavigationController } from './NavigationController';
@@ -29,7 +28,7 @@ describe('NavigationController', () => {
 
       expect(mockUseCase.execute).toHaveBeenCalledTimes(1);
       expect(mockUseCase.execute).toHaveBeenCalledWith({
-        locale: Locale.DE,
+        locale: 'de-DE',
         name: NavigationName.MAIN_NAVIGATION,
       });
     });

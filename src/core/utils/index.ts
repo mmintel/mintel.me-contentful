@@ -1,1 +1,1 @@
-export * from './LocaleParser';
+export * from './Logger';
