@@ -43,7 +43,9 @@ if (!appConfig.defaultLocale) {
   throw new Error('You must define a defaultLocale in your config.json!');
 }
 
-type defaultLocale = string;
-
 export const locales = appConfig.locales as Locale[];
-export const defaultLocale = appConfig.defaultLocale as defaultLocale;
+
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+export const defaultLocale = locales.find(
+  (locale) => locale.name === appConfig.defaultLocale,
+)!;

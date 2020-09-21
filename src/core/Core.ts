@@ -37,7 +37,7 @@ import { ContentfulSiteGateway } from './features/site/gateways/implementation';
 interface CoreControls {
   getSite(locale: string): Promise<SiteDTO>;
   getPage(locale: string, slug: string): Promise<PageDTO>;
-  getAllPages(): Promise<PageDTO[]>;
+  getAllPages(locale: string): Promise<PageDTO[]>;
   getMainNavigation(locale: string): Promise<NavigationDTO>;
 }
 
@@ -101,7 +101,7 @@ export class Core {
       getSite: (locale: string) => this.siteController.getSite(locale),
       getPage: (locale: string, slug: string) =>
         this.pageController.getPage(locale, slug),
-      getAllPages: () => this.pageController.getAllPages(),
+      getAllPages: (locale: string) => this.pageController.getAllPages(locale),
       getMainNavigation: (locale: string) =>
         this.navigationController.getMainNavigation(locale),
     };

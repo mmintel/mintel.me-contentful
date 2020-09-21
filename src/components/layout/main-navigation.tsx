@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
+import { Link } from '../elements/link';
 import { Navigation } from '@/core/features/navigation/domain';
 
 interface MainNavigationProps {
@@ -10,10 +10,10 @@ const MainNavigation: React.FC<MainNavigationProps> = ({ navigation }) => (
   <div>
     {navigation.title}
     <ul>
-      {navigation.items.map(item => (
+      {navigation.items.map((item) => (
         <li key={item.id}>
           {item.page?.slug && item.internal && (
-            <Link href={item.page.slug === 'home' ? '/' : item.page.slug}>
+            <Link href={item.page.slug}>
               <a>
                 {item.title} {item.internal && <span>(internal)</span>}
               </a>

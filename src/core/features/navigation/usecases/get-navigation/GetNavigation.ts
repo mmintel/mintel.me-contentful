@@ -1,5 +1,5 @@
 import { NavigationGateway } from '../../gateways';
-import { GetNavigationRequestDTO } from './GetNavigationRequestDTO';
+import { GetNavigationRequest } from './GetNavigationRequest';
 import { NavigationNotFoundError } from './NavigationNotFoundError';
 import { GetNavigationUseCase } from './GetNavigationUseCase';
 import { Navigation } from '../../domain';
@@ -7,7 +7,7 @@ import { Navigation } from '../../domain';
 export class GetNavigation implements GetNavigationUseCase {
   constructor(private navigationGateway: NavigationGateway) {}
 
-  async execute(request: GetNavigationRequestDTO): Promise<Navigation> {
+  async execute(request: GetNavigationRequest): Promise<Navigation> {
     try {
       const navigation = await this.navigationGateway.getNavigation(
         request.locale,

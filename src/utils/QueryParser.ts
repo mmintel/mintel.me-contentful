@@ -3,24 +3,12 @@ import { Locale } from '@/core/domain';
 
 interface QueryParserOptions {
   locales: Locale[];
-  defaultLocale: string;
+  defaultLocale: Locale;
   query?: ParsedUrlQuery;
 }
 
 export class QueryParser {
-  private defaultLocale: Locale;
-
-  constructor(private options: QueryParserOptions) {
-    const defaultLocale = options.locales.find(
-      (locale) => locale.name === options.defaultLocale,
-    );
-
-    if (!defaultLocale) {
-      throw new Error('Default locale not provided with locales.');
-    }
-
-    this.defaultLocale = defaultLocale;
-  }
+  constructor(private options: QueryParserOptions) {}
 
   /**
    * retrieves the slug as a string from a query slug, even if it's passed as an array.
@@ -44,14 +32,14 @@ export class QueryParser {
    * retrieves the locale from a query slug. if it's passed as an array it will look for the first item.
    * if it doesn't find a locale it will return the default locale.
    */
-  getLocale(): string {
+  getLocale(): Locale {
     const query = this.options.query;
-    const defaultLocale = this.defaultLocale.value;
+    const defaultLocale = this.options.defaultLocale;
 
     if (query?.slug && typeof query.slug === 'string') {
-      return this.findLocale(query.slug)?.value || defaultLocale;
+      return this.findLocale(query.slug) || defaultLocale;
     } else if (query?.slug && Array.isArray(query.slug)) {
-      return this.findLocale(query.slug[0])?.value || defaultLocale;
+      return this.findLocale(query.slug[0]) || defaultLocale;
     }
 
     return defaultLocale;

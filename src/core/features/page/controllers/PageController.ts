@@ -18,8 +18,8 @@ export class PageController {
     return mapper.toDTO();
   }
 
-  async getAllPages(): Promise<PageDTO[]> {
-    const allPages = await this.getAllPagesUseCase.execute();
+  async getAllPages(locale: string): Promise<PageDTO[]> {
+    const allPages = await this.getAllPagesUseCase.execute({ locale });
     return allPages.map((page) => {
       const mapper = new PageMapper(page);
       return mapper.toDTO();

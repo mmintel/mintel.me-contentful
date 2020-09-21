@@ -1,5 +1,5 @@
 import { UseCase } from '@/core/definitions';
 import { Navigation } from '../../domain';
-import { GetNavigationRequestDTO } from './GetNavigationRequestDTO';
+import { GetNavigationRequest } from './GetNavigationRequest';
 
-export type GetNavigationUseCase = UseCase<GetNavigationRequestDTO, Navigation>;
+export type GetNavigationUseCase = UseCase<GetNavigationRequest, Navigation>;

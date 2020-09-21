@@ -27,10 +27,12 @@ export class ContentfulPageGateway implements PageGateway {
     return mapper.toDomain();
   }
 
-  async getAllPages(): Promise<Page[]> {
+  async getAllPages(locale: string): Promise<Page[]> {
     const response = await this.graphqlService.request<
       ContentfulPageResponseDTO
-    >(AllPagesQuery);
+    >(AllPagesQuery, {
+      locale,
+    });
 
     return response.pageCollection.items.map((contentfulPage) => {
       const mapper = new ContentfulPageMapper(contentfulPage);

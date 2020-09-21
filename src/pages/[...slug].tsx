@@ -12,6 +12,8 @@ import Header from '@/components/layout/header';
 import MainNavigation from '@/components/layout/main-navigation';
 import { Core } from '@/core';
 import { QueryParser } from '@/utils/QueryParser';
+import { PageDTO } from '@/core/features/page/dtos';
+import { PageContextProvider } from '@/context/PageContext';
 
 const core = new Core().init();
 
@@ -31,17 +33,17 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   logger.debug('found slug in query', slug);
   logger.debug('found locale in query', locale);
 
-  const site = await core.getSite(locale);
-  const mainNavigation = await core.getMainNavigation(locale);
+  const site = await core.getSite(locale.value);
+  const mainNavigation = await core.getMainNavigation(locale.value);
   let page;
 
   try {
     if (site && !slug) {
       logger.debug('requesting homepage with:', site.homepage);
-      page = await core.getPage(locale, site.homepage);
+      page = await core.getPage(locale.value, site.homepage);
     } else if (slug) {
       logger.debug('requesting page with:', slug);
-      page = await core.getPage(locale, slug);
+      page = await core.getPage(locale.value, slug);
     } else {
       logger.error('no slug provided.');
       page = null;
@@ -56,15 +58,48 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       site,
       mainNavigation,
       page,
+      locales,
+      defaultLocale,
+      currentLocale: locale,
     },
   };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const logger: Logger = createLogger('getStaticPaths');
-  const allPages = await core.getAllPages();
-  const paths = allPages.map((page) => `/${page.slug}`);
+  let allPages: PageDTO[] = [];
+  const paths: string[] = [];
+
+  for (const locale of locales) {
+    const site = await core.getSite(locale.value);
+    const pages = await core.getAllPages(locale.value);
+
+    pages.forEach((page) => {
+      let slug: string;
+
+      if (locale.name === defaultLocale.name) {
+        if (page.slug === site.homepage) {
+          // homepage is not handled by index route
+          return;
+        } else {
+          slug = `/${page.slug}`;
+        }
+      } else {
+        if (page.slug === site.homepage) {
+          slug = `/${locale.url}/`;
+        } else {
+          slug = `/${locale.url}/${page.slug}`;
+        }
+      }
+
+      paths.push(slug);
+    });
+
+    allPages = [...allPages, ...pages];
+  }
+
   logger.info('mapped pages to paths', paths);
+
   return {
     paths,
     fallback: true,
@@ -77,21 +112,28 @@ const PageView: NextPage = ({
   mainNavigation,
   page,
   site,
+  locales,
+  currentLocale,
+  defaultLocale,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   if (!page) {
     return <NotFound />;
   }
 
   return (
-    <PageTemplate
-      before={
-        <Header logo={site.logo}>
-          <MainNavigation navigation={mainNavigation} />
-        </Header>
-      }
-      site={site}
-      page={page}
-    />
+    <PageContextProvider
+      value={{ page, site, currentLocale, locales, defaultLocale }}
+    >
+      <PageTemplate
+        before={
+          <Header logo={site.logo}>
+            <MainNavigation navigation={mainNavigation} />
+          </Header>
+        }
+        site={site}
+        page={page}
+      />
+    </PageContextProvider>
   );
 };
 
