@@ -1,31 +1,47 @@
+import { Locale } from '@/core/domain';
+
 interface UrlGeneratorOptions {
-  currentLocale: string;
-  defaultLocale: string;
+  defaultLocale: Locale;
   homepage: string;
+}
+
+interface Target {
+  slug: string;
+  locale: Locale;
+  parent?: {
+    slug: string;
+  };
 }
 
 export class UrlGenerator {
   constructor(private options: UrlGeneratorOptions) {}
 
-  generate(href: string): string {
-    const currentLocale = this.options.currentLocale;
-    const defaultLocale = this.options.defaultLocale;
+  generate(target: Target): string {
     const homepage = this.options.homepage;
-    let url = href;
+    let url = target.slug;
 
-    if (currentLocale === defaultLocale) {
-      if (homepage === url) {
-        url = '/';
-      } else {
-        url = `/${url}`;
-      }
+    if (target.parent) {
+      url = `/${target.parent.slug}/${url}`;
+    }
+
+    if (this.isDefaultLocale(target) && this.isHomepage(target)) {
+      url = '/';
     } else {
-      if (homepage === url) {
-        url = `/${currentLocale}`;
+      if (homepage === target.slug) {
+        url = `/${target.locale}`;
       } else {
-        url = `/${currentLocale}/${url}`;
+        url = `/${target.locale}/${url}`;
       }
     }
+
     return url;
+  }
+
+  private isDefaultLocale(target: Target) {
+    return this.options.defaultLocale === target.locale;
+  }
+
+  private isHomepage(target: Target) {
+    return this.options.homepage === target.slug;
   }
 }

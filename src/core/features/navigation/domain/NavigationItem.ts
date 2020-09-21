@@ -1,9 +1,11 @@
-interface NavigationItemProps {
+import { Page } from '../../page/domain';
+
+export interface NavigationItemProps {
   id: string;
   title: string;
   internal: boolean;
   url?: string;
-  page?: string;
+  page?: Page;
 }
 
 export class NavigationItem {
@@ -25,7 +27,7 @@ export class NavigationItem {
     return this.props.url;
   }
 
-  get page(): string | undefined {
+  get page(): Page | undefined {
     return this.props.page;
   }
 }

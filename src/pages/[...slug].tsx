@@ -77,11 +77,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     pages.forEach((page) => {
       const urlGenerator = new UrlGenerator({
-        currentLocale: locale.url,
-        defaultLocale: defaultLocale.url,
+        defaultLocale: defaultLocale,
         homepage: site.homepage,
       });
-      const url = urlGenerator.generate(page.slug);
+      const url = urlGenerator.generate(page);
 
       // '/' is handled by index route
       if (url !== '/') {
