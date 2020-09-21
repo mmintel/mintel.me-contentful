@@ -1,11 +1,12 @@
-import { PageDTO } from '../dtos';
-
 interface PageProps {
   id: string;
   title: string;
   slug: string;
   description: string;
-  components: any;
+  components: {
+    json: any;
+  };
+  parent?: Page;
 }
 
 export class Page {
@@ -31,13 +32,7 @@ export class Page {
     return this.props.components.json;
   }
 
-  toDTO(page: Page): PageDTO {
-    return {
-      id: page.id,
-      title: page.title,
-      slug: page.slug,
-      description: page.description,
-      components: page.components,
-    };
+  get parent(): Page | undefined {
+    return this.props.parent;
   }
 }
