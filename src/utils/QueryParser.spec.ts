@@ -1,20 +1,20 @@
-import { locales } from '@/config';
 import { Locale } from '@/core/domain';
 import { ParsedUrlQuery } from 'querystring';
 import { QueryParser } from './QueryParser';
 
-const mockLocales: Locale[] = [
-  {
-    name: 'de',
-    url: 'de',
-    value: 'de-DE',
-  },
-  {
-    name: 'en',
-    url: 'en',
-    value: 'en-GB',
-  },
-];
+const mockDELocale = {
+  name: 'de',
+  value: 'de-DE',
+  url: 'de',
+};
+
+const mockENLocale = {
+  name: 'en',
+  value: 'en-US',
+  url: 'en',
+};
+
+const mockLocales: Locale[] = [mockDELocale, mockENLocale];
 
 describe('QueryParser', () => {
   it('initializes without crashing', () => {
@@ -22,11 +22,7 @@ describe('QueryParser', () => {
       () =>
         new QueryParser({
           locales: mockLocales,
-          defaultLocale: {
-            name: 'de',
-            value: 'de-DE',
-            url: 'de',
-          },
+          defaultLocale: mockDELocale,
         }),
     ).not.toThrow();
   });
@@ -35,11 +31,7 @@ describe('QueryParser', () => {
     it('returns undefined if no query given', () => {
       const parser = new QueryParser({
         locales: mockLocales,
-        defaultLocale: {
-          name: 'de',
-          value: 'de-DE',
-          url: 'de',
-        },
+        defaultLocale: mockDELocale,
       });
       expect(parser.getSlug()).toBe(undefined);
     });
@@ -48,11 +40,7 @@ describe('QueryParser', () => {
       const mockQuery: ParsedUrlQuery = {};
       const parser = new QueryParser({
         locales: mockLocales,
-        defaultLocale: {
-          name: 'de',
-          value: 'de-DE',
-          url: 'de',
-        },
+        defaultLocale: mockDELocale,
         query: mockQuery,
       });
       expect(parser.getSlug()).toBe(undefined);
@@ -64,11 +52,7 @@ describe('QueryParser', () => {
       };
       const parser = new QueryParser({
         locales: mockLocales,
-        defaultLocale: {
-          name: 'de',
-          value: 'de-DE',
-          url: 'de',
-        },
+        defaultLocale: mockDELocale,
         query: mockQuery,
       });
       expect(parser.getSlug()).toEqual('foo');
@@ -80,11 +64,7 @@ describe('QueryParser', () => {
       };
       const parser = new QueryParser({
         locales: mockLocales,
-        defaultLocale: {
-          name: 'de',
-          value: 'de-DE',
-          url: 'de',
-        },
+        defaultLocale: mockDELocale,
         query: mockQuery,
       });
       expect(parser.getSlug()).toEqual('foo/bar');
@@ -96,11 +76,7 @@ describe('QueryParser', () => {
       };
       const parser = new QueryParser({
         locales: mockLocales,
-        defaultLocale: {
-          name: 'de',
-          value: 'de-DE',
-          url: 'de',
-        },
+        defaultLocale: mockDELocale,
         query: mockQuery,
       });
       expect(parser.getSlug()).toEqual('foo/bar');
@@ -113,11 +89,7 @@ describe('QueryParser', () => {
         };
         const parser = new QueryParser({
           locales: mockLocales,
-          defaultLocale: {
-            name: 'de',
-            value: 'de-DE',
-            url: 'de',
-          },
+          defaultLocale: mockDELocale,
           query: mockQuery,
         });
         expect(parser.getSlug()).toEqual(undefined);
@@ -129,11 +101,7 @@ describe('QueryParser', () => {
         };
         const parser = new QueryParser({
           locales: mockLocales,
-          defaultLocale: {
-            name: 'de',
-            value: 'de-DE',
-            url: 'de',
-          },
+          defaultLocale: mockDELocale,
           query: mockQuery,
         });
         expect(parser.getSlug()).toEqual(undefined);
@@ -148,14 +116,10 @@ describe('QueryParser', () => {
       };
       const parser = new QueryParser({
         locales: mockLocales,
-        defaultLocale: {
-          name: 'de',
-          value: 'de-DE',
-          url: 'de',
-        },
+        defaultLocale: mockDELocale,
         query: mockQuery,
       });
-      expect(parser.getLocale()).toEqual('de-DE');
+      expect(parser.getLocale()).toEqual(mockDELocale);
     });
 
     it('returns locale if found', () => {
@@ -164,14 +128,10 @@ describe('QueryParser', () => {
       };
       const parser = new QueryParser({
         locales: mockLocales,
-        defaultLocale: {
-          value: 'en-US',
-          name: 'en',
-          url: 'en',
-        },
+        defaultLocale: mockENLocale,
         query: mockQuery,
       });
-      expect(parser.getLocale()).toEqual('de-DE');
+      expect(parser.getLocale()).toEqual(mockDELocale);
     });
 
     it('returns locale if found at the first position of an array', () => {
@@ -180,14 +140,10 @@ describe('QueryParser', () => {
       };
       const parser = new QueryParser({
         locales: mockLocales,
-        defaultLocale: {
-          value: 'en-US',
-          name: 'en',
-          url: 'en',
-        },
+        defaultLocale: mockENLocale,
         query: mockQuery,
       });
-      expect(parser.getLocale()).toEqual('de-DE');
+      expect(parser.getLocale()).toEqual(mockDELocale);
     });
   });
 });
