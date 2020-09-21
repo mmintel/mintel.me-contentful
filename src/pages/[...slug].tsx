@@ -14,6 +14,7 @@ import { Core } from '@/core';
 import { QueryParser } from '@/utils/QueryParser';
 import { PageDTO } from '@/core/features/page/dtos';
 import { PageContextProvider } from '@/context/PageContext';
+import { UrlGenerator } from '@/utils/UrlGenerator';
 
 const core = new Core().init();
 
@@ -75,24 +76,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
     const pages = await core.getAllPages(locale.value);
 
     pages.forEach((page) => {
-      let slug: string;
+      const urlGenerator = new UrlGenerator({
+        currentLocale: locale.url,
+        defaultLocale: defaultLocale.url,
+        homepage: site.homepage,
+      });
+      const url = urlGenerator.generate(page.slug);
 
-      if (locale.name === defaultLocale.name) {
-        if (page.slug === site.homepage) {
-          // homepage is not handled by index route
-          return;
-        } else {
-          slug = `/${page.slug}`;
-        }
-      } else {
-        if (page.slug === site.homepage) {
-          slug = `/${locale.url}/`;
-        } else {
-          slug = `/${locale.url}/${page.slug}`;
-        }
+      // '/' is handled by index route
+      if (url !== '/') {
+        paths.push();
       }
-
-      paths.push(slug);
     });
 
     allPages = [...allPages, ...pages];
