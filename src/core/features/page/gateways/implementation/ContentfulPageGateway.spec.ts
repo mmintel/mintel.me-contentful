@@ -5,24 +5,13 @@ import { ContentfulPageResponseDTO } from './dtos/ContentfulPageResponseDTO';
 import { ContentfulPageGateway } from './ContentfulPageGateway';
 import { AllPagesQuery } from './queries/AllPagesQuery';
 import { PageQuery } from './queries/PageQuery';
+import { createContentfulPage } from './fixtures';
 
 const mockGraphqlService: jest.Mocked<GraphqlService> = {
   request: jest.fn(),
 };
 
-const mockPage: ContentfulPageDTO = {
-  title: 'foo',
-  description: 'foobar',
-  slug: 'foo-bar',
-  components: {
-    json: {},
-  },
-  sys: {
-    id: '124123213',
-    firstPublishedAt: '213',
-    publishedAt: '213123',
-  },
-};
+const mockPage: ContentfulPageDTO = createContentfulPage();
 
 describe('ContentfulPageGateway', () => {
   it('initializes without crashing', () => {

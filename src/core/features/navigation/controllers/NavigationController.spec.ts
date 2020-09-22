@@ -1,4 +1,5 @@
 import { Navigation, NavigationName } from '../domain';
+import { NavigationFixture } from '../fixtures';
 import { GetNavigationUseCase } from '../usecases';
 import { NavigationController } from './NavigationController';
 
@@ -6,12 +7,7 @@ const mockUseCase: jest.Mocked<GetNavigationUseCase> = {
   execute: jest.fn(),
 };
 
-const mockNavigation = new Navigation({
-  id: 'foo',
-  items: [],
-  name: 'foo',
-  title: 'foobar',
-});
+const mockNavigation: Navigation = new NavigationFixture();
 
 describe('NavigationController', () => {
   it('should initialize without crashing', () => {

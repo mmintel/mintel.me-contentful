@@ -1,6 +1,6 @@
 import { NavigationItem } from './NavigationItem';
 
-interface NavigationProps {
+export interface NavigationProps {
   id: string;
   title: string;
   name: string;

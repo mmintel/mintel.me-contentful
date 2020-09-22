@@ -1,4 +1,5 @@
 import { Page } from '../domain';
+import { PageFixture } from '../fixtures';
 import { GetPageUseCase } from '../usecases';
 import { GetAllPagesUseCase } from '../usecases/get-all-pages';
 import { PageController } from './PageController';
@@ -11,15 +12,7 @@ const mockGetAllPagesUseCase: jest.Mocked<GetAllPagesUseCase> = {
   execute: jest.fn(),
 };
 
-const mockPage = new Page({
-  id: 'foo',
-  components: {
-    json: {},
-  },
-  description: 'foofoo',
-  slug: 'foo-bar',
-  title: 'fingfong',
-});
+const mockPage: Page = new PageFixture()
 
 describe('PageController', () => {
   it('should initialize without crashing', () => {
@@ -69,7 +62,7 @@ describe('PageController', () => {
         mockGetPageUseCase,
         mockGetAllPagesUseCase,
       );
-      await controller.getAllPages();
+      await controller.getAllPages('de-DE');
 
       expect(mockGetAllPagesUseCase.execute).toHaveBeenCalledTimes(1);
     });
@@ -81,7 +74,7 @@ describe('PageController', () => {
         mockGetPageUseCase,
         mockGetAllPagesUseCase,
       );
-      const allPages = await controller.getAllPages();
+      const allPages = await controller.getAllPages('de-DE');
 
       allPages.forEach((page) => expect(page).not.toBeInstanceOf(Page));
     });

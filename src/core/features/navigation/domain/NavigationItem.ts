@@ -1,4 +1,4 @@
-interface NavigationItemProps {
+export interface NavigationItemProps {
   id: string;
   title: string;
   internal: boolean;

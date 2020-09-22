@@ -17,6 +17,7 @@ module.exports = {
     },
   },
   setupFilesAfterEnv: ['<rootDir>/setup-tests.js'],
+  globalSetup: '<rootDir>/global-setup-tests.js',
   testPathIgnorePatterns: ['/node_modules/', '/.next/', '/.cypress/'],
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/node_modules/babel-jest',

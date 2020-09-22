@@ -1,11 +1,9 @@
 import { Navigation, NavigationName } from '../../domain';
+import { NavigationFixture } from '../../fixtures';
 import { NavigationGateway } from '../../gateways';
 import { GetNavigation } from './GetNavigation';
 
-const mockNavigation = new Navigation({
-  id: '123',
-  title: 'foofoo',
-  items: [],
+const mockNavigation: Navigation = new NavigationFixture({
   name: NavigationName.MAIN_NAVIGATION,
 });
 

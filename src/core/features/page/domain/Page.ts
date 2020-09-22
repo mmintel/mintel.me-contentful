@@ -1,4 +1,4 @@
-interface PageProps {
+export interface PageProps {
   id: string;
   title: string;
   slug: string;

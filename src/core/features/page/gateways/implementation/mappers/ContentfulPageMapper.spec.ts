@@ -1,20 +1,9 @@
 import { Page } from '../../../domain';
 import { ContentfulPageDTO } from '../dtos/ContentfulPageDTO';
+import { createContentfulPage } from '../fixtures';
 import { ContentfulPageMapper } from './ContentfulPageMapper';
 
-const mockContentfulPage: ContentfulPageDTO = {
-  title: 'foo',
-  components: {
-    json: {},
-  },
-  description: 'foo',
-  slug: 'foo/bar',
-  sys: {
-    id: '213asd',
-    firstPublishedAt: 'foo',
-    publishedAt: 'foo',
-  },
-};
+const mockContentfulPage: ContentfulPageDTO = createContentfulPage();
 
 describe('ContentfulPageMapper', () => {
   it('initializes without crashing', () => {
