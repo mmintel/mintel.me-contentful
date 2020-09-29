@@ -1,9 +1,12 @@
+export type PageTeaser = {
+  slug: string;
+  parent: PageTeaser | null;
+};
+
 export interface NavigationItemDTO {
   id: string;
   title: string;
   internal: boolean;
-  url?: string;
-  page?: {
-    slug: string;
-  };
+  url: string | null;
+  page: PageTeaser | null;
 }

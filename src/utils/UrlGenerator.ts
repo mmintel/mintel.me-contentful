@@ -1,13 +1,11 @@
-import { Locale } from '@/core/domain';
-
 interface UrlGeneratorOptions {
-  defaultLocale: Locale;
+  defaultLocaleURL: string;
+  localeURL: string;
   homepage: string;
 }
 
 interface Target {
   slug: string;
-  locale: Locale;
   parent?: {
     slug: string;
   };
@@ -24,21 +22,21 @@ export class UrlGenerator {
       url = `/${target.parent.slug}/${url}`;
     }
 
-    if (this.isDefaultLocale(target) && this.isHomepage(target)) {
+    if (this.isDefaultLocale() && this.isHomepage(target)) {
       url = '/';
-    } else {
+    } else if (!this.isDefaultLocale()) {
       if (homepage === target.slug) {
-        url = `/${target.locale}`;
+        url = `/${this.options.localeURL}`;
       } else {
-        url = `/${target.locale}/${url}`;
+        url = `/${this.options.localeURL}/${url}`;
       }
     }
 
     return url;
   }
 
-  private isDefaultLocale(target: Target) {
-    return this.options.defaultLocale === target.locale;
+  private isDefaultLocale() {
+    return this.options.defaultLocaleURL === this.options.localeURL;
   }
 
   private isHomepage(target: Target) {

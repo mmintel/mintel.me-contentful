@@ -1,4 +1,3 @@
-import { Page } from '@/core/features/page/domain';
 import { UrlGenerator } from './UrlGenerator';
 
 describe('UrlGenerator', () => {
@@ -6,8 +5,8 @@ describe('UrlGenerator', () => {
     expect(
       () =>
         new UrlGenerator({
-          currentLocale: 'de',
-          defaultLocale: 'de',
+          localeURL: 'de',
+          defaultLocaleURL: 'de',
           homepage: 'home',
         }),
     ).not.toThrow();
@@ -20,8 +19,8 @@ describe('UrlGenerator', () => {
       ['foo/bar', '/foo/bar'],
     ])('given %p generates %p for default locale', (url, result) => {
       const generator = new UrlGenerator({
-        currentLocale: 'en',
-        defaultLocale: 'en',
+        localeURL: 'en',
+        defaultLocaleURL: 'en',
         homepage: 'home',
       });
       expect(generator.generate({ slug: url })).toEqual(result);
@@ -33,8 +32,8 @@ describe('UrlGenerator', () => {
       ['foo/bar', '/de/foo/bar'],
     ])('given %p generates %p for non-default locale', (url, result) => {
       const generator = new UrlGenerator({
-        currentLocale: 'de',
-        defaultLocale: 'en',
+        localeURL: 'de',
+        defaultLocaleURL: 'en',
         homepage: 'start',
       });
       expect(generator.generate({ slug: url })).toEqual(result);
@@ -42,8 +41,8 @@ describe('UrlGenerator', () => {
 
     it('generates the right url with a parent', () => {
       const generator = new UrlGenerator({
-        currentLocale: 'de',
-        defaultLocale: 'en',
+        localeURL: 'de',
+        defaultLocaleURL: 'en',
         homepage: 'start',
       });
       expect(

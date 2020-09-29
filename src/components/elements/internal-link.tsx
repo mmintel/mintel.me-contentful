@@ -10,9 +10,10 @@ interface InternalLinkProps {
 }
 
 const InternalLink: React.FC<InternalLinkProps> = ({ target, children }) => {
-  const { defaultLocale, site } = usePageContext();
+  const { locale, defaultLocale, site } = usePageContext();
   const urlGenerator = new UrlGenerator({
-    defaultLocale,
+    localeURL: locale.url,
+    defaultLocaleURL: defaultLocale.url,
     homepage: site.homepage,
   });
   const url = urlGenerator.generate(target);

@@ -38,6 +38,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const mainNavigation = await core.getMainNavigation(locale.value);
   let page;
 
+  logger.debug('received mainNavigation', mainNavigation);
+
   try {
     if (site && !slug) {
       logger.debug('requesting homepage with:', site.homepage);
@@ -61,7 +63,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       page,
       locales,
       defaultLocale,
-      currentLocale: locale,
+      locale,
     },
   };
 };
@@ -77,7 +79,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     pages.forEach((page) => {
       const urlGenerator = new UrlGenerator({
-        defaultLocale: defaultLocale,
+        localeURL: locale.url,
+        defaultLocaleURL: defaultLocale.url,
         homepage: site.homepage,
       });
       const url = urlGenerator.generate(page);
@@ -106,7 +109,7 @@ const PageView: NextPage = ({
   page,
   site,
   locales,
-  currentLocale,
+  locale,
   defaultLocale,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   if (!page) {
@@ -114,9 +117,7 @@ const PageView: NextPage = ({
   }
 
   return (
-    <PageContextProvider
-      value={{ page, site, currentLocale, locales, defaultLocale }}
-    >
+    <PageContextProvider value={{ page, site, locale, locales, defaultLocale }}>
       <PageTemplate
         before={
           <Header logo={site.logo}>
