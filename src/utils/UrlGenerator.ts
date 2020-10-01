@@ -6,33 +6,33 @@ interface UrlGeneratorOptions {
 
 interface Target {
   slug: string;
-  parent?: {
-    slug: string;
-  };
+  parent?: Target;
 }
 
 export class UrlGenerator {
   constructor(private options: UrlGeneratorOptions) {}
 
-  generate(target: Target): string {
+  generate(target: Target, url = ''): string {
     const homepage = this.options.homepage;
-    let url = target.slug;
+    let currentUrl = url || `/${target.slug}`;
 
     if (target.parent) {
-      url = `/${target.parent.slug}/${url}`;
+      currentUrl = `/${target.parent.slug}${currentUrl}`;
     }
 
     if (this.isDefaultLocale() && this.isHomepage(target)) {
-      url = '/';
+      currentUrl = '/';
     } else if (!this.isDefaultLocale()) {
       if (homepage === target.slug) {
-        url = `/${this.options.localeURL}`;
+        currentUrl = `/${this.options.localeURL}`;
       } else {
-        url = `/${this.options.localeURL}/${url}`;
+        currentUrl = `/${this.options.localeURL}${currentUrl}`;
       }
     }
 
-    return url;
+    if (!target.parent) return currentUrl;
+
+    return this.generate(target.parent, currentUrl);
   }
 
   private isDefaultLocale() {

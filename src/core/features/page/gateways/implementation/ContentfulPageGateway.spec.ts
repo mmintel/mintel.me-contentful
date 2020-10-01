@@ -62,6 +62,97 @@ describe('ContentfulPageGateway', () => {
       expect(page).toBeInstanceOf(Page);
     });
 
+    it('assigns a parent', async () => {
+      const mockParent: ContentfulPageDTO = {
+        ...mockPage,
+        slug: 'bar',
+        sys: {
+          ...mockPage.sys,
+          id: 'bar',
+        },
+      };
+      const mockPageWithParent: ContentfulPageDTO = {
+        ...mockPage,
+        parent: {
+          slug: mockParent.slug,
+        },
+      };
+      const mockResponse: ContentfulPageResponseDTO = {
+        pageCollection: {
+          items: [mockPageWithParent],
+        },
+      };
+      const mockParentResponse: ContentfulPageResponseDTO = {
+        pageCollection: {
+          items: [mockParent],
+        },
+      };
+      mockGraphqlService.request
+        .mockResolvedValueOnce(mockResponse)
+        .mockResolvedValueOnce(mockParentResponse);
+
+      const gateway = new ContentfulPageGateway(mockGraphqlService);
+      const page = await gateway.getPage('de-DE', 'foo');
+
+      expect(page.parent).toBeDefined();
+      expect(page.parent!.id).toEqual(mockParent.sys.id);
+    });
+
+    it('assigns multiple parents', async () => {
+      const mockGrandParent: ContentfulPageDTO = {
+        ...mockPage,
+        slug: 'baz',
+        sys: {
+          ...mockPage.sys,
+          id: 'baz',
+        },
+      };
+      const mockParent: ContentfulPageDTO = {
+        ...mockPage,
+        slug: 'bar',
+        parent: {
+          slug: mockGrandParent.slug,
+        },
+        sys: {
+          ...mockPage.sys,
+          id: 'bar',
+        },
+      };
+      const mockPageWithParent: ContentfulPageDTO = {
+        ...mockPage,
+        parent: {
+          slug: mockParent.slug,
+        },
+      };
+      const mockResponse: ContentfulPageResponseDTO = {
+        pageCollection: {
+          items: [mockPageWithParent],
+        },
+      };
+      const mockParentResponse: ContentfulPageResponseDTO = {
+        pageCollection: {
+          items: [mockParent],
+        },
+      };
+      const mockGrandParentResponse: ContentfulPageResponseDTO = {
+        pageCollection: {
+          items: [mockGrandParent],
+        },
+      };
+      mockGraphqlService.request
+        .mockResolvedValueOnce(mockResponse)
+        .mockResolvedValueOnce(mockParentResponse)
+        .mockResolvedValueOnce(mockGrandParentResponse);
+
+      const gateway = new ContentfulPageGateway(mockGraphqlService);
+      const page = await gateway.getPage('de-DE', 'foo');
+
+      expect(page.parent).toBeDefined();
+      expect(page.parent!.id).toEqual(mockParent.sys.id);
+      expect(page.parent!.parent).toBeDefined();
+      expect(page.parent!.parent!.id).toEqual(mockGrandParent.sys.id);
+    });
+
     it('throws an error if no data', async () => {
       mockGraphqlService.request.mockResolvedValue(null);
       const gateway = new ContentfulPageGateway(mockGraphqlService);

@@ -47,6 +47,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     } else if (slug) {
       logger.debug('requesting page with:', slug);
       page = await core.getPage(locale.value, slug);
+      logger.debug('received page', page);
     } else {
       logger.error('no slug provided.');
       page = null;

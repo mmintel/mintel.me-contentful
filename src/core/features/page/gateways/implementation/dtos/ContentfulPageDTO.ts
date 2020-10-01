@@ -7,5 +7,7 @@ export interface ContentfulPageDTO extends ContentfulRecordDTO {
   components: {
     json: any;
   };
-  parent?: ContentfulPageDTO;
+  parent?: {
+    slug: string;
+  };
 }

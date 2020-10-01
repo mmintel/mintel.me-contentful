@@ -7,6 +7,9 @@ export const PageQuery = gql`
         slug
         title
         description
+        parent {
+          slug
+        }
         components {
           json
         }
