@@ -46,44 +46,20 @@ describe('QueryParser', () => {
       expect(parser.getSlug()).toBe(undefined);
     });
 
-    it('returns the slug if given', () => {
-      const mockQuery: ParsedUrlQuery = {
-        slug: 'foo',
-      };
-      const parser = new QueryParser({
-        locales: mockLocales,
-        defaultLocale: mockDELocale,
-        query: mockQuery,
+    describe('if slug is given as string', () => {
+      it('returns the slug', () => {
+        const mockQuery: ParsedUrlQuery = {
+          slug: 'foo',
+        };
+        const parser = new QueryParser({
+          locales: mockLocales,
+          defaultLocale: mockDELocale,
+          query: mockQuery,
+        });
+        expect(parser.getSlug()).toEqual('foo');
       });
-      expect(parser.getSlug()).toEqual('foo');
-    });
 
-    it('concatenates the slug if given as array', () => {
-      const mockQuery: ParsedUrlQuery = {
-        slug: ['foo', 'bar'],
-      };
-      const parser = new QueryParser({
-        locales: mockLocales,
-        defaultLocale: mockDELocale,
-        query: mockQuery,
-      });
-      expect(parser.getSlug()).toEqual('foo/bar');
-    });
-
-    it('returns the slug without a locale', () => {
-      const mockQuery: ParsedUrlQuery = {
-        slug: ['de', 'foo', 'bar'],
-      };
-      const parser = new QueryParser({
-        locales: mockLocales,
-        defaultLocale: mockDELocale,
-        query: mockQuery,
-      });
-      expect(parser.getSlug()).toEqual('foo/bar');
-    });
-
-    describe('ignores the slug if', () => {
-      it('is a locale', () => {
+      it('ignores the slug if it is a locale', () => {
         const mockQuery: ParsedUrlQuery = {
           slug: 'de',
         };
@@ -94,8 +70,22 @@ describe('QueryParser', () => {
         });
         expect(parser.getSlug()).toEqual(undefined);
       });
+    });
 
-      it('is a locale on the first position of an array', () => {
+    describe('if slug is given as array', () => {
+      it('returns only the last part', () => {
+        const mockQuery: ParsedUrlQuery = {
+          slug: ['foo', 'bar'],
+        };
+        const parser = new QueryParser({
+          locales: mockLocales,
+          defaultLocale: mockDELocale,
+          query: mockQuery,
+        });
+        expect(parser.getSlug()).toEqual('bar');
+      });
+
+      it('ignores the slug if it is a locale', () => {
         const mockQuery: ParsedUrlQuery = {
           slug: ['de'],
         };

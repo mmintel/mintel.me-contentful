@@ -13,7 +13,7 @@ interface PageContextValue {
   page: Page;
   locales: Locale[];
   defaultLocale: Locale;
-  currentLocale: Locale;
+  locale: Locale;
 }
 
 export const PageContext = React.createContext<PageContextValue | null>(null);

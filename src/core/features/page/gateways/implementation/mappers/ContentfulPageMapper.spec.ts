@@ -15,13 +15,5 @@ describe('ContentfulPageMapper', () => {
       const mapper = new ContentfulPageMapper(mockContentfulPage);
       expect(mapper.toDomain()).toBeInstanceOf(Page);
     });
-
-    it('assigns a parent', () => {
-      const mapper = new ContentfulPageMapper({
-        ...mockContentfulPage,
-        parent: mockContentfulPage,
-      });
-      expect(mapper.toDomain().parent).toBeInstanceOf(Page);
-    });
   });
 });

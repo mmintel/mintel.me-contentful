@@ -6,10 +6,11 @@ export interface PageProps {
   components: {
     json: any;
   };
-  parent?: Page;
 }
 
 export class Page {
+  private _parent?: Page;
+
   constructor(private props: PageProps) {}
 
   get id(): string {
@@ -33,6 +34,18 @@ export class Page {
   }
 
   get parent(): Page | undefined {
-    return this.props.parent;
+    return this._parent;
+  }
+
+  /**
+   * adds one or multiple parents to the page
+   */
+
+  addGeneration(page: Page): void {
+    if (this.parent) {
+      this.parent.addGeneration(page);
+    } else {
+      this._parent = page;
+    }
   }
 }

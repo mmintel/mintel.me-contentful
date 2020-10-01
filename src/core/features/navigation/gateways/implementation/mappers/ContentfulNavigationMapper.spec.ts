@@ -19,7 +19,17 @@ const mockNavigationItem: ContentfulNavigationItemDTO = {
   title: 'foo',
   internal: true,
   page: {
+    description: 'foo',
+    title: 'foo',
+    components: {
+      json: {},
+    },
     slug: 'foo',
+    sys: {
+      id: '213123',
+      firstPublishedAt: 'foo',
+      publishedAt: 'foo',
+    },
   },
   sys: {
     id: '213asd',

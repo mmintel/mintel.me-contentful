@@ -13,6 +13,16 @@ export const NavigationQuery = gql`
             title
             page {
               slug
+              title
+              description
+              components {
+                json
+              }
+              sys {
+                id
+                firstPublishedAt
+                publishedAt
+              }
             }
             sys {
               id

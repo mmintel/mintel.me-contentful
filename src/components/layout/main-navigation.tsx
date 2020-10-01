@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from '../elements/link';
+import { InternalLink } from '../elements/internal-link';
 import { Navigation } from '@/core/features/navigation/domain';
 
 interface MainNavigationProps {
@@ -12,12 +12,12 @@ const MainNavigation: React.FC<MainNavigationProps> = ({ navigation }) => (
     <ul>
       {navigation.items.map((item) => (
         <li key={item.id}>
-          {item.page?.slug && item.internal && (
-            <Link href={item.page.slug}>
+          {item.page && item.internal && (
+            <InternalLink target={item.page}>
               <a>
                 {item.title} {item.internal && <span>(internal)</span>}
               </a>
-            </Link>
+            </InternalLink>
           )}
         </li>
       ))}

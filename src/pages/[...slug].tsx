@@ -38,6 +38,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const mainNavigation = await core.getMainNavigation(locale.value);
   let page;
 
+  logger.debug('received mainNavigation', mainNavigation);
+
   try {
     if (site && !slug) {
       logger.debug('requesting homepage with:', site.homepage);
@@ -45,6 +47,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     } else if (slug) {
       logger.debug('requesting page with:', slug);
       page = await core.getPage(locale.value, slug);
+      logger.debug('received page', page);
     } else {
       logger.error('no slug provided.');
       page = null;
@@ -61,7 +64,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       page,
       locales,
       defaultLocale,
-      currentLocale: locale,
+      locale,
     },
   };
 };
@@ -77,11 +80,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     pages.forEach((page) => {
       const urlGenerator = new UrlGenerator({
-        currentLocale: locale.url,
-        defaultLocale: defaultLocale.url,
+        localeURL: locale.url,
+        defaultLocaleURL: defaultLocale.url,
         homepage: site.homepage,
       });
-      const url = urlGenerator.generate(page.slug);
+      const url = urlGenerator.generate(page);
 
       // '/' is handled by index route
       if (url !== '/') {
@@ -107,7 +110,7 @@ const PageView: NextPage = ({
   page,
   site,
   locales,
-  currentLocale,
+  locale,
   defaultLocale,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   if (!page) {
@@ -115,9 +118,7 @@ const PageView: NextPage = ({
   }
 
   return (
-    <PageContextProvider
-      value={{ page, site, currentLocale, locales, defaultLocale }}
-    >
+    <PageContextProvider value={{ page, site, locale, locales, defaultLocale }}>
       <PageTemplate
         before={
           <Header logo={site.logo}>

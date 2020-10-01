@@ -13,6 +13,7 @@ export class QueryParser {
   /**
    * retrieves the slug as a string from a query slug, even if it's passed as an array.
    * returns undefined if the alleged slug is instead a locale.
+   * currently we only care about the last part of the slug and assume there will be exactly only one matching page.
    */
   getSlug(): string | undefined {
     const query = this.options.query;
@@ -22,7 +23,7 @@ export class QueryParser {
       slug = this.isLocale(query.slug) ? undefined : query.slug;
     } else if (query?.slug && Array.isArray(query.slug)) {
       slug = this.isLocale(query.slug[0]) ? query.slug.slice(1) : query.slug;
-      slug = slug.join('/') || undefined;
+      slug = slug.slice(-1)[0] || undefined;
     }
 
     return slug;

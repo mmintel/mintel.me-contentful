@@ -1,31 +1,45 @@
 interface UrlGeneratorOptions {
-  currentLocale: string;
-  defaultLocale: string;
+  defaultLocaleURL: string;
+  localeURL: string;
   homepage: string;
+}
+
+interface Target {
+  slug: string;
+  parent?: Target;
 }
 
 export class UrlGenerator {
   constructor(private options: UrlGeneratorOptions) {}
 
-  generate(href: string): string {
-    const currentLocale = this.options.currentLocale;
-    const defaultLocale = this.options.defaultLocale;
+  generate(target: Target, url = ''): string {
     const homepage = this.options.homepage;
-    let url = href;
+    let currentUrl = url || `/${target.slug}`;
 
-    if (currentLocale === defaultLocale) {
-      if (homepage === url) {
-        url = '/';
+    if (target.parent) {
+      currentUrl = `/${target.parent.slug}${currentUrl}`;
+    }
+
+    if (this.isDefaultLocale() && this.isHomepage(target)) {
+      currentUrl = '/';
+    } else if (!this.isDefaultLocale()) {
+      if (homepage === target.slug) {
+        currentUrl = `/${this.options.localeURL}`;
       } else {
-        url = `/${url}`;
-      }
-    } else {
-      if (homepage === url) {
-        url = `/${currentLocale}`;
-      } else {
-        url = `/${currentLocale}/${url}`;
+        currentUrl = `/${this.options.localeURL}${currentUrl}`;
       }
     }
-    return url;
+
+    if (!target.parent) return currentUrl;
+
+    return this.generate(target.parent, currentUrl);
+  }
+
+  private isDefaultLocale() {
+    return this.options.defaultLocaleURL === this.options.localeURL;
+  }
+
+  private isHomepage(target: Target) {
+    return this.options.homepage === target.slug;
   }
 }
