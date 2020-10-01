@@ -1,7 +1,7 @@
 module.exports = {
   collectCoverageFrom: [
     'src/**/*.{js,jsx,ts,tsx}',
-    '!core/Core.ts',
+    '!src/core/Core.ts',
     '!src/pages/**/*',
     '!src/config/**/*',
     '!**/*.d.ts',
