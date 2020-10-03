@@ -26,7 +26,9 @@ const PageTemplate: React.FC<PageTemplateProps> = ({
       <link rel="icon" href="/favicon.ico" />
     </Head>
     {before}
-    <main>asd</main>
+    <main>
+      <Blocks blocks={page.components} />
+    </main>
     {after}
   </div>
 );

@@ -1,5 +1,20 @@
 import React from 'react';
 
-const Timeline: React.FC = () => <div>Timeline here</div>;
+interface TimelineProps {
+  id: string;
+  type: string;
+  title: string;
+  itemsCollection: {
+    items: TimelineItem[];
+  };
+}
+
+interface TimelineItem {
+  title: string;
+}
+
+const Timeline: React.FC<TimelineProps> = ({ title }) => (
+  <div>Timeline here {title}</div>
+);
 
 export default Timeline;

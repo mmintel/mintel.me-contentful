@@ -3,7 +3,7 @@ import React from 'react';
 import Timeline from './Timeline';
 
 interface BlockRegistry {
-  [key: string]: React.FC;
+  [key: string]: React.FC<any>;
 }
 
 const registeredBlocks: BlockRegistry = {
