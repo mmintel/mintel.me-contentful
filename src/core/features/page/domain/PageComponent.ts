@@ -1,6 +1,9 @@
 export interface PageComponentProps {
   id: string;
   type: string;
+  data: {
+    [key: string]: any;
+  };
 }
 
 export class PageComponent {
@@ -12,5 +15,9 @@ export class PageComponent {
 
   get type(): string {
     return this.props.type;
+  }
+
+  get data(): any {
+    return this.props.data;
   }
 }

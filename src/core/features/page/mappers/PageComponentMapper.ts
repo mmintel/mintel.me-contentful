@@ -9,6 +9,7 @@ export class PageComponentMapper implements DTOMapper<PageComponentDTO> {
     return {
       id: this.pageComponent.id,
       type: this.pageComponent.type,
+      ...this.pageComponent.data,
     };
   }
 }

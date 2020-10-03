@@ -7,9 +7,11 @@ export class ContentfulPageComponentMapper
   constructor(private contentfulPageComponent: ContentfulPageComponentDTO) {}
 
   toDomain(): PageComponent {
+    const { sys, __typename, ...data } = this.contentfulPageComponent;
     return new PageComponent({
-      id: this.contentfulPageComponent.sys.id,
-      type: this.contentfulPageComponent.__typename,
+      id: sys.id,
+      type: __typename,
+      data,
     });
   }
 }

@@ -6,7 +6,8 @@ import { GetAllPages } from './GetAllPages';
 const mockPage: Page = new PageFixture();
 
 const mockRepository: jest.Mocked<PageRepository> = {
-  find: jest.fn(),
+  findById: jest.fn(),
+  findBySlug: jest.fn(),
   all: jest.fn(),
 };
 
