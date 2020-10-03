@@ -15,6 +15,9 @@ import { QueryParser } from '@/utils/QueryParser';
 import { PageDTO } from '@/core/features/page/dtos';
 import { PageContextProvider } from '@/context/PageContext';
 import { UrlGenerator } from '@/utils/UrlGenerator';
+import { SiteDTO } from '@/core/features/site/dtos';
+import { PageTeaserDTO } from '@/core/features/page/dtos/PageTeaserDTO';
+import { NavigationDTO } from '@/core/features/navigation/dtos';
 
 const core = new Core().init();
 
@@ -34,11 +37,25 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   logger.debug('found slug in query', slug);
   logger.debug('found locale in query', locale);
 
-  const site = await core.getSite(locale.value);
-  const mainNavigation = await core.getMainNavigation(locale.value);
-  let page;
+  let site: SiteDTO;
+  let mainNavigation: NavigationDTO;
+  let page: PageDTO | null;
 
-  logger.debug('received mainNavigation', mainNavigation);
+  try {
+    site = await core.getSite(locale.value);
+    logger.debug('received site', site);
+  } catch (e) {
+    logger.error('Something went wrong fetching site');
+    throw new Error(e);
+  }
+
+  try {
+    mainNavigation = await core.getMainNavigation(locale.value);
+    logger.debug('received mainNavigation', mainNavigation);
+  } catch (e) {
+    logger.error('Something went wrong fetching mainNavigation', e);
+    throw new Error(e);
+  }
 
   try {
     if (site && !slug) {
@@ -52,6 +69,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       logger.error('no slug provided.');
       page = null;
     }
+    logger.debug('received page', page);
   } catch (e) {
     logger.error(e);
     page = null;
@@ -71,28 +89,41 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const logger: Logger = createLogger('getStaticPaths');
-  let allPages: PageDTO[] = [];
+  let allPages: PageTeaserDTO[] = [];
   const paths: string[] = [];
 
   for (const locale of locales) {
-    const site = await core.getSite(locale.value);
-    const pages = await core.getAllPages(locale.value);
+    let site: SiteDTO;
+    let pages: PageTeaserDTO[];
 
-    pages.forEach((page) => {
-      const urlGenerator = new UrlGenerator({
-        localeURL: locale.url,
-        defaultLocaleURL: defaultLocale.url,
-        homepage: site.homepage,
+    try {
+      site = await core.getSite(locale.value);
+    } catch (e) {
+      logger.error('Something went wrong fetching site', e);
+    }
+
+    try {
+      pages = await core.getAllPages(locale.value);
+      logger.debug('received pages', pages);
+
+      pages.forEach((page) => {
+        const urlGenerator = new UrlGenerator({
+          localeURL: locale.url,
+          defaultLocaleURL: defaultLocale.url,
+          homepage: site.homepage,
+        });
+        const url = urlGenerator.generate(page);
+
+        // '/' is handled by index route
+        if (url !== '/') {
+          paths.push();
+        }
       });
-      const url = urlGenerator.generate(page);
 
-      // '/' is handled by index route
-      if (url !== '/') {
-        paths.push();
-      }
-    });
-
-    allPages = [...allPages, ...pages];
+      allPages = [...allPages, ...pages];
+    } catch (e) {
+      logger.error('Something went wrong fetching page', e);
+    }
   }
 
   logger.info('mapped pages to paths', paths);

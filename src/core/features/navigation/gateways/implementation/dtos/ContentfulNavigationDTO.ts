@@ -1,11 +1,13 @@
 import {
   ContentfulCollectionDTO,
-  ContentfulRecordDTO,
+  ContentfulRelationDTO,
 } from '@/core/shared/dtos';
-import { ContentfulNavigationItemDTO } from './ContentfulNavigationItemDTO';
 
-export interface ContentfulNavigationDTO extends ContentfulRecordDTO {
+export interface ContentfulNavigationDTO {
   title: string;
   name: string;
-  itemsCollection: ContentfulCollectionDTO<ContentfulNavigationItemDTO>;
+  itemsCollection: ContentfulCollectionDTO<ContentfulRelationDTO>;
+  sys: {
+    id: string;
+  };
 }

@@ -7,8 +7,8 @@ export const createContentfulPage = (
   title: faker.random.word(),
   description: faker.random.words(),
   slug: faker.lorem.slug(),
-  components: {
-    json: {},
+  componentsCollection: {
+    items: [],
   },
   sys: {
     id: faker.random.uuid(),

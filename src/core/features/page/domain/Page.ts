@@ -1,11 +1,12 @@
+import { PageComponent } from './PageComponent';
+
 export interface PageProps {
   id: string;
   title: string;
   slug: string;
   description: string;
-  components: {
-    json: any;
-  };
+  components: PageComponent[];
+  parentID?: string;
 }
 
 export class Page {
@@ -29,23 +30,19 @@ export class Page {
     return this.props.description;
   }
 
-  get components(): any {
-    return this.props.components.json;
+  get components(): PageComponent[] {
+    return this.props.components;
+  }
+
+  get parentID(): string | undefined {
+    return this.props.parentID;
   }
 
   get parent(): Page | undefined {
     return this._parent;
   }
 
-  /**
-   * adds one or multiple parents to the page
-   */
-
-  addGeneration(page: Page): void {
-    if (this.parent) {
-      this.parent.addGeneration(page);
-    } else {
-      this._parent = page;
-    }
+  setParent(page: Page): void {
+    this._parent = page;
   }
 }

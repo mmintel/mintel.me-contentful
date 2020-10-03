@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import Head from 'next/head';
-import Blocks from '@/components/blocks/blocks';
+import Blocks from '../blocks';
 import { Page } from '@/core/features/page/domain';
 import { Site } from '@/core/features/site/domain';
 
@@ -26,7 +26,7 @@ const PageTemplate: React.FC<PageTemplateProps> = ({
       <link rel="icon" href="/favicon.ico" />
     </Head>
     {before}
-    <main>{page.components && <Blocks blocks={page.components} />}</main>
+    <main>asd</main>
     {after}
   </div>
 );

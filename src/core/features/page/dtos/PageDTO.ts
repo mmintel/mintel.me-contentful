@@ -1,7 +1,10 @@
+import { PageComponentDTO } from './PageComponentDTO';
+
 export interface PageDTO {
   id: string;
   title: string;
   slug: string;
   description: string;
-  components: any;
+  components: PageComponentDTO[];
+  parent?: PageDTO;
 }

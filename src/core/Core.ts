@@ -10,7 +10,10 @@ import { GraphQLClient } from 'graphql-request';
 
 // import navigation feature
 import { NavigationController } from './features/navigation/controllers';
-import { NavigationGateway } from './features/navigation/gateways';
+import {
+  NavigationGateway,
+  NavigationItemGateway,
+} from './features/navigation/gateways';
 import { NavigationDTO } from './features/navigation/dtos';
 import { GetNavigationUseCase } from './features/navigation/usecases';
 import { GetNavigation } from './features/navigation/usecases/get-navigation/GetNavigation';
@@ -33,6 +36,19 @@ import {
   GetAllPagesUseCase,
 } from './features/page/usecases/get-all-pages';
 import { ContentfulSiteGateway } from './features/site/gateways/implementation';
+import {
+  PageRepository,
+  PageRepositoryImpl,
+} from './features/page/repositories/PageRepository';
+import {
+  NavigationRepository,
+  NavigationRepositoryImpl,
+} from './features/navigation/repositories/NavigationRepository';
+import {
+  NavigationItemRepository,
+  NavigationItemRepositoryImpl,
+} from './features/navigation/repositories/NavigationItemRepository';
+import { ContentfulNavigationItemGateway } from './features/navigation/gateways/implementation/ContentfulNavigationItemGateway';
 
 interface CoreControls {
   getSite(locale: string): Promise<SiteDTO>;
@@ -47,19 +63,23 @@ export class Core {
 
   // site feature
   private siteGateway: SiteGateway;
-  private siteController: SiteController;
   private getSiteUseCase: GetSiteUseCase;
+  private siteController: SiteController;
 
   // page feature
   private pageGateway: PageGateway;
-  private pageController: PageController;
+  private pageRepository: PageRepository;
   private getPageUseCase: GetPageUseCase;
   private getAllPagesUseCase: GetAllPagesUseCase;
+  private pageController: PageController;
 
   // navigation feature
+  private navigationItemGateway: NavigationItemGateway;
   private navigationGateway: NavigationGateway;
-  private navigationController: NavigationController;
+  private navigationRepository: NavigationRepository;
+  private navigationItemRepository: NavigationItemRepository;
   private getNavigationUseCase: GetNavigationUseCase;
+  private navigationController: NavigationController;
 
   constructor() {
     // setup services
@@ -79,8 +99,9 @@ export class Core {
 
     // setup page feature
     this.pageGateway = new ContentfulPageGateway(this.graphqlService);
-    this.getPageUseCase = new GetPage(this.pageGateway);
-    this.getAllPagesUseCase = new GetAllPages(this.pageGateway);
+    this.pageRepository = new PageRepositoryImpl(this.pageGateway);
+    this.getPageUseCase = new GetPage(this.pageRepository);
+    this.getAllPagesUseCase = new GetAllPages(this.pageRepository);
     this.pageController = new PageController(
       this.getPageUseCase,
       this.getAllPagesUseCase,
@@ -90,7 +111,18 @@ export class Core {
     this.navigationGateway = new ContentfulNavigationGateway(
       this.graphqlService,
     );
-    this.getNavigationUseCase = new GetNavigation(this.navigationGateway);
+    this.navigationItemGateway = new ContentfulNavigationItemGateway(
+      this.graphqlService,
+    );
+    this.navigationItemRepository = new NavigationItemRepositoryImpl(
+      this.navigationItemGateway,
+      this.pageRepository,
+    );
+    this.navigationRepository = new NavigationRepositoryImpl(
+      this.navigationGateway,
+      this.navigationItemRepository,
+    );
+    this.getNavigationUseCase = new GetNavigation(this.navigationRepository);
     this.navigationController = new NavigationController(
       this.getNavigationUseCase,
     );

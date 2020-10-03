@@ -13,11 +13,9 @@ const MainNavigation: React.FC<MainNavigationProps> = ({ navigation }) => (
       {navigation.items.map((item) => (
         <li key={item.id}>
           {item.page && item.internal && (
-            <InternalLink target={item.page}>
-              <a>
-                {item.title} {item.internal && <span>(internal)</span>}
-              </a>
-            </InternalLink>
+            <a>
+              {item.title} {item.internal && <span>(internal)</span>}
+            </a>
           )}
         </li>
       ))}

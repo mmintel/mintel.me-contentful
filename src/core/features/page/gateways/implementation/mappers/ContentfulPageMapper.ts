@@ -1,7 +1,9 @@
+import { DomainMapper } from '@/core/definitions/DomainMapper';
 import { Page } from '@/core/features/page/domain';
+import { PageComponent } from '../../../domain/PageComponent';
 import { ContentfulPageDTO } from '../dtos/ContentfulPageDTO';
 
-export class ContentfulPageMapper {
+export class ContentfulPageMapper implements DomainMapper<Page> {
   constructor(private contentfulPage: ContentfulPageDTO) {}
 
   toDomain(): Page {
@@ -10,7 +12,14 @@ export class ContentfulPageMapper {
       description: this.contentfulPage.description,
       slug: this.contentfulPage.slug,
       title: this.contentfulPage.title,
-      components: this.contentfulPage.components,
+      components: this.contentfulPage.componentsCollection.items.map(
+        (item) =>
+          new PageComponent({
+            id: item.sys.id,
+            type: item.__typename,
+          }),
+      ),
+      parentID: this.contentfulPage.parent?.sys.id,
     });
   }
 }

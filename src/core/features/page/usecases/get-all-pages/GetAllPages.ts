@@ -1,13 +1,12 @@
 import { Page } from '../../domain';
-import { PageGateway } from '../../gateways';
+import { PageRepository } from '../../repositories/PageRepository';
 import { GetAllPagesRequest } from './GetAllPagesRequest';
 import { GetAllPagesUseCase } from './GetAllPagesUseCase';
 
 export class GetAllPages implements GetAllPagesUseCase {
-  constructor(private pageGateway: PageGateway) {}
+  constructor(private pageRepository: PageRepository) {}
 
   async execute(request: GetAllPagesRequest): Promise<Page[]> {
-    const allPages = await this.pageGateway.getAllPages(request.locale);
-    return allPages;
+    return this.pageRepository.all(request.locale);
   }
 }

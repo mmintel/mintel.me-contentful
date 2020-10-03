@@ -15,15 +15,5 @@ describe('NavigationMapper', () => {
       const dto = mapper.toDTO();
       expect(dto).not.toBeInstanceOf(Navigation);
     });
-
-    it('serializes items', () => {
-      const mapper = new NavigationMapper(
-        new NavigationFixture({
-          items: [new NavigationItemFixture(), new NavigationItemFixture()],
-        }),
-      );
-      const dto = mapper.toDTO();
-      expect(dto.items[0]).not.toBeInstanceOf(NavigationItem);
-    });
   });
 });
