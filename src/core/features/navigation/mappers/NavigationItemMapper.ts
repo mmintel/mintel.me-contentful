@@ -11,8 +11,6 @@ export class NavigationItemMapper implements DTOMapper<NavigationItemDTO> {
 
     if (this.navigationItem.page) {
       const mapper = new PageMapper(this.navigationItem.page);
-      console.log('MAPPED PAGE', mapper.toDTO());
-
       page = mapper.toDTO();
     }
 

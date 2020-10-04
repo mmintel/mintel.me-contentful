@@ -23,21 +23,15 @@ export class NavigationItemRepositoryImpl implements NavigationItemRepository {
 
     const navigationItem = await this.gateway.getNavigationItem(locale, id);
 
-    console.log('RECEIVED NAVIGATION ITEM IN NAVITEMREPO', navigationItem);
-
     if (!navigationItem) {
       throw new Error(`Could not find NavigationItem with id "${id}".`);
     }
 
     if (navigationItem.pageID) {
-      console.log('GOT PAGEID', navigationItem.pageID);
-
       const page = await this.pageRepository.findById(
         locale,
         navigationItem.pageID,
       );
-
-      console.log('FOUND PAGE', page);
 
       navigationItem.setPage(page);
     }

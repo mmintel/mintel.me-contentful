@@ -16,15 +16,11 @@ export class ContentfulNavigationItemGateway implements NavigationItemGateway {
       id,
     });
 
-    console.log('RECEIVED RESPONSE', response);
-
     if (!response) {
       throw new Error(`NavigationItem with id "${id}" not found.`);
     }
 
     const mapper = new ContentfulNavigationItemMapper(response.navigationItem);
-    console.log('MAPPED NAVITEM', mapper.toDomain());
-
     return mapper.toDomain();
   }
 }
