@@ -1,4 +1,4 @@
-import { Navigation, NavigationName } from '../domain';
+import { Navigation, NavigationItem, NavigationName } from '../domain';
 import { NavigationGateway } from '../gateways';
 import { NavigationItemRepository } from './NavigationItemRepository';
 
@@ -29,19 +29,19 @@ export class NavigationRepositoryImpl implements NavigationRepository {
       throw new Error('Could not find navigation.');
     }
 
-    await Promise.all(
-      navigation.itemIDs.map(async (id) => {
-        console.log('LOOKING UP ID', id);
-
-        const navigationItem = await this.navigationItemRepository.find(
-          locale,
-          id,
-        );
-        console.log('RECEIVED NAV ITEM', navigationItem);
-
-        navigation.addItem(navigationItem);
-      }),
+    /**
+     * First resolve all NavigationItems that belong to the navigation...
+     */
+    const navItems: NavigationItem[] = await Promise.all(
+      navigation.itemIDs.map(async (id) =>
+        this.navigationItemRepository.find(locale, id),
+      ),
     );
+
+    /**
+     * ...then add each of them to the Navigation. If you do otherwise it might be in wrong order.
+     */
+    navItems.forEach((i) => navigation.addItem(i));
 
     this.navigations.push(navigation);
 

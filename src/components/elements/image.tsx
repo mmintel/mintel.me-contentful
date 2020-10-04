@@ -5,6 +5,7 @@ interface ImageProps {
   src: string;
   width?: number;
   height?: number;
+  [key: string]: any;
 }
 
 export const Image: React.FC<ImageProps> = ({

@@ -36,6 +36,7 @@
     "@contentful/rich-text-react-renderer": "^14.1.1",
     "@contentful/rich-text-types": "^14.1.1",
     "@sentry/webpack-plugin": "^1.12.0",
+    "@svgr/webpack": "^5.4.0",
     "@zeit/next-source-maps": "0.0.3",
     "chalk": "^4.1.0",
     "class-validator": "^0.12.2",
@@ -47,9 +48,11 @@
     "graphql-tag": "^2.11.0",
     "lodash": "^4.17.19",
     "next": "^9.5.3",
+    "next-images": "^1.6.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "shallow-equal-object": "^1.1.1",
+    "tailwindcss": "^1.8.10",
     "tslog": "^2.8.0"
   },
   "devDependencies": {
@@ -91,6 +94,7 @@
     "html-validate": "^3.0.0",
     "jest": "^26.1.0",
     "nyc": "^15.1.0",
+    "postcss-import": "^12.0.1",
     "prettier": "^2.1.1",
     "start-server-and-test": "^1.11.2",
     "ts-node": "^9.0.0",

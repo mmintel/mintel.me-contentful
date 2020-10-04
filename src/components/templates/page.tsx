@@ -17,13 +17,12 @@ const PageTemplate: React.FC<PageTemplateProps> = ({
   before,
   after,
 }) => (
-  <div className="container">
+  <div className="bg-gray-100">
     <Head>
       <title>
         {page.title} - {site.title}
       </title>
       <meta name="description" content={page.description} />
-      <link rel="icon" href="/favicon.ico" />
     </Head>
     {before}
     <main>

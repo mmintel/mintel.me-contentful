@@ -1,6 +1,6 @@
 import { PageComponent } from '@/core/features/page/domain/PageComponent';
 import React from 'react';
-import Timeline from './Timeline';
+import Timeline from './timeline';
 
 interface BlockRegistry {
   [key: string]: React.FC<any>;
