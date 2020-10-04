@@ -1,11 +1,6 @@
 {
-  "defaultLocale": "de",
+  "defaultLocale": "en",
   "locales": [
-    {
-      "name": "de",
-      "url": "de",
-      "value": "de-DE"
-    },
     {
       "name": "en",
       "url": "en",

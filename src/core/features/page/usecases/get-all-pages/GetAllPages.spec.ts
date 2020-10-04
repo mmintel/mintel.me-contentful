@@ -1,42 +1,36 @@
 import { Page } from '../../domain';
-import { PageGateway } from '../../gateways';
+import { PageFixture } from '../../fixtures';
+import { PageRepository } from '../../repositories/PageRepository';
 import { GetAllPages } from './GetAllPages';
 
-const mockPage: Page = new Page({
-  id: '123',
-  description: 'foo',
-  slug: 'foo-bar',
-  title: 'foofoo',
-  components: {
-    json: {},
-  },
-});
+const mockPage: Page = new PageFixture();
 
-const mockGateway: jest.Mocked<PageGateway> = {
-  getPage: jest.fn(),
-  getAllPages: jest.fn(),
+const mockRepository: jest.Mocked<PageRepository> = {
+  findById: jest.fn(),
+  findBySlug: jest.fn(),
+  all: jest.fn(),
 };
 
 describe('GetAllPages', () => {
   it('initializes without crashing', () => {
-    expect(() => new GetAllPages(mockGateway)).not.toThrow();
+    expect(() => new GetAllPages(mockRepository)).not.toThrow();
   });
 
   describe('execute', () => {
     it('calls the gateway', async () => {
-      mockGateway.getAllPages.mockResolvedValue([mockPage, mockPage]);
-      expect(mockGateway.getAllPages).not.toHaveBeenCalled();
+      mockRepository.all.mockResolvedValue([mockPage, mockPage]);
+      expect(mockRepository.all).not.toHaveBeenCalled();
 
-      const useCase = new GetAllPages(mockGateway);
+      const useCase = new GetAllPages(mockRepository);
       await useCase.execute({ locale: 'de-DE' });
 
-      expect(mockGateway.getAllPages).toHaveBeenCalledTimes(1);
-      expect(mockGateway.getAllPages).toHaveBeenCalledWith('de-DE');
+      expect(mockRepository.all).toHaveBeenCalledTimes(1);
+      expect(mockRepository.all).toHaveBeenCalledWith('de-DE');
     });
 
     it('returns all pages', async () => {
-      mockGateway.getAllPages.mockResolvedValue([mockPage, mockPage]);
-      const useCase = new GetAllPages(mockGateway);
+      mockRepository.all.mockResolvedValue([mockPage, mockPage]);
+      const useCase = new GetAllPages(mockRepository);
       const allPages = await useCase.execute({
         locale: 'de-DE',
       });
@@ -47,9 +41,9 @@ describe('GetAllPages', () => {
     });
 
     it('returns an empty array if nothing found', async () => {
-      mockGateway.getAllPages.mockResolvedValue([]);
+      mockRepository.all.mockResolvedValue([]);
 
-      const useCase = new GetAllPages(mockGateway);
+      const useCase = new GetAllPages(mockRepository);
       const allPages = await useCase.execute({
         locale: 'de-DE',
       });

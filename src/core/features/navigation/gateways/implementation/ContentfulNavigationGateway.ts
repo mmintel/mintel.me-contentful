@@ -1,7 +1,10 @@
 import { Navigation, NavigationName } from '@/core/features/navigation/domain';
 import { NavigationGateway } from '@/core/features/navigation/gateways';
 import { GraphqlService } from '@/core/services';
-import { ContentfulNavigationResponseDTO } from './dtos';
+import {
+  ContentfulNavigationDTO,
+  ContentfulNavigationResponseDTO,
+} from './dtos';
 import { ContentfulNavigationMapper } from './mappers';
 import { NavigationQuery } from './queries/NavigationQuery';
 
@@ -13,7 +16,7 @@ export class ContentfulNavigationGateway implements NavigationGateway {
     name: NavigationName,
   ): Promise<Navigation> {
     const response = await this.graphqlService.request<
-      ContentfulNavigationResponseDTO
+      ContentfulNavigationResponseDTO<ContentfulNavigationDTO>
     >(NavigationQuery, {
       locale,
       name,
@@ -24,8 +27,7 @@ export class ContentfulNavigationGateway implements NavigationGateway {
     }
 
     const contentfulNavigation = response.navigationCollection.items[0];
-    const responseModel = new ContentfulNavigationMapper(contentfulNavigation);
-
-    return responseModel.toDomain();
+    const mapper = new ContentfulNavigationMapper(contentfulNavigation);
+    return mapper.toDomain();
   }
 }

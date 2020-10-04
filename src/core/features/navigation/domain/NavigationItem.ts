@@ -5,10 +5,18 @@ export interface NavigationItemProps {
   title: string;
   internal: boolean;
   url?: string;
-  page?: Page;
+  pageID?: string;
+}
+
+export interface NavigationItemPage {
+  id: string;
+  slug: string;
+  title: string;
 }
 
 export class NavigationItem {
+  private _page: Page | undefined;
+
   constructor(private props: NavigationItemProps) {}
 
   get id(): string {
@@ -27,7 +35,15 @@ export class NavigationItem {
     return this.props.url;
   }
 
+  get pageID(): string | undefined {
+    return this.props.pageID;
+  }
+
   get page(): Page | undefined {
-    return this.props.page;
+    return this._page;
+  }
+
+  setPage(page: Page): void {
+    this._page = page;
   }
 }

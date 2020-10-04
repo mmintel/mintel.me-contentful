@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
+const withImages = require('next-images')
 const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 const withSourceMaps = require('@zeit/next-source-maps')
 
@@ -19,6 +19,14 @@ module.exports = withSourceMaps({
       exclude: /node_modules/,
       loader: 'graphql-tag/loader',
     })
+
+    config.module.rules.push({
+      test: /\.svg$/,
+      issuer: {
+        test: /\.(js|ts)x?$/,
+      },
+      use: ['@svgr/webpack'],
+    });
 
     if (!options.isServer) {
       config.resolve.alias['@sentry/node'] = '@sentry/browser'

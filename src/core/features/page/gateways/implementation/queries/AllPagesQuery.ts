@@ -5,16 +5,6 @@ export const AllPagesQuery = gql`
     pageCollection(locale: $locale) {
       items {
         slug
-        title
-        description
-        components {
-          json
-        }
-        sys {
-          id
-          firstPublishedAt
-          publishedAt
-        }
       }
     }
   }

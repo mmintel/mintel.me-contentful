@@ -1,9 +1,11 @@
-import { ContentfulPageDTO } from '@/core/features/page/gateways/implementation/dtos/ContentfulPageDTO';
-import { ContentfulRecordDTO } from '@/core/shared/dtos';
+import { ContentfulRelationDTO } from '@/core/shared/dtos';
 
-export interface ContentfulNavigationItemDTO extends ContentfulRecordDTO {
+export interface ContentfulNavigationItemDTO {
   title: string;
   internal: boolean;
   url?: string;
-  page?: ContentfulPageDTO;
+  page?: ContentfulRelationDTO;
+  sys: {
+    id: string;
+  };
 }

@@ -8,33 +8,13 @@ export const NavigationQuery = gql`
         name
         itemsCollection {
           items {
-            internal
-            url
-            title
-            page {
-              slug
-              title
-              description
-              components {
-                json
-              }
-              sys {
-                id
-                firstPublishedAt
-                publishedAt
-              }
-            }
             sys {
               id
-              firstPublishedAt
-              publishedAt
             }
           }
         }
         sys {
           id
-          firstPublishedAt
-          publishedAt
         }
       }
     }

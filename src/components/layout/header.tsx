@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import Link from 'next/link';
 import { Image } from '../elements';
 
 interface HeaderProps {
@@ -7,9 +8,15 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ logo, children }) => (
-  <div>
-    <Image src={logo} width={100} />
-    {children}
+  <div className="container mx-auto">
+    <div className="py-4 flex justify-between items-center">
+      <Link href="/">
+        <a>
+          <Image src={logo} width={100} className="w-12 rounded-full" />
+        </a>
+      </Link>
+      {children}
+    </div>
   </div>
 );
 

@@ -8,9 +8,7 @@ export class PageFixture extends Page {
       title: faker.random.word(),
       description: faker.random.words(),
       slug: faker.lorem.slug(),
-      components: {
-        json: {},
-      },
+      components: [],
       ...overwrites,
     });
   }

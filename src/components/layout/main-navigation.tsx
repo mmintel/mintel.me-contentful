@@ -7,21 +7,18 @@ interface MainNavigationProps {
 }
 
 const MainNavigation: React.FC<MainNavigationProps> = ({ navigation }) => (
-  <div>
-    {navigation.title}
-    <ul>
+  <div className="p-2">
+    <nav className="list-none flex -mx-2">
       {navigation.items.map((item) => (
-        <li key={item.id}>
+        <li key={item.id} className="flex-auto px-2">
           {item.page && item.internal && (
             <InternalLink target={item.page}>
-              <a>
-                {item.title} {item.internal && <span>(internal)</span>}
-              </a>
+              <a>{item.title}</a>
             </InternalLink>
           )}
         </li>
       ))}
-    </ul>
+    </nav>
   </div>
 );
 

@@ -1,5 +1,5 @@
 import { Page } from '../../domain';
-import { PageGateway } from '../../gateways';
+import { PageRepository } from '../../repositories/PageRepository';
 import { GetPage } from './GetPage';
 
 const mockPage: Page = new Page({
@@ -7,38 +7,40 @@ const mockPage: Page = new Page({
   description: 'foo',
   slug: 'foo-bar',
   title: 'foofoo',
-  components: {
-    json: {},
-  },
+  components: [],
 });
 
-const mockGateway: jest.Mocked<PageGateway> = {
-  getPage: jest.fn(),
-  getAllPages: jest.fn(),
+const mockRepository: jest.Mocked<PageRepository> = {
+  findBySlug: jest.fn(),
+  findById: jest.fn(),
+  all: jest.fn(),
 };
 
 describe('GetPage', () => {
   beforeEach(() => {
-    mockGateway.getPage.mockResolvedValue(mockPage);
+    mockRepository.findBySlug.mockResolvedValue(mockPage);
   });
 
   it('initializes without crashing', () => {
-    expect(() => new GetPage(mockGateway)).not.toThrow();
+    expect(() => new GetPage(mockRepository)).not.toThrow();
   });
 
   describe('execute', () => {
     it('calls the gateway', async () => {
-      expect(mockGateway.getPage).not.toHaveBeenCalled();
+      expect(mockRepository.findBySlug).not.toHaveBeenCalled();
 
-      const useCase = new GetPage(mockGateway);
+      const useCase = new GetPage(mockRepository);
       await useCase.execute({ locale: 'de-DE', slug: mockPage.slug });
 
-      expect(mockGateway.getPage).toHaveBeenCalledTimes(1);
-      expect(mockGateway.getPage).toHaveBeenCalledWith('de-DE', mockPage.slug);
+      expect(mockRepository.findBySlug).toHaveBeenCalledTimes(1);
+      expect(mockRepository.findBySlug).toHaveBeenCalledWith(
+        'de-DE',
+        mockPage.slug,
+      );
     });
 
     it('returns a page if found', async () => {
-      const useCase = new GetPage(mockGateway);
+      const useCase = new GetPage(mockRepository);
       const page = await useCase.execute({
         locale: 'de-DE',
         slug: mockPage.slug,
@@ -48,9 +50,9 @@ describe('GetPage', () => {
     });
 
     it('returns an error if not found', async () => {
-      mockGateway.getPage.mockRejectedValue('Not found');
+      mockRepository.findBySlug.mockRejectedValue('Not found');
 
-      const useCase = new GetPage(mockGateway);
+      const useCase = new GetPage(mockRepository);
       await expect(
         useCase.execute({ locale: 'de-DE', slug: mockPage.slug }),
       ).rejects.toThrow();

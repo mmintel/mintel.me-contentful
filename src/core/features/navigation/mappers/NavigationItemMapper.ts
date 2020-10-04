@@ -1,27 +1,25 @@
 import { DTOMapper } from '@/core/definitions/DTOMapper';
-import { Page } from '../../page/domain';
+import { PageMapper } from '../../page/mappers';
 import { NavigationItem } from '../domain';
-import { NavigationItemDTO, PageTeaser } from '../dtos';
+import { NavigationItemDTO } from '../dtos';
 
 export class NavigationItemMapper implements DTOMapper<NavigationItemDTO> {
   constructor(private navigationItem: NavigationItem) {}
 
-  private pageToDTO(page?: Page): PageTeaser | null {
-    if (!page) return null;
-
-    return {
-      slug: page.slug,
-      parent: this.pageToDTO(page.parent),
-    };
-  }
-
   toDTO(): NavigationItemDTO {
+    let page = null;
+
+    if (this.navigationItem.page) {
+      const mapper = new PageMapper(this.navigationItem.page);
+      page = mapper.toDTO();
+    }
+
     return {
       id: this.navigationItem.id,
       internal: this.navigationItem.internal,
       title: this.navigationItem.title,
       url: this.navigationItem.url || null,
-      page: this.pageToDTO(this.navigationItem.page),
+      page,
     };
   }
 }
