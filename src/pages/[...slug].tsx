@@ -16,7 +16,6 @@ import { PageDTO } from '@/core/features/page/dtos';
 import { PageContextProvider } from '@/context/PageContext';
 import { UrlGenerator } from '@/utils/UrlGenerator';
 import { SiteDTO } from '@/core/features/site/dtos';
-import { PageTeaserDTO } from '@/core/features/page/dtos/PageTeaserDTO';
 import { NavigationDTO } from '@/core/features/navigation/dtos';
 
 const core = new Core().init();
@@ -133,6 +132,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
+const NotFound: React.FC = () => <div>Not found</div>;
+
 const PageView: NextPage = ({
   mainNavigation,
   page,
@@ -141,6 +142,10 @@ const PageView: NextPage = ({
   locale,
   defaultLocale,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  if (!page || !site) {
+    return <NotFound />;
+  }
+
   return (
     <PageContextProvider value={{ page, site, locale, locales, defaultLocale }}>
       <PageTemplate
