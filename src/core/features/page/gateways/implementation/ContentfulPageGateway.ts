@@ -24,6 +24,8 @@ export class ContentfulPageGateway implements PageGateway {
       id,
     });
 
+    this.logger.debug('Got response from contentful', response);
+
     const contentfulPage = response.page;
     const domainModel = new ContentfulPageMapper(contentfulPage).toDomain();
     this.logger.debug('Mapped page to', domainModel);
@@ -42,6 +44,11 @@ export class ContentfulPageGateway implements PageGateway {
     this.logger.debug('Got response from contentful', response);
 
     const contentfulPage = response.pageCollection.items[0];
+
+    if (!contentfulPage) {
+      throw new Error('Contentful did not respond with a page.');
+    }
+
     const domainModel = new ContentfulPageMapper(contentfulPage).toDomain();
     this.logger.debug('Mapped page to', domainModel);
 

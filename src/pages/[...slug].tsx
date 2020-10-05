@@ -70,7 +70,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     }
     logger.debug('received page', page);
   } catch (e) {
-    logger.error(e);
+    logger.warn('Something went wrong fetching the page', e);
     page = null;
   }
 
