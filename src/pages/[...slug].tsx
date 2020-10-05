@@ -134,8 +134,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-const NotFound: React.FC = () => <div>404 not found</div>;
-
 const PageView: NextPage = ({
   mainNavigation,
   page,
@@ -144,10 +142,6 @@ const PageView: NextPage = ({
   locale,
   defaultLocale,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  if (!page) {
-    return <NotFound />;
-  }
-
   return (
     <PageContextProvider value={{ page, site, locale, locales, defaultLocale }}>
       <PageTemplate
