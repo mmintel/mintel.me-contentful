@@ -33,8 +33,6 @@
     "coverage": "npx nyc report --reporter lcov --reporter text --report-dir coverage"
   },
   "dependencies": {
-    "@contentful/rich-text-react-renderer": "^14.1.1",
-    "@contentful/rich-text-types": "^14.1.1",
     "@sentry/webpack-plugin": "^1.12.0",
     "@svgr/webpack": "^5.4.0",
     "@zeit/next-source-maps": "0.0.3",
