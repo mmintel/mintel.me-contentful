@@ -1205,18 +1205,6 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@contentful/rich-text-react-renderer@^14.1.1":
-  version "14.1.1"
-  resolved "https://registry.yarnpkg.com/@contentful/rich-text-react-renderer/-/rich-text-react-renderer-14.1.1.tgz#7a205c74c76bdf3ff7e6f315be2aadd3b8df8409"
-  integrity sha512-J9NhI3OeYt/ivj4uXj0874A1IhBADEcMSkyfNmU2XiKTwLfEab577+Tma5pe7mp/4NF4xGrq5YTU146vKufNHA==
-  dependencies:
-    "@contentful/rich-text-types" "^14.1.1"
-
-"@contentful/rich-text-types@^14.1.1":
-  version "14.1.1"
-  resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-14.1.1.tgz#2b105c8fdb36cd1f8ed06ce077a853f4ab5e3770"
-  integrity sha512-Iow9U3so7V+2AngYLmt42BGtHjHGl+DQpxvXaryJe1X9LPHrQ41pALztJZFzDgajoEswBjOgmI9CFeQ1oUAdJA==
-
 "@cypress/browserify-preprocessor@3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@cypress/browserify-preprocessor/-/browserify-preprocessor-3.0.0.tgz#2d1fa6a96ed7130a1b172c540448a5955cbc1264"
@@ -1597,10 +1585,10 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@sentry/cli@^1.55.0":
-  version "1.56.1"
-  resolved "https://registry.yarnpkg.com/@sentry/cli/-/cli-1.56.1.tgz#8fc5b78859f33ffb02a4f19a7a559573b90971bf"
-  integrity sha512-NKCjgWH6d5JRn0afwP9DrLhSc81oHdxsriceZ0oZhv4cWjRObV9+bvy7hYKDhJ/7tMiTVwHTME05KPjiG9tSCQ==
+"@sentry/cli@^1.58.0":
+  version "1.58.0"
+  resolved "https://registry.yarnpkg.com/@sentry/cli/-/cli-1.58.0.tgz#b1609f10e71539951499866502b13bf3a270fe79"
+  integrity sha512-bUBKBYyKVzjNhQpAfPJ3XAvAyNNvrD2Rtpo6B0MR3Okw3prdLFgv9Ta8TN19IXT7u9w13B2EdMnNA6dQDtrD4g==
   dependencies:
     https-proxy-agent "^5.0.0"
     mkdirp "^0.5.5"
@@ -1608,12 +1596,12 @@
     progress "^2.0.3"
     proxy-from-env "^1.1.0"
 
-"@sentry/webpack-plugin@^1.12.0":
-  version "1.12.1"
-  resolved "https://registry.yarnpkg.com/@sentry/webpack-plugin/-/webpack-plugin-1.12.1.tgz#4c70c76f3faffccff1601695be742af80aeabed9"
-  integrity sha512-8XiUNcr+HbF/Cz2lkI71+42fPNIc/ZJdU+jVWAaspP4ZwjkYSs54E3I2+7wPaqEetfObAunsQxVeFARnYms/aw==
+"@sentry/webpack-plugin@^1.13.0":
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/@sentry/webpack-plugin/-/webpack-plugin-1.13.0.tgz#98c1b75cf0cfdb0d2b39240ecc4ffe9e6c28dbd4"
+  integrity sha512-XQhmWwHY9sgL9OZQVD+SMn9Wa3E+6odsTGucRRo0GyCgkhHsPEGho7JiQtHu7MFoX7kbeva+metnypMn91NqXg==
   dependencies:
-    "@sentry/cli" "^1.55.0"
+    "@sentry/cli" "^1.58.0"
 
 "@sidvind/better-ajv-errors@^0.6.9":
   version "0.6.10"
