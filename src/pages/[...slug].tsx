@@ -89,21 +89,20 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const logger: Logger = createLogger('getStaticPaths');
-  let allPages: PageTeaserDTO[] = [];
   const paths: string[] = [];
 
   for (const locale of locales) {
     let site: SiteDTO;
-    let pages: PageTeaserDTO[];
 
     try {
       site = await core.getSite(locale.value);
+      logger.info('received site', site);
     } catch (e) {
       logger.error('Something went wrong fetching site', e);
     }
 
     try {
-      pages = await core.getAllPages(locale.value);
+      const pages = await core.getAllPages(locale.value);
       logger.debug('received pages', pages);
 
       pages.forEach((page) => {
@@ -114,13 +113,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
         });
         const url = urlGenerator.generate(page);
 
+        logger.debug('got url from urlGenerator', url);
+
         // '/' is handled by index route
         if (url !== '/') {
-          paths.push();
+          paths.push(url);
         }
       });
-
-      allPages = [...allPages, ...pages];
     } catch (e) {
       logger.error('Something went wrong fetching page', e);
     }
