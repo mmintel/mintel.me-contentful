@@ -8,7 +8,7 @@ interface ImageProps {
   [key: string]: any;
 }
 
-export const Image: React.FC<ImageProps> = ({
+const Image: React.FC<ImageProps> = ({
   src,
   width,
   height,
@@ -26,3 +26,5 @@ export const Image: React.FC<ImageProps> = ({
 
   return <img src={src + queryString.value} {...props} />;
 };
+
+export default Image;

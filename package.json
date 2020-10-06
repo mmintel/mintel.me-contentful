@@ -35,9 +35,11 @@
   "dependencies": {
     "@sentry/webpack-plugin": "^1.12.0",
     "@svgr/webpack": "^5.4.0",
+    "@types/classnames": "^2.2.10",
     "@zeit/next-source-maps": "0.0.3",
     "chalk": "^4.1.0",
     "class-validator": "^0.12.2",
+    "classnames": "^2.2.6",
     "dot-object": "^2.1.3",
     "dotenv": "^8.2.0",
     "faker": "^5.1.0",

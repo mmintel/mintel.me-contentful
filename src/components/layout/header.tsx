@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import Link from 'next/link';
-import { Image } from '../elements';
+import Image from '../elements/image';
 
 interface HeaderProps {
   logo: string;
