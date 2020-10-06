@@ -1,11 +1,10 @@
 import React from 'react';
 import { TimelineComponentProps } from '.';
-import TimelineItem from './TimelineItem';
 
 const Unregistered: React.FC<TimelineComponentProps> = ({ item }) => (
-  <TimelineItem>
+  <div>
     &quot;{item.type}&quot; is not registered in Timeline.
-  </TimelineItem>
+  </div>
 );
 
 export default Unregistered;

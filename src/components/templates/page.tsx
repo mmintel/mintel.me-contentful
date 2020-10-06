@@ -17,7 +17,7 @@ const PageTemplate: React.FC<PageTemplateProps> = ({
   before,
   after,
 }) => (
-  <div className="bg-gray-100">
+  <div className="bg-gray-800 text-gray-200 flex flex-col h-screen">
     <Head>
       <title>
         {page.title} - {site.title}
@@ -25,7 +25,7 @@ const PageTemplate: React.FC<PageTemplateProps> = ({
       <meta name="description" content={page.description} />
     </Head>
     {before}
-    <main>
+    <main className="flex-auto">
       <Blocks blocks={page.components} />
     </main>
     {after}

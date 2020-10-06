@@ -1,6 +1,5 @@
 import React, { Children } from 'react';
 import Link from 'next/link';
-import cx from 'classnames';
 import { usePageContext } from '@/context/PageContext';
 import { UrlGenerator } from '@/utils/UrlGenerator';
 import { Page } from '@/core/features/page/domain';
@@ -25,7 +24,7 @@ const InternalLink: React.FC<InternalLinkProps> = ({ target, activeClassName, ch
 
   return (
     <Link href={url}>
-      {React.cloneElement(child, { className: cx(child.props.className, active && activeClassName) })}
+      {React.cloneElement(child, { className: active ? activeClassName : child.props.className })}
     </Link>
   );
 };

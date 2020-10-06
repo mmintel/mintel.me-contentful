@@ -3,6 +3,7 @@ import Unregistered from './Unregistered';
 import Conference from './Conference';
 import Work from './Work';
 import Education from './Education';
+import TimelineItem from './TimelineItem';
 
 interface TimelineProps {
   id: string;
@@ -38,13 +39,15 @@ const timelineRegistry: TimelineRegistry = {
 
 const Timeline: React.FC<TimelineProps> = ({ title, itemsCollection }) => (
   <section className="container mx-auto">
-    <h1 className="text-2xl text-center font-bold">{title}</h1>
+    <h1 className="text-2xl text-center font-bold text-gray-50">{title}</h1>
     <ul className="max-w-2xl mx-auto my-8">
-      {itemsCollection.items.map((item) => {
+      {itemsCollection.items.map((item, index) => {
         const Component = timelineRegistry[item.type] || Unregistered;
         return (
-          <li key={item.sys.id} className="mb-2">
-            <Component item={item} />
+          <li key={item.sys.id}>
+            <TimelineItem time={item.time} reverse={!!(index % 2)} first={index === 0} last={index + 1 === itemsCollection.items.length}>
+              <Component item={item} />
+            </TimelineItem>
           </li>
         );
       })}

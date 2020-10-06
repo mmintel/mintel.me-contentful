@@ -17,6 +17,7 @@ import { PageContextProvider } from '@/context/PageContext';
 import { UrlGenerator } from '@/utils/UrlGenerator';
 import { SiteDTO } from '@/core/features/site/dtos';
 import { NavigationDTO } from '@/core/features/navigation/dtos';
+import Footer from '@/components/layout/footer';
 
 const core = new Core().init();
 
@@ -147,6 +148,9 @@ const PageView: NextPage = ({
           <Header logo={site.logo}>
             <MainNavigation navigation={mainNavigation} />
           </Header>
+        }
+        after={
+          <Footer />
         }
         site={site}
         page={page}

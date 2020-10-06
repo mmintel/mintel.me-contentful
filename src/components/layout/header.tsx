@@ -12,7 +12,7 @@ const Header: React.FC<HeaderProps> = ({ logo, children }) => (
     <div className="py-4 flex justify-between items-center">
       <Link href="/">
         <a>
-          <Image src={logo} width={100} className="w-12 rounded-full" />
+          <Image src={logo} width={100} className="w-12 rounded-full border-1 border-gray-500" />
         </a>
       </Link>
       {children}
