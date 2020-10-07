@@ -17,7 +17,7 @@ const PageTemplate: React.FC<PageTemplateProps> = ({
   before,
   after,
 }) => (
-  <div className="bg-gray-800 text-gray-200 flex flex-col h-screen">
+  <div className="bg-gray-800 text-gray-200 flex flex-col min-h-screen">
     <Head>
       <title>
         {page.title} - {site.title}

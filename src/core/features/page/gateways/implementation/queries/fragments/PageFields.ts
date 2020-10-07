@@ -14,27 +14,11 @@ export const PageFields = `
         title
         itemsCollection {
           items {
-            type: __typename
-            ... on Conference {
-              title
-              time
-              sys {
-                id
-              }
-            }
-            ... on Education {
-              title
-              time
-              sys {
-                id
-              }
-            }
-            ... on Work {
-              title
-              time
-              sys {
-                id
-              }
+            title
+            time
+            description
+            sys {
+              id
             }
           }
         }

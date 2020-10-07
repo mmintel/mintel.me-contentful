@@ -1,3 +1,5 @@
+const marker = require('./tailwind/marker');
+
 module.exports = {
   purge: [],
   theme: {
@@ -19,5 +21,7 @@ module.exports = {
     },
   },
   variants: {},
-  plugins: [],
+  plugins: [
+    marker(),
+  ],
 }

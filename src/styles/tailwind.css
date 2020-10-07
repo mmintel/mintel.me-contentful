@@ -2,7 +2,8 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-
-.border-1 {
-  border-width: 1px;
+@layer utilities {
+  .border-1 {
+    border-width: 1px;
+  }
 }

@@ -1,9 +1,6 @@
 import React from 'react';
-import Unregistered from './Unregistered';
-import Conference from './Conference';
-import Work from './Work';
-import Education from './Education';
 import TimelineItem from './TimelineItem';
+import TimelineItemContent from './TimelineItemContent';
 
 interface TimelineProps {
   id: string;
@@ -14,10 +11,10 @@ interface TimelineProps {
   };
 }
 
-interface TimelineItem {
-  type: string;
+export interface TimelineItem {
   title: string;
   time: string;
+  description: string;
   sys: {
     id: string;
   };
@@ -27,26 +24,15 @@ export interface TimelineComponentProps {
   item: TimelineItem;
 }
 
-interface TimelineRegistry {
-  [key: string]: React.FC<TimelineComponentProps>;
-}
-
-const timelineRegistry: TimelineRegistry = {
-  Conference,
-  Work,
-  Education,
-};
-
 const Timeline: React.FC<TimelineProps> = ({ title, itemsCollection }) => (
   <section className="container mx-auto">
     <h1 className="text-2xl text-center font-bold text-gray-50">{title}</h1>
-    <ul className="max-w-2xl mx-auto my-8">
+    <ul className="max-w-4xl mx-auto my-16">
       {itemsCollection.items.map((item, index) => {
-        const Component = timelineRegistry[item.type] || Unregistered;
         return (
           <li key={item.sys.id}>
             <TimelineItem time={item.time} reverse={!!(index % 2)} first={index === 0} last={index + 1 === itemsCollection.items.length}>
-              <Component item={item} />
+              <TimelineItemContent item={item} />
             </TimelineItem>
           </li>
         );
