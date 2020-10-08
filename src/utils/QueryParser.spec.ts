@@ -1,4 +1,4 @@
-import { Locale } from '@/core/domain';
+import { Locale } from '@/core/definitions';
 import { ParsedUrlQuery } from 'querystring';
 import { QueryParser } from './QueryParser';
 

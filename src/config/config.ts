@@ -1,4 +1,4 @@
-import { Locale } from '@/core/domain';
+import { Locale } from '@/core/definitions';
 import dotenv from 'dotenv';
 import { readFileSync } from 'fs';
 import { join } from 'path';

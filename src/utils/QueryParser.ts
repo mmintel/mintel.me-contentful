@@ -1,5 +1,5 @@
-import { ParsedUrlQuery } from 'querystring';
 import { Locale } from '@/core/domain';
+import { ParsedUrlQuery } from 'querystring';
 
 interface QueryParserOptions {
   locales: Locale[];
