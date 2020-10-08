@@ -54,7 +54,7 @@
     "react-dom": "^16.13.1",
     "react-markdown": "^4.3.1",
     "shallow-equal-object": "^1.1.1",
-    "tailwindcss": "^1.8.11",
+    "tailwindcss": "^1.8.12",
     "tslog": "^2.9.0"
   },
   "devDependencies": {
