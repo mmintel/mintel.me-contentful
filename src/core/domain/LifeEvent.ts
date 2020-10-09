@@ -1,4 +1,6 @@
-export interface LifeEvent {
+import { Record } from '../definitions';
+
+export interface LifeEvent extends Record {
   title?: string;
   description?: string;
   month?: number;

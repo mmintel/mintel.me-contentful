@@ -1,2 +1,2 @@
-export * from './LifeEvent'
-export * from './Locale'
+export * from './LifeEvent';
+export * from './Site';

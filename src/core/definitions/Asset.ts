@@ -4,7 +4,7 @@ export interface Asset {
   contentType?: string;
   fileName?: string;
   size?: number;
-  url?: string;
+  url: string;
   width?: number;
   height?: number;
 }
