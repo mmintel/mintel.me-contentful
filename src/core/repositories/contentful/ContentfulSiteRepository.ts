@@ -4,7 +4,7 @@ import { GraphqlService } from "../../services";
 import { SiteRepository } from "../SiteRepository";
 import { SiteQuery } from './queries/SiteQuery';
 
-interface SiteResponse {
+export interface SiteResponse {
   siteCollection: Collection<Site>;
 }
 
