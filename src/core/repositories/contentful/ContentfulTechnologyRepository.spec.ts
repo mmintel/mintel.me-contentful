@@ -1,25 +1,27 @@
-import { createTechnology } from "@/core/fixtures/createTechnology"
-import { GraphqlService } from "@/core/services"
-import { ContentfulTechnologyRepository, TechnologyResponse } from "./ContentfulTechnologyRepository"
-import { AllHighlightedTechnologiesQuery } from "./queries/AllHighlightedTechnologiesQuery"
+import { createTechnology } from '@/core/fixtures/createTechnology';
+import { GraphqlService } from '@/core/services';
+import {
+  ContentfulTechnologyRepository,
+  TechnologyResponse,
+} from './ContentfulTechnologyRepository';
+import { AllHighlightedTechnologiesQuery } from './queries/AllHighlightedTechnologiesQuery';
 
 const mockGraphqlService: jest.Mocked<GraphqlService> = {
   request: jest.fn(),
-}
+};
 
 const mockResponse: TechnologyResponse = {
   technologyCollection: {
-    items: [
-      createTechnology(),
-      createTechnology(),
-    ]
-  }
-}
+    items: [createTechnology(), createTechnology()],
+  },
+};
 
 describe('ContentfulTechnologyRepository', () => {
   it('initializes without crashing', () => {
-    expect(() => new ContentfulTechnologyRepository(mockGraphqlService)).not.toThrow();
-  })
+    expect(
+      () => new ContentfulTechnologyRepository(mockGraphqlService),
+    ).not.toThrow();
+  });
 
   describe('getAllHighlighted', () => {
     it('calls the graphqlService exactly once', async () => {
@@ -34,13 +36,18 @@ describe('ContentfulTechnologyRepository', () => {
       mockGraphqlService.request.mockResolvedValueOnce(mockResponse);
       const repo = new ContentfulTechnologyRepository(mockGraphqlService);
       await repo.getAllHighlighted();
-      expect(mockGraphqlService.request).toHaveBeenCalledWith(AllHighlightedTechnologiesQuery);
+      expect(mockGraphqlService.request).toHaveBeenCalledWith(
+        AllHighlightedTechnologiesQuery,
+      );
     });
 
     it('returns multiple technologies', async () => {
+      mockGraphqlService.request.mockResolvedValueOnce(mockResponse);
       const repo = new ContentfulTechnologyRepository(mockGraphqlService);
       const result = await repo.getAllHighlighted();
-      expect(result.length).toEqual(mockResponse.technologyCollection.items.length)
+      expect(result.length).toEqual(
+        mockResponse.technologyCollection.items.length,
+      );
     });
-  })
-})
+  });
+});
