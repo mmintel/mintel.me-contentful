@@ -21,7 +21,7 @@ describe('ContentfulSiteRepository', () => {
     expect(() => new ContentfulSiteRepository(mockGraphqlService)).not.toThrow();
   })
 
-  describe('getAll', () => {
+  describe('get', () => {
     it('calls the graphqlService exactly once', async () => {
       mockGraphqlService.request.mockResolvedValueOnce(mockResponse);
       expect(mockGraphqlService.request).toHaveBeenCalledTimes(0);

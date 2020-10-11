@@ -1,6 +1,16 @@
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 
-export const useActiveRoute = (pathname: string): boolean => {
-  const router = useRouter();
-  return router.asPath === pathname
+interface activeRouteData {
+  active: boolean;
+  activePath: boolean;
 }
+
+export const useActiveRoute = (targetPath: string): activeRouteData => {
+  const router = useRouter();
+  const path = router.asPath;
+  return {
+    active: path === targetPath,
+    activePath:
+      path === '/' ? path === targetPath : targetPath.startsWith(path),
+  };
+};
