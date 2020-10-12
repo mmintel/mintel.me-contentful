@@ -2,6 +2,7 @@ import React, { Children } from 'react';
 import Link from 'next/link';
 import { useActiveRoute } from '@/hooks/useActiveRoute';
 import cx from 'classnames';
+import { useActivePathRoute } from '@/hooks/useActivePathRoute';
 
 interface InternalLinkProps {
   activeClassName?: string;
@@ -14,7 +15,8 @@ const InternalLink: React.FC<InternalLinkProps> = ({
   activeClassName,
   children,
 }) => {
-  const { active, activePath } = useActiveRoute(target);
+  const active = useActiveRoute(target);
+  const activePath = useActivePathRoute(target);
   const child = Children.only(children) as React.ReactElement<any>;
 
   if (active) {
