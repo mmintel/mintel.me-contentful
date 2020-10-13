@@ -6,6 +6,7 @@ import { useActivePathRoute } from '@/hooks/useActivePathRoute';
 
 interface InternalLinkProps {
   activeClassName?: string;
+  activePathClassName?: string;
   target: string;
   children: React.ReactNode;
 }
@@ -13,6 +14,7 @@ interface InternalLinkProps {
 const InternalLink: React.FC<InternalLinkProps> = ({
   target,
   activeClassName,
+  activePathClassName,
   children,
 }) => {
   const active = useActiveRoute(target);
@@ -21,17 +23,16 @@ const InternalLink: React.FC<InternalLinkProps> = ({
 
   if (active) {
     return React.cloneElement(child, {
-      className: cx(
-        'cursor-default',
-        activePath ? activeClassName : child.props.className,
-      ),
+      className: active
+        ? cx('cursor-default', activeClassName)
+        : child.props.className,
     });
   }
 
   return (
     <Link href={target}>
       {React.cloneElement(child, {
-        className: activePath ? activeClassName : child.props.className,
+        className: activePath ? activePathClassName : child.props.className,
       })}
     </Link>
   );

@@ -1,6 +1,5 @@
 import { Site } from '@/core/domain';
 import React, { ReactNode } from 'react';
-import { createContext } from './createContext';
 
 interface AppContexType {
   site: Site;
@@ -11,21 +10,14 @@ interface AppProviderProps {
   children: ReactNode;
 }
 
-const [useApp, CtxProvider] = createContext<
-  AppContexType
->();
+const AppContext = React.createContext<AppContexType | undefined>(undefined);
 
-export const AppProvider: React.FC<AppProviderProps> = ({
-  site,
-  children
-}) => {
-  return (
-    <CtxProvider value={{ site }}>
-      {children}
-    </CtxProvider>
-  );
+export const useApp = (): AppContexType => {
+  const c = React.useContext(AppContext);
+  if (!c) throw new Error('useApp must be used inside an AppProvider.');
+  return c;
 };
 
-export {
-  useApp,
+export const AppProvider: React.FC<AppProviderProps> = ({ site, children }) => {
+  return <AppContext.Provider value={{ site }}>{children}</AppContext.Provider>;
 };

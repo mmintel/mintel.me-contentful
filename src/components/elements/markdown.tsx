@@ -12,6 +12,12 @@ const renderers: Renderers = {
   emphasis: Emphasis,
 };
 
-const Markdown: React.FC<any> = ({ source }) => (<ReactMarkdown source={source} renderers={renderers} />)
+interface MarkdownProps {
+  source?: string;
+}
+
+const Markdown: React.FC<MarkdownProps> = ({ source }) => (
+  <ReactMarkdown source={source} renderers={renderers} />
+);
 
 export default Markdown;

@@ -1,0 +1,8 @@
+.header {
+  @apply sticky;
+  @apply top-0;
+  @apply bg-gray-800;
+  @apply z-40;
+
+  box-shadow: 0 0 40px 40px #171711;
+}

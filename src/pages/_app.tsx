@@ -23,7 +23,7 @@ function MyApp({
 }: MyAppProps): React.ReactNode {
   return (
     <AppProvider site={site}>
-      <div className="bg-gray-800 text-gray-200 flex flex-col min-h-screen">
+      <div className="bg-gray-800 text-gray-200 flex flex-col min-h-screen relative">
         <Favicons />
         <Header />
         <main className="flex-auto">
