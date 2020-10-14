@@ -1,7 +1,12 @@
 import React from 'react';
 import styles from './header.module.css';
+import HeaderBrand from './Header.Brand';
 
-const Header: React.FC = ({ children }) => {
+interface HeaderComposition {
+  Brand: React.FC;
+}
+
+const Header: React.FC & HeaderComposition = ({ children }) => {
   return (
     <div className={styles.header}>
       <div className="container mx-auto">
@@ -10,5 +15,7 @@ const Header: React.FC = ({ children }) => {
     </div>
   );
 };
+
+Header.Brand = HeaderBrand;
 
 export default Header;

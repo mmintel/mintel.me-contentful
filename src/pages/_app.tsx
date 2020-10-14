@@ -55,26 +55,17 @@ function MyApp({
       <AppIcons />
       <div className="bg-gray-800 text-gray-200 flex flex-col min-h-screen relative">
         <Header>
-          <motion.div
-            variants={headerVariants}
-            initial="initial"
-            animate="visible"
-            transition={{ delay: 1 }}
-          >
-            <InternalLink target="/">
-              <a>
-                {site.avatar ? (
-                  <Image
-                    src={site?.avatar.url}
-                    width={100}
-                    className="w-12 rounded-full border-1 border-gray-500"
-                  />
-                ) : (
-                  <>{site.title}</>
-                )}
-              </a>
-            </InternalLink>
-          </motion.div>
+          <Header.Brand>
+            {site.avatar ? (
+              <Image
+                src={site?.avatar.url}
+                width={100}
+                className="w-12 rounded-full border-1 border-gray-500"
+              />
+            ) : (
+              <>{site.title}</>
+            )}
+          </Header.Brand>
           <MainNavigation>
             <MainNavigation.Item target="/">Home</MainNavigation.Item>
             <MainNavigation.Item target="/about">About me</MainNavigation.Item>
