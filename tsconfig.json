@@ -31,8 +31,10 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
+    "types/**/*.d.ts",
     "graphql.d.ts",
     "environment.d.ts",
-    "next-env.d.ts"
+    "next-env.d.ts",
+    "types/modules.ts"
   ]
 }

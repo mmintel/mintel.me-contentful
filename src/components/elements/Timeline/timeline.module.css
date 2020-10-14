@@ -1,0 +1,94 @@
+.timeline-item {
+  --circle-size: 5;
+  --gap: 2px;
+  @apply grid;
+  @apply grid-cols-3;
+  @apply py-4;
+  @apply relative;
+  @apply -mt-8;
+  min-height: calc(var(--circle-size) * 2rem);
+  padding-top: var(--gap);
+  padding-bottom: var(--gap);
+}
+
+.timeline-item:nth-child(2n) {
+  flex-direction: row-reverse;
+}
+
+.timeline-item:before,
+.timeline-item:after {
+  @apply block;
+  @apply border-l-2;
+  @apply border-dashed;
+  @apply border-gray-500;
+  @apply absolute;
+  left: 50%;
+  content: '';
+}
+
+.timeline-item:after {
+  top: calc(50% + var(--circle-size) / 2 * 1rem + var(--gap));
+  bottom: 0;
+}
+
+.timeline-item:before {
+  top: 0;
+  bottom: calc(50% + var(--circle-size) / 2 * 1rem + var(--gap));
+}
+
+.timeline-item:first-child:before {
+  display: none;
+}
+
+.timeline-item:last-child:after {
+  display: none;
+}
+
+.timeline-item__info {
+  @apply flex;
+  @apply items-center;
+}
+
+.timeline-item__info:first-child {
+  @apply justify-end;
+}
+
+.timeline-item__info:last-child {
+  @apply justify-start;
+}
+
+.timeline-item__time {
+  @apply relative;
+  @apply flex;
+  @apply items-center;
+  @apply justify-center;
+}
+
+.timeline-item__time:before {
+  @apply block;
+  @apply w-16;
+  @apply h-16;
+  @apply border-2;
+  @apply border-dashed;
+  @apply rounded-full;
+  @apply mx-auto;
+  @apply border-gray-500;
+  @apply absolute;
+  @apply -mt-8;
+  @apply -ml-8;
+  width: calc(var(--circle-size) * 1rem);
+  height: calc(var(--circle-size) * 1rem);
+  margin-top: calc(var(--circle-size) / 2 * -1rem);
+  margin-left: calc(var(--circle-size) / 2 * -1rem);
+  content: '';
+  top: 50%;
+  left: 50%;
+}
+
+.timeline-item__time-label {
+  @apply font-bold;
+  @apply text-gray-50;
+  @apply relative;
+  @apply select-none;
+  z-index: 1;
+}
