@@ -1,23 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { random } from 'lodash';
 import useSize from '@react-hook/size';
-import { AnimatePresence, motion } from 'framer-motion';
 import { useMousePosition } from '@/hooks/useMousePosition';
-import { useRouter } from 'next/router';
+import { motion } from 'framer-motion';
 
-interface IntroProps {
-  title: string;
-  icons: Icon[];
-}
-
-interface Icon {
-  title: string;
-  image: string;
-  id: string;
-}
-
-interface IconTileProps {
-  icon: Icon;
+interface AnimatedChildProps {
   mouseX: number;
   mouseY: number;
   frameWidth: number;
@@ -32,15 +19,15 @@ interface Position {
   left: number;
 }
 
-const IconTile: React.FC<IconTileProps> = ({
+const AnimatedChild: React.FC<AnimatedChildProps> = ({
   mouseX,
   mouseY,
   frameWidth,
   frameHeight,
   xFactor,
   yFactor,
-  icon,
   xOffset,
+  children,
 }) => {
   const [position, setPosition] = useState<Position>({ top: 0, left: 0 });
   const node = useRef(null);
@@ -69,6 +56,7 @@ const IconTile: React.FC<IconTileProps> = ({
     <motion.div
       ref={node}
       className="absolute"
+      whileTap={{ rotate: 360 }}
       initial={{
         opacity: 0,
       }}
@@ -96,51 +84,48 @@ const IconTile: React.FC<IconTileProps> = ({
         },
       }}
     >
-      <div className="bg-gray-700 rounded-full w-32 h-32 flex items-center justify-center">
-        <img src={icon.image} alt={icon.title} className="w-12" />
-      </div>
+      {children}
     </motion.div>
   );
 };
 
-const Intro: React.FC<IntroProps> = ({ title, icons }) => {
+interface FloatBoardProps {
+  head?: React.ReactNode;
+}
+
+const FloatBoard: React.FC<FloatBoardProps> = ({ head, children }) => {
   const { x, y } = useMousePosition();
   const node = React.useRef(null);
   const [width, height] = useSize(node);
-  const router = useRouter();
 
   return (
     <section
       className="w-screen h-screen max-w-full relative overflow-hidden"
       ref={node}
     >
-      <div className="mt-24 relative z-10">
-        <h1 className="text-center text-3xl sm:text-4xl lg:text-5xl uppercase text-white leading-none max-w-xl mx-auto font-bold">
-          {title}
-        </h1>
-      </div>
+      {head && <div className="relative z-10">{head}</div>}
 
-      <ul>
-        {icons.map((icon, index) => (
-          <li key={icon.id}>
-            <AnimatePresence exitBeforeEnter>
-              <IconTile
-                key={router.route}
-                xOffset={(width / icons.length) * index}
+      {children && (
+        <ul>
+          {React.Children.map(children, (child, index) => (
+            <li>
+              <AnimatedChild
+                xOffset={(width / React.Children.count(children)) * index}
                 mouseX={x}
                 mouseY={y}
-                icon={icon}
                 frameHeight={height}
                 frameWidth={width}
                 xFactor={random(0.1, 0.3)}
                 yFactor={random(0.1, 0.3)}
-              />
-            </AnimatePresence>
-          </li>
-        ))}
-      </ul>
+              >
+                {child}
+              </AnimatedChild>
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   );
 };
 
-export default Intro;
+export default FloatBoard;

@@ -1,10 +1,10 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Favicons from './favicons';
+import AppIcons from './AppIcons';
 
-describe('Favicons', () => {
+describe('AppIcons', () => {
   it('renders without crashing', () => {
-    const { container } = render(<Favicons />);
+    const { container } = render(<AppIcons />);
     expect(container).toBeInTheDocument();
   });
 });

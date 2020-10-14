@@ -8,7 +8,6 @@ interface InternalLinkProps {
   activeClassName?: string;
   activePathClassName?: string;
   target: string;
-  children: React.ReactNode;
 }
 
 const InternalLink: React.FC<InternalLinkProps> = ({

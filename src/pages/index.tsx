@@ -3,7 +3,8 @@ import Title from '../components/elements/title';
 import { GetStaticProps } from 'next';
 import { getAllHighlightedTechnologies } from '@/core';
 import { Technology } from '@/core/domain';
-import Intro from '@/components/elements/intro';
+import FloatBoard from '@/components/elements/FloatBoard';
+import CircleImage from '@/components/elements/CircleImage';
 
 interface IndexProps {
   technologies: Technology[];
@@ -13,14 +14,19 @@ const IndexPage: React.FC<IndexProps> = ({ technologies }) => {
   return (
     <>
       <Title />
-      <Intro
-        title="Hey there, I'm Marc, a Frontend Developer from Germany."
-        icons={technologies.map((t) => ({
-          ...t,
-          image: t.icon.url,
-          id: t.sys.id,
-        }))}
-      />
+      <FloatBoard
+        head={
+          <div className="mt-24 relative z-10">
+            <h1 className="text-center text-3xl sm:text-4xl lg:text-5xl uppercase text-white leading-none max-w-xl mx-auto font-bold">
+              Hey there, I&apos;m Marc, a Frontend Developer from Germany
+            </h1>
+          </div>
+        }
+      >
+        {technologies.map((technology) => {
+          <CircleImage src={technology.icon.url} alt={technology.title} />;
+        })}
+      </FloatBoard>
     </>
   );
 };

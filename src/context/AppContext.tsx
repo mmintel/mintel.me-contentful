@@ -1,5 +1,5 @@
 import { Site } from '@/core/domain';
-import React, { ReactNode } from 'react';
+import React from 'react';
 
 interface AppContexType {
   site: Site;
@@ -7,7 +7,6 @@ interface AppContexType {
 
 interface AppProviderProps {
   site: Site;
-  children: ReactNode;
 }
 
 const AppContext = React.createContext<AppContexType | undefined>(undefined);

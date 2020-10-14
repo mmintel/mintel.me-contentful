@@ -12,9 +12,7 @@ describe('AppContext', () => {
 
     it('returns the provided data', () => {
       const mockSite = createSite();
-      const wrapper: React.FC<{
-        children: React.ReactNode;
-      }> = ({ children }) => (
+      const wrapper: React.FC = ({ children }) => (
         <AppProvider site={mockSite}>{children}</AppProvider>
       );
       const { result } = renderHook(() => useApp(), { wrapper });

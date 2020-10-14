@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 
-const Favicons: React.FC = () => (
+const AppIcons: React.FC = () => (
   <Head>
     <link
       rel="apple-touch-icon"
@@ -79,4 +79,4 @@ const Favicons: React.FC = () => (
   </Head>
 );
 
-export default Favicons;
+export default AppIcons;
