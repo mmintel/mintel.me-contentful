@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppProps, AppContext as NextAppContext } from 'next/app';
+import { AppProps } from 'next/app';
 import { AppProvider } from '../context/AppContext';
 import { getSite } from '@/core';
 import { Site } from '@/core/domain';
