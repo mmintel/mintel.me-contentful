@@ -19,10 +19,10 @@ Personal website of Marc Mintel.
 - **[Dependabot](https://dependabot.com/)** - to keep dependencies updated
 - **[UptimeRobot](https://uptimerobot.com/)** - to monitor website status
 - **[Codecov](https://codecov.io/)** - for coverage reports
-- **[Sonarcould](https://sonarcloud.io/)** - for code analysis
 - **[Lighthouse](https://developers.google.com/web/tools/lighthouse)**  - for performance reports
 
 ## 🧰 Tools
+- **[Tailwind](https://tailwindcss.com/)** - CSS Framework
 - **[ESLint](https://eslint.org/)** — Pluggable JavaScript linter
 - **[Prettier](https://prettier.io/)** - Opinionated Code Formatter
 - **[@testing-library](https://testing-library.com/)** - to unit test react components
