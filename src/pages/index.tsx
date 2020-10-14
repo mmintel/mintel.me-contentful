@@ -23,9 +23,13 @@ const IndexPage: React.FC<IndexProps> = ({ technologies }) => {
           </div>
         }
       >
-        {technologies.map((technology) => {
-          <CircleImage src={technology.icon.url} alt={technology.title} />;
-        })}
+        {technologies.map((technology) => (
+          <CircleImage
+            key={technology.sys.id}
+            src={technology.icon.url}
+            alt={technology.title}
+          />
+        ))}
       </FloatBoard>
     </>
   );
