@@ -15,7 +15,6 @@ Personal website of Marc Mintel.
 - **[Github Actions](https://github.com/features/actions)** - for continuous integration
 - **[Jest](https://jestjs.io/)** - as a test runner
 - **[Cypress](https://www.cypress.io/)** - for e2e tests
-- **[Sentry](https://sentry.io/welcome/)** - for error tracking
 - **[Dependabot](https://dependabot.com/)** - to keep dependencies updated
 - **[UptimeRobot](https://uptimerobot.com/)** - to monitor website status
 - **[Codecov](https://codecov.io/)** - for coverage reports
