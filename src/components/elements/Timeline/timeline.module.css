@@ -11,6 +11,10 @@
   padding-bottom: var(--gap);
 }
 
+.timeline-item:nth-child(2n) {
+  flex-direction: row-reverse;
+}
+
 .timeline-item:before,
 .timeline-item:after {
   @apply block;
@@ -32,11 +36,11 @@
   bottom: calc(50% + var(--circle-size) / 2 * 1rem + var(--gap));
 }
 
-.timeline-item--first:before {
+.timeline-item:first-child:before {
   display: none;
 }
 
-.timeline-item--last:after {
+.timeline-item:last-child:after {
   display: none;
 }
 

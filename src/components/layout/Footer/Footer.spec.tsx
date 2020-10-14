@@ -1,10 +1,10 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Header from './header';
+import Footer from './Footer';
 
-describe('Header', () => {
+describe('Footer', () => {
   it('renders without crashing', () => {
-    const { container } = render(<Header />);
+    const { container } = render(<Footer />);
     expect(container).toBeInTheDocument();
   });
 });

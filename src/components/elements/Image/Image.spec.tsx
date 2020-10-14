@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import faker from 'faker';
-import Image from './image';
+import Image from './Image';
 
 describe('Image', () => {
   it('renders without crashing', () => {

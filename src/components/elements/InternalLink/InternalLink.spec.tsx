@@ -1,16 +1,11 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import InternalLink from './internal-link';
+import InternalLink from './InternalLink';
 import { useActiveRoute } from '@/hooks/useActiveRoute';
 import { useActivePathRoute } from '@/hooks/useActivePathRoute';
 
-jest.mock('@/hooks/useActiveRoute', () => ({
-  useActiveRoute: jest.fn(),
-}));
-
-jest.mock('@/hooks/useActivePathRoute', () => ({
-  useActivePathRoute: jest.fn(),
-}));
+jest.mock('@/hooks/useActiveRoute');
+jest.mock('@/hooks/useActivePathRoute');
 
 describe('InternalLink', () => {
   it('renders without crashing', () => {

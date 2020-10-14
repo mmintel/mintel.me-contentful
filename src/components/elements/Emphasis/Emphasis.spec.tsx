@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Emphasis from './emphasis';
+import Emphasis from './Emphasis';
 
 describe('Emphasis', () => {
   it('renders without crashing', () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Title from './title';
+import Title from './Title';
 import { useApp } from '@/context/AppContext';
 
 jest.mock('@/context/AppContext', () => ({

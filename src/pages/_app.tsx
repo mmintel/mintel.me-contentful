@@ -1,18 +1,19 @@
 import React from 'react';
 import { AppProps, AppContext as NextAppContext } from 'next/app';
 import { AppProvider } from '../context/AppContext';
-import Header from '../components/layout/header';
-import Footer from '../components/layout/footer';
 import { getSite } from '@/core';
 import { Site } from '@/core/domain';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import 'react-tippy/dist/tippy.css';
 import '../styles/tailwind.css';
+
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
 import AppIcons from '@/components/elements/AppIcons';
-import InternalLink from '@/components/elements/internal-link';
-import Image from '@/components/elements/image';
-import MainNavigation from '@/components/layout/main-navigation';
+import InternalLink from '@/components/elements/InternalLink';
+import Image from '@/components/elements/Image';
+import MainNavigation from '@/components/layout/MainNavigation/MainNavigation';
 
 const headerVariants = {
   initial: { opacity: 0, y: '-100%' },
@@ -74,20 +75,10 @@ function MyApp({
               </a>
             </InternalLink>
           </motion.div>
-          <MainNavigation
-            items={[
-              {
-                id: 'home',
-                target: '/',
-                title: 'Home',
-              },
-              {
-                id: 'about',
-                target: '/about-me',
-                title: 'About me',
-              },
-            ]}
-          />
+          <MainNavigation>
+            <MainNavigation.Item target="/">Home</MainNavigation.Item>
+            <MainNavigation.Item target="/about">About me</MainNavigation.Item>
+          </MainNavigation>
         </Header>
         <main className="flex-auto">
           <AnimatePresence exitBeforeEnter onExitComplete={handleExitComplete}>

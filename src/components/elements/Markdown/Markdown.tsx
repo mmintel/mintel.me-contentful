@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import Emphasis from './emphasis';
-import Link from './link';
+import Emphasis from '../Emphasis';
+import Link from '../Link';
 
 interface Renderers {
   [nodeType: string]: React.ElementType<any>;

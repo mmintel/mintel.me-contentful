@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Mark from './mark';
+import Mark from './Mark';
 
 describe('Mark', () => {
   it('renders without crashing', () => {

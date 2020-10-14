@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Markdown from './markdown';
+import Markdown from './Markdown';
 
 describe('Markdown', () => {
   it('renders without crashing', () => {
