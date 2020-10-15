@@ -67,7 +67,7 @@
     "react-tippy": "^1.4.0",
     "shallow-equal-object": "^1.1.1",
     "tailwindcss": "^1.9.1",
-    "tslog": "^2.9.0"
+    "tslog": "^2.9.1"
   },
   "devDependencies": {
     "@babel/core": "^7.10.4",
