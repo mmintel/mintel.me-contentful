@@ -25,16 +25,14 @@ const AboutPage: NextPage<AboutPageProps> = ({ lifeEvents }) => {
               key={lifeEvent.sys.id}
               time={`${lifeEvent.month}.${lifeEvent.year}`}
             >
-              <div>
-                {lifeEvent.title && (
-                  <h2 className="font-bold text-gray-50 text-lg mb-2">
-                    {lifeEvent.title}
-                  </h2>
-                )}
-                {lifeEvent.description && (
-                  <Markdown source={lifeEvent.description} />
-                )}
-              </div>
+              {lifeEvent.title && (
+                <h2 className="font-bold text-gray-50 text-lg mb-2">
+                  {lifeEvent.title}
+                </h2>
+              )}
+              {lifeEvent.description && (
+                <Markdown source={lifeEvent.description} />
+              )}
             </Timeline.Item>
           ))}
         </Timeline>

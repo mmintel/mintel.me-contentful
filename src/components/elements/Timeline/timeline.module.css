@@ -54,7 +54,8 @@
 .timeline-item__info {
   grid-area: info;
   @apply flex;
-  @apply items-center;
+  @apply flex-col;
+  @apply justify-center;
 }
 
 .timeline-item__info:first-child {
