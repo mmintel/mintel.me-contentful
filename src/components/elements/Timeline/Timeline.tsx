@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './timeline.module.css';
+import Reveal from '@/components/animations/FadeIn';
 
 interface TimelineItemProps {
   time: string;
@@ -22,7 +23,9 @@ const Timeline: React.FC & TimelineComposition = ({ children }) => {
   return (
     <ul className={styles['timeline-list']}>
       {React.Children.map(children, (child) => (
-        <li className={styles['timeline-list-item']}>{child}</li>
+        <li className={styles['timeline-list-item']}>
+          <Reveal>{child}</Reveal>
+        </li>
       ))}
     </ul>
   );

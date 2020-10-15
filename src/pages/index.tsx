@@ -3,7 +3,7 @@ import { GetStaticProps } from 'next';
 import { getAllHighlightedTechnologies } from '@/core';
 import { Technology } from '@/core/domain';
 import Title from '@/components/elements/Title';
-import FloatBoard from '@/components/elements/FloatBoard';
+import FloatBoard from '@/components/animations/FloatBoard';
 import CircleImage from '@/components/elements/CircleImage';
 
 interface IndexProps {

@@ -29,7 +29,7 @@ const InternalLink: React.FC<InternalLinkProps> = ({
   }
 
   return (
-    <Link href={target}>
+    <Link href={target} scroll={false}>
       {React.cloneElement(child, {
         className: activePath ? activePathClassName : child.props.className,
       })}

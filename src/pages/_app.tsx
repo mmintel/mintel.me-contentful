@@ -5,6 +5,7 @@ import { getSite } from '@/core';
 import { Site } from '@/core/domain';
 
 import 'react-tippy/dist/tippy.css';
+import '../styles/global.css';
 import '../styles/tailwind.css';
 
 import Header from '@/components/layout/Header';
