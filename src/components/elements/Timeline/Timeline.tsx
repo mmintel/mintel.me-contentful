@@ -1,27 +1,23 @@
 import React from 'react';
 import styles from './timeline.module.css';
 import Reveal from '@/components/animations/FadeIn';
+import cx from 'classnames';
+import TimelineItem, { TimelineItemProps } from './TimelineItem';
 
-interface TimelineItemProps {
-  time: string;
+interface TimelineProps {
+  className?: string;
 }
-
-const TimelineItem: React.FC<TimelineItemProps> = ({ time, children }) => (
-  <div className={styles['timeline-item']}>
-    <div className={styles['timeline-item__time']}>
-      <span className={styles['timeline-item__time-label']}>{time}</span>
-    </div>
-    <div className={styles['timeline-item__info']}>{children}</div>
-  </div>
-);
 
 interface TimelineComposition {
   Item: React.FC<TimelineItemProps>;
 }
 
-const Timeline: React.FC & TimelineComposition = ({ children }) => {
+const Timeline: React.FC<TimelineProps> & TimelineComposition = ({
+  className,
+  children,
+}) => {
   return (
-    <ul className={styles['timeline-list']}>
+    <ul className={cx(styles['timeline-list'], className)}>
       {React.Children.map(children, (child) => (
         <li className={styles['timeline-list-item']}>
           <Reveal>{child}</Reveal>

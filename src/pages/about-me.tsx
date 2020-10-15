@@ -19,7 +19,7 @@ const AboutPage: NextPage<AboutPageProps> = ({ lifeEvents }) => {
         <h1 className="text-2xl text-center font-bold text-gray-50">
           My life in a nutshell
         </h1>
-        <Timeline>
+        <Timeline className="mb-24">
           {lifeEvents.map((lifeEvent) => (
             <Timeline.Item
               key={lifeEvent.sys.id}
