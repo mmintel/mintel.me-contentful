@@ -1,5 +1,4 @@
 import React from 'react';
-import cx from 'classnames';
 import styles from './timeline.module.css';
 
 interface TimelineItemProps {
@@ -7,7 +6,7 @@ interface TimelineItemProps {
 }
 
 const TimelineItem: React.FC<TimelineItemProps> = ({ time, children }) => (
-  <div className={cx(styles['timeline-item'])}>
+  <div className={styles['timeline-item']}>
     <div className={styles['timeline-item__time']}>
       <span className={styles['timeline-item__time-label']}>{time}</span>
     </div>
@@ -21,9 +20,9 @@ interface TimelineComposition {
 
 const Timeline: React.FC & TimelineComposition = ({ children }) => {
   return (
-    <ul className="max-w-4xl mx-auto my-16">
+    <ul className={styles['timeline-list']}>
       {React.Children.map(children, (child) => (
-        <li>{child}</li>
+        <li className={styles['timeline-list-item']}>{child}</li>
       ))}
     </ul>
   );

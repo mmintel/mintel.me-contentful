@@ -1,6 +1,24 @@
-.timeline-item {
+.timeline-list {
   --circle-size: 5;
   --gap: 2px;
+  @apply max-w-4xl;
+  @apply mx-auto;
+  @apply my-16;
+}
+
+.timeline-list-item:nth-child(2n) .timeline-item {
+  grid-template-areas: 'info time .';
+}
+
+.timeline-list-item:first-child .timeline-item:before {
+  display: none;
+}
+
+.timeline-list-item:last-child .timeline-item:after {
+  display: none;
+}
+
+.timeline-item {
   @apply grid;
   @apply grid-cols-3;
   @apply py-4;
@@ -9,10 +27,7 @@
   min-height: calc(var(--circle-size) * 2rem);
   padding-top: var(--gap);
   padding-bottom: var(--gap);
-}
-
-.timeline-item:nth-child(2n) {
-  flex-direction: row-reverse;
+  grid-template-areas: '. time info';
 }
 
 .timeline-item:before,
@@ -36,15 +51,8 @@
   bottom: calc(50% + var(--circle-size) / 2 * 1rem + var(--gap));
 }
 
-.timeline-item:first-child:before {
-  display: none;
-}
-
-.timeline-item:last-child:after {
-  display: none;
-}
-
 .timeline-item__info {
+  grid-area: info;
   @apply flex;
   @apply items-center;
 }
@@ -58,6 +66,7 @@
 }
 
 .timeline-item__time {
+  grid-area: time;
   @apply relative;
   @apply flex;
   @apply items-center;

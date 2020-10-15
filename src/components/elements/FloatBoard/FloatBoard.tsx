@@ -77,12 +77,6 @@ const AnimatedChild: React.FC<AnimatedChildProps> = ({
           duration: 2,
         },
       }}
-      exit={{
-        y: '-100vh',
-        transition: {
-          duration: 1,
-        },
-      }}
     >
       {children}
     </motion.div>
