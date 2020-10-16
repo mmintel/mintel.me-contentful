@@ -2448,6 +2448,11 @@ acorn-walk@^7.0.0, acorn-walk@^7.1.1:
   resolved "https://registry.yarnpkg.com/acorn-walk/-/acorn-walk-7.2.0.tgz#0de889a601203909b0fbe07b8938dc21d2e967bc"
   integrity sha512-OPdCF6GsMIP+Az+aWfAAOEt2/+iVDKE7oy6lJ098aoe59oAmK76qV6Gw60SbZ8jHuG2wH058GF4pLFbYamYrVA==
 
+acorn-walk@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/acorn-walk/-/acorn-walk-8.0.0.tgz#56ae4c0f434a45fff4a125e7ea95fa9c98f67a16"
+  integrity sha512-oZRad/3SMOI/pxbbmqyurIx7jHw1wZDcR9G44L8pUVFEomX/0dH89SrM1KaDXuv1NpzAXz6Op/Xu/Qd5XXzdEA==
+
 acorn@^6.4.1:
   version "6.4.1"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.4.1.tgz#531e58ba3f51b9dacb9a6646ca4debf5b14ca474"
@@ -6046,14 +6051,14 @@ html-to-react@^1.3.4:
     lodash.camelcase "^4.3.0"
     ramda "^0.27.1"
 
-html-validate@^3.0.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/html-validate/-/html-validate-3.3.0.tgz#c3d7e2d0d7504001f3ef98bcf688e15924d88933"
-  integrity sha512-g5t+SdIMRzHLOdCfh15bQYqtExOMyHsjZKBHmC1A53+qUusQ7Fxs9SGL/Y2re3OBp9IZGeYYqaGzjLtFvFUcbA==
+html-validate@^3.4.1:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/html-validate/-/html-validate-3.4.1.tgz#0d10f8e21e3bc083d922b4fcc9ff807e376c6d48"
+  integrity sha512-FR/IABoiDYWmSzbMHZmnIBjkIfCoxsYqr6w81JLmu4BJ10yYjMAZBGDb5DkOVv7H0WKUZB5o5iaGq1j2o1J1Hw==
   dependencies:
     "@babel/code-frame" "^7.0.0"
     "@sidvind/better-ajv-errors" "^0.6.9"
-    acorn-walk "^7.0.0"
+    acorn-walk "^8.0.0"
     ajv "^6.10.0"
     chalk "^4.0.0"
     deepmerge "^4.0.0"
