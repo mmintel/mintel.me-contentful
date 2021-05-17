@@ -75,7 +75,7 @@
     "@cypress/code-coverage": "^3.8.3",
     "@testing-library/cypress": "^7.0.0",
     "@testing-library/jest-dom": "^5.11.5",
-    "@testing-library/react": "^11.1.0",
+    "@testing-library/react": "^11.2.7",
     "@types/chalk": "^2.2.0",
     "@types/dot-object": "^2.1.1",
     "@types/dotenv": "^8.2.0",
