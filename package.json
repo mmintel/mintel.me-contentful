@@ -94,7 +94,7 @@
     "cypress": "^5.5.0",
     "cypress-html-validate": "^1.2.5",
     "eslint": "^7.29.0",
-    "eslint-config-airbnb": "^18.1.0",
+    "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^6.15.0",
     "eslint-import-resolver-babel-module": "^5.2.0",
     "eslint-plugin-chai-friendly": "^0.6.0",
